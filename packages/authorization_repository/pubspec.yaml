@@ -1,0 +1,19 @@
+name: authorization_repository
+description: Authorization manage.
+publish_to: none
+
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies:
+  equatable: ^2.0.0
+  google_sign_in: ^5.4.2
+  bloc: ^8.1.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.1
+  flutter_animated_button: ^2.0.3
+  cupertino_icons: ^1.0.2
+  firebase_auth: ^4.2.1
+  firebase_core: ^2.2.0
