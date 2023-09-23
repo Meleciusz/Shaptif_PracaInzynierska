@@ -1,18 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:authorization_repository/authorization_repository.dart';
+import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/widgets.dart';
+import 'package:shaptifii/app/app.dart';
 
-import 'WelcomeScreen/welcome_screen.dart';
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = const AppBlocObserver();
 
-void main() {
-  runApp(MyApp());
-}
+  await Firebase.initializeApp();
 
-class MyApp extends StatelessWidget {
+  final authorizationRepository = AuthorizationRepository();
+  await authorizationRepository.user.first;
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Shaptif',
-      home: WelcomeScreen(),
-    );
-  }
+  runApp(App(authorizationRepository: authorizationRepository));
 }
