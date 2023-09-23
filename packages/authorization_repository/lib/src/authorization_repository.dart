@@ -123,7 +123,7 @@ class AuthorizationRepository {
       }
     }
 
-  Future<void> signInWithGoogle() async {
+  Future<void> logInWithGoogle() async {
     try {
       late final firebase_auth.AuthCredential credential;
       if(kIsWeb){
