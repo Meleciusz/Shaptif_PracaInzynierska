@@ -32,6 +32,8 @@ dependencies:
 #  Repository dependencies
   authorization_repository:
     path: packages/authorization_repository
+  exercise_repository:
+    path: packages/exercise_repository
 
   bloc: ^8.1.0
   flutter:

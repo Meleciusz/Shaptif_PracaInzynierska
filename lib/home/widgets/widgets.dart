@@ -1,6 +1,7 @@
 import 'package:authorization_repository/authorization_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:shaptifii/GymMode/home_page.dart';
+
+import '../../GymMode/Exercises/home/pages/home_page.dart';
 
 const _avatarSize = 70.0;
 
