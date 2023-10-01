@@ -33,4 +33,19 @@ class FirestoreService {
       'adding_user_id': exercise.adding_user_id
     });
   }
+
+  Future<void> updateExercise(Exercise exercise) {
+    return _exerciseCollection.doc(exercise.id).update({
+      'body_part_id': exercise.body_part_id,
+      'photo_url': exercise.photo_url,
+      'name': exercise.name,
+      'description': exercise.description,
+      'veryfied': exercise.veryfied,
+      'adding_user_id': exercise.adding_user_id
+    });
+  }
+
+  Future<void> deleteExercise(String id) {
+    return _exerciseCollection.doc(id).delete();
+  }
 }

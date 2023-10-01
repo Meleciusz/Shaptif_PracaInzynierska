@@ -1,7 +1,7 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/all_exercises_bloc.dart';
+import 'all_exercises.dart';
 
 class AllExercisesWidget extends StatefulWidget {
   const AllExercisesWidget({super.key, required this.title});
@@ -65,45 +65,48 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
           ),
     );
   }
+
+  void showAddExerciseDialog(BuildContext context) {
+    final _titleController = TextEditingController();
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Add exercise"),
+            content: TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(hintText: 'Todo title'),
+            ),
+            actions: [
+              ElevatedButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Add'),
+                onPressed: () {
+                  final exercise = Exercise(
+                    id: DateTime.now().toString(),
+                    name: _titleController.text,
+                    veryfied: false,
+                    photo_url: "",
+                    description: "nawalanie mlotem",
+                    adding_user_id: "",
+                    body_part_id: 1,
+                  );
+                  BlocProvider.of<AllExercisesBloc>(context, listen: false).add(AddExercise(exercise));
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
+    );
+  }
 }
 
-void showAddExerciseDialog(BuildContext context) {
-  final _titleController = TextEditingController();
 
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text("Add exercise"),
-        content: TextField(
-          controller: _titleController,
-          decoration: const InputDecoration(hintText: 'Todo title'),
-        ),
-        actions: [
-          ElevatedButton(
-            child: const Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          ElevatedButton(
-            child: const Text('Add'),
-            onPressed: () {
-              final exercise = Exercise(
-                id: DateTime.now().toString(),
-                name: _titleController.text,
-                veryfied: false,
-                photo_url: "",
-                description: "nawalanie mlotem",
-                adding_user_id: "",
-                body_part_id: 1,
-              );
-              BlocProvider.of<AllExercisesBloc>(context).add(AddExercise(exercise));
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
-    }
-  );
-}
+
