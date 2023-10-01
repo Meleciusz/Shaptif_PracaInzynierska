@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shaptifii/app/app.dart';
+import 'package:shaptifii/authorization/app/app.dart';
 import 'package:shaptifii/home/home.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,9 +12,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: const Text('Home'),
+        leading: IconButton(
+          onPressed: (){
+            scaffoldKey.currentState?.openDrawer();
+          },
+          icon: const Icon(Icons.settings),
+        ),
         actions: <Widget>[
           IconButton(
             key: const Key('homePage_logout_iconButton'),
@@ -26,36 +35,19 @@ class HomePage extends StatelessWidget {
         ]
       ),
       body: Align(
-        alignment: const Alignment(0, -1/3),
+        alignment: const Alignment(0, -2/3),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            Text("Witaj ${user.name}!" ?? '', style: textTheme.headlineMedium),
+            const SizedBox(height: 8),
             Avatar(photo: user.photo),
-            const SizedBox(height: 4),
-            Text(user.email ?? '', style: textTheme.titleLarge),
-            const SizedBox(height: 4),
-            Text(user.name ?? '', style: textTheme.headlineSmall),
+            const SizedBox(height: 100),
+            GymModeButton(user: user),
           ],
         ),
       ),
-    );
-  }
-}
-
-const _avatarSize = 48.0;
-
-class Avatar extends StatelessWidget {
-  const Avatar({super.key, this.photo});
-
-  final String? photo;
-
-  @override
-  Widget build(BuildContext context) {
-    final photo = this.photo;
-    return CircleAvatar(
-      radius: _avatarSize,
-      backgroundImage: photo != null ? NetworkImage(photo) : null,
-      child: photo == null ? const Icon(Icons.person_outline, size: _avatarSize) : null,
+      drawer: DrawerWidget(),
     );
   }
 }

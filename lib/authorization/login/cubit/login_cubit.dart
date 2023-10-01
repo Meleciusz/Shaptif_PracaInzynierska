@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 
-part 'login_state.dart';
+part '../../../authorization/login/cubit/login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this._authorizationRepository) : super(const LoginState());
