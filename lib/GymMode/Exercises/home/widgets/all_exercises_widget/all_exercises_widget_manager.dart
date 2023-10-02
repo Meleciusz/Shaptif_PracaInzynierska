@@ -1,6 +1,7 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shaptifii/GymMode/Exercises/home/widgets/all_exercises_widget/widget/loaded_state_widget.dart';
 import 'all_exercises.dart';
 
 class AllExercisesWidget extends StatefulWidget {
@@ -13,6 +14,7 @@ class AllExercisesWidget extends StatefulWidget {
 
 class _AllExercisesWidgetState extends State<AllExercisesWidget> {
 
+
   @override
   void initState() {
     BlocProvider.of<AllExercisesBloc>(context).add(LoadAllExercises());
@@ -21,32 +23,16 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final AllExercisesBloc _allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
-    return Scaffold(
-      body: BlocBuilder<AllExercisesBloc, AllExercisesState>(
+    final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
+    return BlocBuilder<AllExercisesBloc, AllExercisesState>(
         builder: (context, state) {
           if (state is ExercisesLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ExercisesLoaded) {
-            final exercises = state.exercises;
-            return ListView.builder(
-              itemCount: exercises.length,
-                itemBuilder: (context, index){
-                final exercise = exercises[index];
-                return ListTile(
-                  title: Text(exercise.name),
-                  leading: Checkbox(
-                    value: exercise.veryfied,
-                    onChanged: (_) {
-                      //TODO: implement
-                    },
-                  ),
-                );
-                }
-            );
+            return LoadedStateWidget(title: widget.title, exercises: state.exercises);
           }
           else if (state is ExerciseOperationSuccess) {
-            _allExercisesBloc.add(LoadAllExercises());
+            allExercisesBloc.add(LoadAllExercises());
             return Container();
           }
           else if (state is ExerciseOperationFailure) {
@@ -56,17 +42,17 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
             return Container();
           }
         }
-      ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: (){
-              showAddExerciseDialog(context);
-            },
-              child: const Icon(Icons.add),
-          ),
-    );
+      );
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: (){
+          //     showAddExerciseDialog(context, allExercisesBloc);
+          //   },
+          //     child: const Icon(Icons.add),
+          // ),
+
   }
 
-  void showAddExerciseDialog(BuildContext context) {
+  void showAddExerciseDialog(BuildContext context, AllExercisesBloc _allExercisesBloc) {
     final _titleController = TextEditingController();
 
     showDialog(
@@ -97,7 +83,7 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
                     adding_user_id: "",
                     body_part_id: 1,
                   );
-                  BlocProvider.of<AllExercisesBloc>(context, listen: false).add(AddExercise(exercise));
+                  _allExercisesBloc.add(AddExercise(exercise));
                   Navigator.pop(context);
                 },
               ),

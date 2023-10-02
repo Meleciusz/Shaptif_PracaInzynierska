@@ -14,6 +14,7 @@ class HeaderTitle extends StatelessWidget {
     final photo = user.photo;
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text(
           "Witaj ${user.name}!" ?? '', style: textTheme.headlineMedium,

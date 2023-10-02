@@ -16,13 +16,16 @@ class HomePageGym extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final user = this.user;
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AllExercisesBloc>(
-            create: (context) => AllExercisesBloc(FirestoreService())
-        )
-      ],
-      child: HomeView(title: "sss",),
+    return Scaffold(
+      backgroundColor: Colors.deepOrangeAccent,
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<AllExercisesBloc>(
+              create: (context) => AllExercisesBloc(FirestoreService())
+          )
+        ],
+        child: HomeLayout(),
+      ),
     );
   }
 }
