@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 
@@ -9,13 +10,23 @@ part 'all_exercises_event.dart';
 part 'all_exercises_state.dart';
 
 class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
-  final FirestoreService _firestoreService;
+  final FirestoreService firestoreService;
 
-  AllExercisesBloc(this._firestoreService) : super(AllExercisesInitial()){
+  AllExercisesBloc(this.firestoreService) : super(AllExercisesInitial()){
     on<LoadAllExercises>((event, emit) async{
       try{
         emit(ExercisesLoading());
-        final exercises = await _firestoreService.getExercises().first;
+        final exercises = await firestoreService.getExercises().first;
+        emit(ExercisesLoaded(exercises));
+      } catch(e){
+        emit(ExerciseOperationFailure("Failed to load exercises"));
+      }
+    });
+
+    on<RefreshExercises>((event, emit) async{
+      try{
+        emit(ExercisesLoading());
+        final exercises = await firestoreService.updateExercises().first;
         emit(ExercisesLoaded(exercises));
       } catch(e){
         emit(ExerciseOperationFailure("Failed to load exercises"));
@@ -25,7 +36,7 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
     on<AddExercise>((event, emit) async {
       try{
         emit(ExercisesLoading());
-        await _firestoreService.addExercise(event.exercise);
+        await firestoreService.addExercise(event.exercise);
         emit(ExerciseOperationSuccess("Exercise added"));
       } catch(e){
         emit(ExerciseOperationFailure("Failed to add exercise"));
@@ -35,7 +46,7 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
     on<UpdateExercise>((event, emit) async {
       try{
         emit(ExercisesLoading());
-        await _firestoreService.updateExercise(event.exercise);
+        await firestoreService.updateExercise(event.exercise);
         emit(ExerciseOperationSuccess("Exercise updated"));
       } catch(e){
         emit(ExerciseOperationFailure("Failed to update exercise"));
@@ -45,7 +56,7 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
     on<DeleteExercise>((event, emit) async {
       try{
         emit(ExercisesLoading());
-        await _firestoreService.deleteExercise(event.id);
+        await firestoreService.deleteExercise(event.id);
         emit(ExerciseOperationSuccess("Exercise deleted"));
       } catch(e){
         emit(ExerciseOperationFailure("Failed to delete exercise"));

@@ -6,6 +6,7 @@ import 'package:shaptifii/authorization/app/app.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
   Bloc.observer = const AppBlocObserver();
 
   await Firebase.initializeApp();

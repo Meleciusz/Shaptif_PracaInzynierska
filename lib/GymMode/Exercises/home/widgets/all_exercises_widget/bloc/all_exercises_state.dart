@@ -1,7 +1,7 @@
 part of 'all_exercises_bloc.dart';
 
 @immutable
-abstract class AllExercisesState {}
+abstract class AllExercisesState{}
 
 class AllExercisesInitial extends AllExercisesState {}
 

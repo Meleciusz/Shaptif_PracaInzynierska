@@ -45,9 +45,10 @@ const AllExerciseBoard({super.key, required this.exercise});
               right: 20.0,
               bottom: 10.0,
               child: ExerciseDetailsButton(exercise: exercise)
-          )
-        ]
+          ),
+        ],
       ),
+
     );
   }
 }

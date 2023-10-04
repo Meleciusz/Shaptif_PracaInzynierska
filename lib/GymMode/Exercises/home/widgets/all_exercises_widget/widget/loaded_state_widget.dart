@@ -1,12 +1,14 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 
+import '../bloc/all_exercises_bloc.dart';
 import 'all_exercise_board.dart';
 
 class LoadedStateWidget extends StatelessWidget {
   const LoadedStateWidget({super.key, required this.exercises, required this.title});
   final String title;
   final List<Exercise> exercises;
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class LoadedStateWidget extends StatelessWidget {
               height: 20.0,
             ),
             itemCount: exercises.length),
-        )
+        ),
       ],
     );
   }
