@@ -4,10 +4,10 @@ import '../../exercise_repository.dart';
 
 class FirestoreService {
   FirestoreService(){
-    _clearFirestoreCache();
+    clearFirestoreCache();
   }
 
-  Future<void> _clearFirestoreCache() async {
+  Future<void> clearFirestoreCache() async {
     try {
       await FirebaseFirestore.instance.clearPersistence();
     } catch (e) {
@@ -18,21 +18,21 @@ class FirestoreService {
   final CollectionReference _exerciseCollection =
   FirebaseFirestore.instance.collection('Exercise');
 
-  Stream<List<Exercise>> getExercises() {
-    return _exerciseCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return Exercise(
-          id: doc.id,
-          body_part_id: data['body_part_id'],
-          photo_url: data['photo_url'],
-          name: data['name'],
-          description: data['description'],
-          veryfied: data['veryfied'],
-          adding_user_id: data['adding_user_id'],
-        );
-      }).toList();
-    });
+  Future<List<Exercise>> getExercises() async {
+
+    final querySnapshot = await _exerciseCollection.get();
+    return querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return Exercise(
+        id: doc.id,
+        body_part_id: data['body_part_id'],
+        photo_url: data['photo_url'],
+        name: data['name'],
+        description: data['description'],
+        veryfied: data['veryfied'],
+        adding_user_id: data['adding_user_id'],
+      );
+    }).toList();
   }
 
   Stream<List<Exercise>> updateExercises() {

@@ -16,20 +16,28 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
     on<LoadAllExercises>((event, emit) async{
       try{
         emit(ExercisesLoading());
-        final exercises = await firestoreService.getExercises().first;
+        final exercises = await firestoreService.getExercises();
         emit(ExercisesLoaded(exercises));
       } catch(e){
         emit(ExerciseOperationFailure("Failed to load exercises"));
       }
     });
 
-    on<RefreshExercises>((event, emit) async{
-      try{
+    on<RefreshExercises>((event, emit) async {
+      try {
         emit(ExercisesLoading());
-        final exercises = await firestoreService.updateExercises().first;
+
+        // Opóźnij operację czyszczenia pamięci podręcznej na krótki czas
+        //await Future.delayed(Duration(seconds: 2));
+
+        // Usuń aktualną pamięć podręczną Firestore
+        await firestoreService.clearFirestoreCache();
+
+        // Pobierz nowe dane z Firebase
+        final exercises = await firestoreService.getExercises();
         emit(ExercisesLoaded(exercises));
-      } catch(e){
-        emit(ExerciseOperationFailure("Failed to load exercises"));
+      } catch (e) {
+        emit(ExerciseOperationFailure("Failed to refresh exercises"));
       }
     });
 
