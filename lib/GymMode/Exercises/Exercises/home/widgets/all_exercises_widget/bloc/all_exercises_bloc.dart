@@ -27,13 +27,8 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
       try {
         emit(ExercisesLoading());
 
-        // Opóźnij operację czyszczenia pamięci podręcznej na krótki czas
-        //await Future.delayed(Duration(seconds: 2));
-
-        // Usuń aktualną pamięć podręczną Firestore
         await firestoreService.clearFirestoreCache();
 
-        // Pobierz nowe dane z Firebase
         final exercises = await firestoreService.getExercises();
         emit(ExercisesLoaded(exercises));
       } catch (e) {

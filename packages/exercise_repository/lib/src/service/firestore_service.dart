@@ -35,23 +35,6 @@ class FirestoreService {
     }).toList();
   }
 
-  Stream<List<Exercise>> updateExercises() {
-    return _exerciseCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return Exercise(
-          id: doc.id,
-          body_part_id: data['body_part_id'],
-          photo_url: data['photo_url'],
-          name: data['name'],
-          description: data['description'],
-          veryfied: data['veryfied'],
-          adding_user_id: data['adding_user_id'],
-        );
-      }).toList();
-    });
-  }
-
   Future<void> addExercise(Exercise exercise) {
     return _exerciseCollection.add({
       'body_part_id': exercise.body_part_id,

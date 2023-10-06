@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shaptifii/GymMode/Exercises/home/widgets/header_title/header_title.dart';
+import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/header_title/header_title.dart';
 import '../../widgets/container_body.dart';
 import '../widgets/all_exercises_widget/all_exercises.dart';
 

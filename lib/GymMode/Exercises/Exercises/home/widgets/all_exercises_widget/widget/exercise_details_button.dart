@@ -1,5 +1,6 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
+import '../../../../../ExerciseDescription/exercises_description.dart';
 
 class ExerciseDetailsButton extends StatelessWidget {
   const ExerciseDetailsButton({super.key, required this.exercise});
@@ -10,10 +11,10 @@ class ExerciseDetailsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //         builder: (context) => ExerciseDetailsPage(exercise: exercise))
-        // );
+        Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => ExerciseDescription(exercise: exercise))
+        );
       },
       style: ElevatedButton.styleFrom(
         shape: BeveledRectangleBorder(
