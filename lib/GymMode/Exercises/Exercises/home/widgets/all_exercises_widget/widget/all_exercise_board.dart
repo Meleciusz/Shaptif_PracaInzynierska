@@ -1,5 +1,6 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
+import '../../../../../ExerciseDescription/exercises_description.dart';
 import 'all_exercises.dart';
 
 class AllExerciseBoard extends StatelessWidget {
@@ -8,7 +9,15 @@ const AllExerciseBoard({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => ExerciseDescription(exercise: exercise)
+            )
+          );
+      },
+      child: Container(
       height: 100.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
@@ -41,14 +50,14 @@ const AllExerciseBoard({super.key, required this.exercise});
                 veryfied: exercise.veryfied,
               )
           ),
-          Positioned(
-              right: 20.0,
-              bottom: 10.0,
-              child: ExerciseDetailsButton(exercise: exercise)
-          ),
+          // Positioned(
+          //     right: 20.0,
+          //     bottom: 10.0,
+          //     child: ExerciseDetailsButton(exercise: exercise)
+          // ),
         ],
       ),
-
+      ),
     );
   }
 }
