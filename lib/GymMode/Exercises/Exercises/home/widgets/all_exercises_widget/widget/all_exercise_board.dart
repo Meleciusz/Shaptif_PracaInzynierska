@@ -50,11 +50,6 @@ const AllExerciseBoard({super.key, required this.exercise});
                 veryfied: exercise.veryfied,
               )
           ),
-          // Positioned(
-          //     right: 20.0,
-          //     bottom: 10.0,
-          //     child: ExerciseDetailsButton(exercise: exercise)
-          // ),
         ],
       ),
       ),

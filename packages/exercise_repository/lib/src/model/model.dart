@@ -1,6 +1,6 @@
 class Exercise{
   String id;
-  int body_part_id;
+  List<String> body_parts;
   String photo_url;
   String name;
   String description;
@@ -9,7 +9,7 @@ class Exercise{
 
   Exercise({
     required this.id,
-    required this.body_part_id,
+    required this.body_parts,
     required this.photo_url,
     required this.name,
     required this.description,
@@ -19,7 +19,7 @@ class Exercise{
 
   Exercise copyWith({
     String? id,
-    int? body_part_id,
+    List<String>? body_parts,
     String? photo_url,
     String? name,
     String? description,
@@ -28,7 +28,7 @@ class Exercise{
   }){
     return Exercise(
       id: id ?? this.id,
-      body_part_id: body_part_id ?? this.body_part_id,
+      body_parts: body_parts ?? this.body_parts,
       photo_url: photo_url ?? this.photo_url,
       name: name ?? this.name,
       description: description ?? this.description,

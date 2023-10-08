@@ -5,6 +5,8 @@ abstract class AllExercisesEvent{}
 
 class LoadAllExercises extends AllExercisesEvent {}
 
+class LoadVeryfiedExercises extends AllExercisesEvent {}
+
 class RefreshExercises extends AllExercisesEvent {}
 
 class AddExercise extends AllExercisesEvent {

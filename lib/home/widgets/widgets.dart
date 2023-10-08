@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../GymMode/Exercises/Exercises/home/pages/home_page.dart';
 
 
+
 const _avatarSize = 70.0;
 
 class Avatar extends StatelessWidget {
@@ -65,7 +66,7 @@ class DrawerWidget extends StatelessWidget {
               ),
             child: Center(child: Text('Settings', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),)
           ),
-          Row(
+          Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SwitchTheme(),
@@ -90,16 +91,16 @@ class _SwitchState extends State<SwitchTheme> {
     return Transform.scale(
       scale: 1.5,
       child: Switch(
-        // This bool value toggles the switch.
         value: light,
         activeColor: Colors.orange,
         thumbColor: const MaterialStatePropertyAll<Color>(Colors.grey),
         onChanged: (bool value) {
-          // This is called when the user toggles the switch.
+
           setState(() {
             light = value;
           });
         },
+
       ),
     );
   }

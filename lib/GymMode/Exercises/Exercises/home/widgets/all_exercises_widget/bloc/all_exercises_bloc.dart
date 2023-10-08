@@ -23,6 +23,16 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
       }
     });
 
+    on<LoadVeryfiedExercises>((event, emit) async{
+      try{
+        emit(ExercisesLoading());
+        final exercises = await firestoreService.getVerifiedExercises();
+        emit(ExercisesLoaded(exercises));
+      } catch(e){
+        emit(ExerciseOperationFailure("Failed to load exercises"));
+      }
+    });
+
     on<RefreshExercises>((event, emit) async {
       try {
         emit(ExercisesLoading());

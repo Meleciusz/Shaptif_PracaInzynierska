@@ -1,7 +1,5 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
-
-import '../bloc/all_exercises_bloc.dart';
 import 'all_exercise_board.dart';
 
 class LoadedStateWidget extends StatelessWidget {

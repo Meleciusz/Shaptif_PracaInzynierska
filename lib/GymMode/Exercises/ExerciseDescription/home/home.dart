@@ -1,6 +1,7 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import '../widgets/container_body.dart';
+import '../widgets/image_manager.dart';
 import 'widgets/widgets.dart';
 
 
@@ -38,16 +39,21 @@ class ExerciseDescription extends StatefulWidget {
               const SizedBox(height: 20),
               ContainerBody(
                 children: [
+                  // CircleAvatar(
+                  //   radius: 150.0,
+                  //   child: iconController
+                  //       ? Icon(Icons.add, size: _avatarSize)
+                  //       : Icon(Icons.ac_unit, size: _avatarSize),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: _toggleIcon,
+                  //   child: Icon(Icons.refresh),
+                  // ),
                   CircleAvatar(
-                    radius: 150.0,
-                    child: iconController
-                        ? Icon(Icons.add, size: _avatarSize)
-                        : Icon(Icons.ac_unit, size: _avatarSize),
+                    radius: 190.0,
+                    child: ImageProcessor(exercise: widget.exercise),
                   ),
-                  GestureDetector(
-                    onTap: _toggleIcon,
-                    child: Icon(Icons.refresh),
-                  ),
+                  //ImageProcessor(exercise: widget.exercise),
                 ],
               ),
             ]
