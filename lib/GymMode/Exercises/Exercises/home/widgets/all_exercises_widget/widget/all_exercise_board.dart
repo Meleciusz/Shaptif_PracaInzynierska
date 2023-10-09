@@ -26,16 +26,10 @@ const AllExerciseBoard({super.key, required this.exercise});
       child: Stack(
         children: [
           Positioned(
-            left: 20.0,
-            top: 15.0,
-            bottom: 15.0,
-            child: ExerciseBodyPartImage(image: exercise.photo_url ?? ""),
-          ),
-          Positioned(
             top: 25.0,
-            left: 100.0,
+            left: 20.0,
             child: Container(
-              width: MediaQuery.of(context).size.width * .5,
+              width: MediaQuery.of(context).size.width * .75,
               child: Text(
                 exercise.name ?? "",
                 style: Theme.of(context).textTheme.headlineSmall,

@@ -12,14 +12,15 @@ class HeaderTitle extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
     final photo = user.photo;
+    final width = MediaQuery.of(context).size.width;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          "Witaj ${user.name}!" ?? '', style: textTheme.headlineMedium,
+        user.name!.length < (width/40) ?
+        Text("Welcome ${user.name}!" ?? '', style: textTheme.headlineSmall,
+        ) : Text("Welcome!" ?? '', style: textTheme.headlineSmall,
         ),
-        const SizedBox(width: 30.0),
         CircleAvatar(
           radius: _avatarSize,
           backgroundImage: photo != null ? NetworkImage(photo) : null,
