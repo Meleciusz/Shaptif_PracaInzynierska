@@ -4,8 +4,8 @@ import '../../exercise_repository.dart';
 
 
 
-class FirestoreService {
-  FirestoreService(){
+class FirestoreExerciseService {
+  FirestoreExerciseService(){
    _checkInternetConnection();
   }
 
@@ -33,6 +33,27 @@ class FirestoreService {
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       List<String> bodyPartsList = List<String>.from(data['body_part_id']);
+      return Exercise(
+        id: doc.id,
+        body_parts: bodyPartsList,
+        photo_url: data['photo_url'],
+        name: data['name'],
+        description: data['description'],
+        veryfied: data['veryfied'],
+        adding_user_id: data['adding_user_id'],
+      );
+    }).toList();
+  }
+
+  Future<List<Exercise>> getExercisesByCategory(String category) async{
+    final querySnapshot = await _exerciseCollection
+        .where('body_part_id', arrayContains: category)
+        .get();
+
+    return querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      List<String> bodyPartsList = List<String>.from(data['body_part_id']);
+
       return Exercise(
         id: doc.id,
         body_parts: bodyPartsList,

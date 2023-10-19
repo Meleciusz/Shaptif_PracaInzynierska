@@ -28,7 +28,7 @@ class ExerciseDescription extends StatefulWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 40.0),
+        padding: const EdgeInsets.only(top: 40.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -69,10 +69,10 @@ class ExerciseDescription extends StatefulWidget {
                                 )
                               );
                             } else {
-                              return Icon(Icons.image_not_supported_rounded, size: 190.0);
+                              return const Icon(Icons.image_not_supported_rounded, size: 190.0);
                             }
                           } else {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                         },
                       ),
@@ -93,11 +93,11 @@ class ExerciseDescription extends StatefulWidget {
                     IconButton(onPressed: () {
                       _toggleIcon();
                     },
-                        icon: Icon(Icons.arrow_back_ios)),
+                        icon: const Icon(Icons.arrow_back_ios)),
                     IconButton(onPressed: (){
                       _toggleIcon();
                     },
-                        icon: Icon(Icons.arrow_forward_ios)),
+                        icon: const Icon(Icons.arrow_forward_ios)),
                   ],),
                   const SizedBox(height: 20),
                   Text("Mięsnie zaangażowane w ruch:", style: Theme.of(context).textTheme.headlineSmall,),
@@ -107,7 +107,7 @@ class ExerciseDescription extends StatefulWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: widget.exercise.body_parts!.map((part) {
                       return Padding(
-                        padding: EdgeInsets.only(left: 20.0),
+                        padding: const EdgeInsets.only(left: 20.0),
                         child: Text("- " +
                           part,
                           style: Theme.of(context).textTheme.bodySmall,

@@ -10,7 +10,7 @@ part 'all_exercises_event.dart';
 part 'all_exercises_state.dart';
 
 class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
-  final FirestoreService firestoreService;
+  final FirestoreExerciseService firestoreService;
 
   AllExercisesBloc(this.firestoreService) : super(AllExercisesInitial()){
     on<LoadAllExercises>((event, emit) async{

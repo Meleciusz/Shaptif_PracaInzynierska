@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/header_title/header_title.dart';
 import '../../widgets/container_body.dart';
 import '../widgets/all_exercises_widget/all_exercises.dart';
+import '../widgets/category_widget/category_widget_manager.dart';
 
 
 class HomeLayout extends StatelessWidget {
@@ -23,6 +24,7 @@ class HomeLayout extends StatelessWidget {
             SizedBox(height: 20),
             ContainerBody(
               children: [
+                CategoriesWidget(),
                 AllExercisesWidget(title: 'All exercises'),
               ],
             ),

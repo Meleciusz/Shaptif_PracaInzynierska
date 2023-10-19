@@ -34,6 +34,8 @@ dependencies:
     path: packages/authorization_repository
   exercise_repository:
     path: packages/exercise_repository
+  body_parts_repository:
+    path: packages/body_parts_repository
 
   bloc: ^8.1.0
   flutter:
