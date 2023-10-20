@@ -4,7 +4,7 @@ part of 'category_widget_bloc.dart';
 abstract class CategoryWidgetState {}
 
 class CategorySelected extends CategoryWidgetState {
-  final int idCategory;
+  final String idCategory;
 
   CategorySelected(this.idCategory);
 }

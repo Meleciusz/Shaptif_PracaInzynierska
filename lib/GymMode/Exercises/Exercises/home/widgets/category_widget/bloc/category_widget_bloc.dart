@@ -12,27 +12,15 @@ class CategoryWidgetBloc extends Bloc<CategoryWidgetEvent, CategoryWidgetState> 
   final FirestoreExerciseService firestoreServiceExercise;
   final FirestoreBodyPartsService firestoreBodyPartsService;
 
-  CategoryWidgetBloc(this.firestoreServiceExercise, this.firestoreBodyPartsService) : super(CategoryWidgetInitial()){
-    on<SelectExercisesByCategory>((event, emit) async{
-      try{
-        emit(CategoryWidgetLoading());
-        final exercisesByCategory = await firestoreServiceExercise.getExercisesByCategory(event.category);
-        emit(CategoryExerciseWidgetLoaded(exercisesByCategory));
-      }catch(e){
-        emit(CategoryOperationFailure("Failed to load exercises"));
-      }
-    });
-
-    on<GetCategories>((event, emit) async{
-      try{
+  CategoryWidgetBloc(this.firestoreServiceExercise, this.firestoreBodyPartsService) : super(CategoryWidgetInitial()) {
+    on<GetCategories>((event, emit) async {
+      try {
         emit(CategoryWidgetLoading());
         final categories = await firestoreBodyPartsService.getBodyParts();
         emit(CategoryWidgetLoaded(categories));
-      }catch(e){
+      } catch (e) {
         emit(CategoryOperationFailure("Failed to load body parts"));
       }
     });
   }
-
-
 }

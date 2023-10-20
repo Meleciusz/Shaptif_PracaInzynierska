@@ -1,6 +1,7 @@
 import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/exercises_by_category/bloc/exercises_by_category_bloc.dart';
 import 'category_widget.dart';
 
 class CategoriesSuccessWidget extends StatelessWidget {
@@ -17,12 +18,11 @@ class CategoriesSuccessWidget extends StatelessWidget {
                 category: categories[index],
                 categoryClicked: (BodyParts categorySelected){
                   print(categorySelected.id);
-                  // context.read<GetExercisesByCategoryBloc>().add(
-                  //   GetExercisesByCategory(
-                  //     idSelected : categorySelected.id,
-                  //     categoryName: categorySelected.part ?? '',
-                  //   )
-                  // );
+                  context.read<ExercisesByCategoryBloc>().add(
+                    GetExercisesByCategory(
+                      categorySelected.part ?? '',
+                    )
+                  );
                   // context.read<CategoryWidgetBloc>().add(
                   //   CategorySelected(
                   //     idCategory: categorySelected.id

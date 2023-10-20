@@ -6,8 +6,8 @@ abstract class CategoryWidgetEvent {}
 class GetCategories extends CategoryWidgetEvent {
 }
 
-class SelectExercisesByCategory extends CategoryWidgetEvent {
-  final String category;
+class GetCategory extends CategoryWidgetEvent {
+  final int idCategory;
 
-  SelectExercisesByCategory(this.category);
+  GetCategory(this.idCategory);
 }
