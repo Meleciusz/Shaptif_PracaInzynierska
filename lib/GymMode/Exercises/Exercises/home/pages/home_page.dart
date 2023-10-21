@@ -16,8 +16,6 @@ class HomePageGym extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final user = this.user;
 
     return Scaffold(
       backgroundColor: Colors.deepOrangeAccent,

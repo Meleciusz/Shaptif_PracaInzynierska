@@ -42,6 +42,7 @@ const AllExerciseBoard({super.key, required this.exercise});
               left: 100.0,
               child: ExerciseVeryfiedIcon(
                 veryfied: exercise.veryfied,
+                addingUserName: exercise.adding_user_id,
               )
           ),
         ],

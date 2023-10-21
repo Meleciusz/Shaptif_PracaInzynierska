@@ -61,7 +61,7 @@ class ExerciseDescription extends StatefulWidget {
                                   height: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: NetworkImage(widget.exercise.photo_url ?? ''),
+                                      image: NetworkImage(widget.exercise.photo_url),
                                       fit: BoxFit.fill,
                                     ),
                                     shape: BoxShape.rectangle,
@@ -69,7 +69,10 @@ class ExerciseDescription extends StatefulWidget {
                                 )
                               );
                             } else {
-                              return const Icon(Icons.image_not_supported_rounded, size: 190.0);
+                              return Opacity(
+                                opacity: iconController ? 1.0 : 0.0,
+                                child: Icon(Icons.image_not_supported_rounded, size: 190.0),
+                              );
                             }
                           } else {
                             return const CircularProgressIndicator();

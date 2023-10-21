@@ -32,8 +32,7 @@ class _ExercisesByCategoryState extends State<ExercisesByCategory> {
           return CategoriesSuccessWidget(exercises: state.exercises);
         }
         else if(state is ExercisesByCategoryOperationSuccess){
-          // exercisesByCategoryBloc.add(GetExercisesByCategory(categoryWidgetBloc.state.idCategory));
-          return Container();
+            return Container();
         }
         else if(state is ExercisesByCategoryOperationFailure){
           return Center(child: Text(state.message));
