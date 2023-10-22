@@ -31,7 +31,7 @@ class HomePageGym extends StatelessWidget {
             create: (context) => ExercisesByCategoryBloc(FirestoreExerciseService(), FirestoreBodyPartsService()),
           )
         ],
-        child: HomeLayout(),
+        child: const HomeLayout(),
       ),
     );
   }

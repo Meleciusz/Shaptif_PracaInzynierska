@@ -31,14 +31,14 @@ class CategoryItem extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: state ? Colors.deepOrangeAccent : Colors.amberAccent,
                 ),
-                child: Icon(Icons.gamepad),
+                child: const Icon(Icons.gamepad),
               ),
-              SizedBox(height: 4.0),
+              const SizedBox(height: 4.0),
               Container(
                 width: 60,
                 child: Text(
                   category.part ?? "",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 10.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87),

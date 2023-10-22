@@ -17,22 +17,16 @@ class CategoriesSuccessWidget extends StatelessWidget {
               return CategoryItem(
                 category: categories[index],
                 categoryClicked: (BodyParts categorySelected){
-                  print(categorySelected.id);
                   context.read<ExercisesByCategoryBloc>().add(
                     GetExercisesByCategory(
                       categorySelected.part ?? '',
                     )
                   );
-                  // context.read<CategoryWidgetBloc>().add(
-                  //   CategorySelected(
-                  //     idCategory: categorySelected.id
-                  //   ),
-                  // );
                 },
               );
             },
             scrollDirection: Axis.horizontal,
-            separatorBuilder: (_, __) => SizedBox(width: 16),
+            separatorBuilder: (_, __) => const SizedBox(width: 16),
             itemCount: categories.length,
         )
     );

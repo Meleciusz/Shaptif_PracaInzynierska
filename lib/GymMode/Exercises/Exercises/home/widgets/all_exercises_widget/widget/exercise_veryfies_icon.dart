@@ -11,7 +11,6 @@ class ExerciseVeryfiedIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((AppBloc bloc) => bloc.state.user);
 
     return Row(
       children: [
