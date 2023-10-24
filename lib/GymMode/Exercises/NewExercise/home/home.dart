@@ -27,6 +27,15 @@ class _NewExerciseState extends State<NewExercise> {
   );
 
   Set<String> selectedBodyParts = {};
+  String photoUrl = "";
+  String exerciseName = "";
+  String exerciseDescription = "";
+
+  void handleUrlChanged(String url) {
+    setState(() {
+      photoUrl = url;
+    });
+  }
 
   bool iconController = false;
   void _toggleIcon(){
@@ -34,6 +43,20 @@ class _NewExerciseState extends State<NewExercise> {
       iconController = !iconController;
     });
   }
+
+  final TextEditingController _textController1 = TextEditingController();
+  final TextEditingController _textController2 = TextEditingController();
+
+  @override
+  void dispose() {
+    _textController1.dispose();
+    _textController2.dispose();
+    super.dispose();
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +69,7 @@ class _NewExerciseState extends State<NewExercise> {
         children: [
           ContainerBody(
             children: [
+              Text("Exercise Images: ", style: Theme.of(context).textTheme.headlineSmall,),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -62,7 +86,7 @@ class _NewExerciseState extends State<NewExercise> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.width,
-                        child: const ImageAdder(),
+                        child: ImageAdder(onUrlChanged: handleUrlChanged),
                       )
                   ),
                 ],
@@ -80,6 +104,7 @@ class _NewExerciseState extends State<NewExercise> {
                 ],
               ),
               const SizedBox(height: 20),
+              Text("Body Parts:", style: Theme.of(context).textTheme.headlineSmall,),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .15,
                 child: ListView.separated(
@@ -127,7 +152,46 @@ class _NewExerciseState extends State<NewExercise> {
                     itemCount: bodyPartsList.length
                 ),
               ),
+              Text("Exercise Name:", style: Theme.of(context).textTheme.headlineSmall,),
+              Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    controller: _textController1,
+                    maxLength: 30,
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                    ),
+                    onChanged: (text){
 
+                      setState(() {
+                        exerciseName = text;
+                      });
+                    },
+                  )
+              ),
+              Text("Exercise Description:", style: Theme.of(context).textTheme.headlineSmall,),
+              Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    maxLines: 3,
+                    controller: _textController2,
+                    maxLength: 200,
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                    ),
+                    onChanged: (text){
+                      text.isEmpty ?
+
+                      setState(() {
+                        exerciseDescription = "Exercise has no description";
+                      }) :
+
+                      setState(() {
+                        exerciseDescription = text;
+                      });
+                    },
+                  )
+              )
             ],
           ),
         ]
@@ -138,9 +202,9 @@ class _NewExerciseState extends State<NewExercise> {
             id: '',
             adding_user_id: user.name!,
             body_parts: selectedBodyParts.toList(),
-            description: '',
-            name: '',
-            photo_url: '',
+            description: exerciseDescription,
+            name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
+            photo_url: photoUrl,
             veryfied: false
           )));
 

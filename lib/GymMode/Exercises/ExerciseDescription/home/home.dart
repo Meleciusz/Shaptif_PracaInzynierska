@@ -1,15 +1,17 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
+import '../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
 import '../widgets/container_body.dart';
 import '../widgets/image_manager.dart';
 import 'widgets/widgets.dart';
 
 
 class ExerciseDescription extends StatefulWidget {
-  const ExerciseDescription({super.key, required this.exercise});
+  const ExerciseDescription({super.key, required this.exercise, required this.allExerciseBloc});
 
   final Exercise exercise;
+  final AllExercisesBloc allExerciseBloc;
 
   @override
   State<ExerciseDescription> createState() => _ExerciseDescriptionState();
@@ -33,7 +35,7 @@ class ExerciseDescription extends StatefulWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              HeaderTitle(veryfied: widget.exercise.veryfied),
+              HeaderTitle(veryfied: widget.exercise.veryfied, addingUser: widget.exercise.adding_user_id, exerciseId: widget.exercise.id, allExercisesBloc: widget.allExerciseBloc,),
               const SizedBox(height: 20),
 
               ContainerBody(
@@ -56,7 +58,7 @@ class ExerciseDescription extends StatefulWidget {
                             if (snapshot.data == true) {
                               return Opacity(
                                 opacity: iconController ? 1.0 : 0.0,
-                                child: Container(
+                                child: widget.exercise.photo_url.isNotEmpty ? Container(
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
@@ -66,12 +68,18 @@ class ExerciseDescription extends StatefulWidget {
                                     ),
                                     shape: BoxShape.rectangle,
                                   ),
+                                ) : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.image_not_supported_rounded, size: 190.0),
+                                    Text("Exercise has no image", style: Theme.of(context).textTheme.headlineSmall,)
+                                  ]
                                 )
                               );
                             } else {
                               return Opacity(
                                 opacity: iconController ? 1.0 : 0.0,
-                                child: Icon(Icons.image_not_supported_rounded, size: 190.0),
+                                child: const Icon(Icons.image_not_supported_rounded, size: 190.0),
                               );
                             }
                           } else {

@@ -1,12 +1,13 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
 import 'exercises_by_category_item.dart';
 
 class CategoriesSuccessWidget extends StatelessWidget {
-  const CategoriesSuccessWidget({super.key, required this.exercises});
+  const CategoriesSuccessWidget({super.key, required this.exercises, required this.allExerciseBloc});
 
   final List<Exercise> exercises;
+  final AllExercisesBloc allExerciseBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class CategoriesSuccessWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ExerciseByCategoryItem(
                   exercise: exercises[index],
+                  allExerciseBloc: allExerciseBloc,
                 );
               },
               separatorBuilder: (_, __) => const SizedBox(width: 25),

@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/all_exercises_widget/widget/loaded_state_widget.dart';
@@ -31,7 +28,7 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
           if (state is ExercisesLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ExercisesLoaded) {
-            return LoadedStateWidget(title: widget.title, exercises: state.exercises);
+            return LoadedStateWidget(title: widget.title, exercises: state.exercises, allExerciseBloc: allExercisesBloc,);
           }
           else if (state is ExerciseOperationSuccess) {
             allExercisesBloc.add(LoadAllExercises());
@@ -45,12 +42,6 @@ class _AllExercisesWidgetState extends State<AllExercisesWidget> {
           }
         }
       );
-    // floatingActionButton: FloatingActionButton(
-    // onPressed: (){
-    // showAddExerciseDialog(context, allExercisesBloc);
-    // },
-    // child: const Icon(Icons.add),
-    // ),
   }
 }
 

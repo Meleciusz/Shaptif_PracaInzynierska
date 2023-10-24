@@ -1,11 +1,13 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
 import 'all_exercise_board.dart';
 
 class LoadedStateWidget extends StatelessWidget {
-  const LoadedStateWidget({super.key, required this.exercises, required this.title});
+  const LoadedStateWidget({super.key, required this.exercises, required this.title, required this.allExerciseBloc});
   final String title;
   final List<Exercise> exercises;
+  final AllExercisesBloc allExerciseBloc;
 
 
   @override
@@ -20,10 +22,10 @@ class LoadedStateWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
-        Container(
+        SizedBox(
           height: ((exercises.length * 100) + MediaQuery.of(context).size.width) + 24,
           child: ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.only(
               left: 24.0,
               right: 24.0,
@@ -32,6 +34,7 @@ class LoadedStateWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return AllExerciseBoard(
                 exercise: exercises[index],
+                allExerciseBloc: allExerciseBloc,
               );
             },
             separatorBuilder: (_, __) => const SizedBox(

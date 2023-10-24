@@ -1,15 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:shaptifii/GymMode/Exercises/ExerciseDescription/exercises_description.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/exercises_by_category/exercises_by_category_title.dart';
 
+import '../all_exercises_widget/bloc/all_exercises_bloc.dart';
+
 class ExerciseByCategoryItem extends StatefulWidget {
   const ExerciseByCategoryItem(
-      {super.key, required this.exercise});
+      {super.key, required this.exercise, required this.allExerciseBloc});
 
   final Exercise exercise;
+  final AllExercisesBloc allExerciseBloc;
 
   @override
   State<ExerciseByCategoryItem> createState() => _ExerciseByCategoryItemState();
@@ -22,7 +24,7 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
       onTap: (){
         Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => ExerciseDescription(exercise: widget.exercise)
+                builder: (context) => ExerciseDescription(exercise: widget.exercise, allExerciseBloc: widget.allExerciseBloc)
             )
         );
       },

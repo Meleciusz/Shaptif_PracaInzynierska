@@ -2,10 +2,12 @@ import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import '../../../../../ExerciseDescription/exercises_description.dart';
 import 'all_exercises.dart';
+import 'package:shaptifii/GymMode/Exercises/Exercises/exercises.dart';
 
 class AllExerciseBoard extends StatelessWidget {
-const AllExerciseBoard({super.key, required this.exercise});
+const AllExerciseBoard({super.key, required this.exercise, required this.allExerciseBloc});
   final Exercise exercise;
+  final AllExercisesBloc allExerciseBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ const AllExerciseBoard({super.key, required this.exercise});
       onTap: () {
         Navigator.of(context).push(
             MaterialPageRoute(
-                builder: (context) => ExerciseDescription(exercise: exercise)
+                builder: (context) => ExerciseDescription(exercise: exercise, allExerciseBloc: allExerciseBloc,)
             )
           );
       },
