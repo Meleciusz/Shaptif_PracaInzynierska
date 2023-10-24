@@ -1,12 +1,10 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../authorization/app/app.dart';
 import '../../ExerciseDescription/widgets/container_body.dart';
 import '../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
-import '../widgets/image_manager.dart';
-import '../widgets/widgets.dart';
+import '../widgets/new_exercise_images.dart';
 
 class NewExercise extends StatefulWidget {
   const NewExercise({super.key, required this.allExercisesBloc});
@@ -56,8 +54,6 @@ class _NewExerciseState extends State<NewExercise> {
 
 
 
-
-
   @override
   Widget build(BuildContext context) {
     final user = context.select((AppBloc bloc) => bloc.state.user);
@@ -70,27 +66,7 @@ class _NewExerciseState extends State<NewExercise> {
           ContainerBody(
             children: [
               Text("Exercise Images: ", style: Theme.of(context).textTheme.headlineSmall,),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Opacity(
-                      opacity: iconController ? 0.0 : 1.0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.width,
-                        child: ImageProcessor(selectedBodyParts: selectedBodyParts),
-                      )
-                  ),
-                  Opacity(
-                      opacity: iconController ? 1.0 : 0.0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.width,
-                        child: ImageAdder(onUrlChanged: handleUrlChanged),
-                      )
-                  ),
-                ],
-              ),
+              NewExerciseImages(selectedBodyParts: selectedBodyParts, handleUrlChanged: handleUrlChanged, iconController: iconController,),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(onPressed: () {

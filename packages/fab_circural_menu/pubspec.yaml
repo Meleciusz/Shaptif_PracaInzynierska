@@ -1,0 +1,10 @@
+name: fab_circural_menu
+description: Upgraded version of floating action button
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies:
+  foundation: ^0.0.5

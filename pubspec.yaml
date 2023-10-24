@@ -36,6 +36,8 @@ dependencies:
     path: packages/exercise_repository
   body_parts_repository:
     path: packages/body_parts_repository
+  fab_circural_menu:
+    path: packages/fab_circural_menu
 
   bloc: ^8.1.0
   flutter:
