@@ -34,12 +34,12 @@ class FirestoreHistoryService{
       return History(
         id: doc.id,
         name: data['name'],
-        // adding_user_name: data['adding_user_name'],
-        // adding_user_id: data['adding_user_id'],
-        // exercises_name: List<String>.from(data['exercises_name']),
-        // exercises_sets_count: List<int>.from(data['exercises_sets_count']),
-        // exercises_weights: List<int>.from(data['exercises_weights']),
-        // date: data['date']
+        adding_user_name: data['adding_user_name'],
+        adding_user_id: data['adding_user_id'],
+        exercises_name: List<String>.from(data['exercises_name']),
+        exercises_sets_count: List<int>.from(data['exercises_sets_count']),
+        exercises_weights: List<int>.from(data['exercises_weights']),
+        date: data['date']
       );
     }).toList();
   }

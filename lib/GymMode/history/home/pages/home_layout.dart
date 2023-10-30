@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:container_body/container_body.dart';
+import '../../widgets/header_title.dart';
 import '../home.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -12,6 +13,7 @@ class HomeLayout extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          HeaderTitle(),
           ContainerBody(
             children: [
               ShowHistoryWidget(),
