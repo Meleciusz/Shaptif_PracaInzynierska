@@ -29,11 +29,9 @@ class _CategoriesWidgetState extends State<CategoriesWidget>{
           return const Center(child: CircularProgressIndicator());
         }
         else if(state is CategoryWidgetLoaded){
-          log("jestem tammmmmmmmmm");
           return CategoriesSuccessWidget(categories: state.categories);
         }
         else if(state is CategoryOperationSuccess){
-          log("jestem tutajjjjjj");
           categoryWidgetBloc.add(GetCategories());
           return Container();
         }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/header_title/header_title.dart';
+import '../../../../history/history.dart';
 import '../../../NewExercise/home/home.dart';
 import '../../widgets/container_body.dart';
 import '../widgets/all_exercises_widget/all_exercises.dart';
@@ -21,6 +22,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
+    final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
 
     return Scaffold(
       body: const Padding(
@@ -50,6 +52,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 return IconButton(
                   onPressed: (){
                     allExercisesBloc.add(RefreshExercises());
+                    //exercisesByCategoryBloc.add(RefreshExercisesByCategory());
                   },
                   icon:  const Icon(Icons.refresh),
                 );
@@ -82,11 +85,16 @@ class _HomeLayoutState extends State<HomeLayout> {
                 }
               }
           ),
-          IconButton(icon: const Icon(Icons.table_chart_outlined),
+          IconButton(icon: const Icon(Icons.play_arrow_outlined),
           onPressed: (){}
             ,),
           IconButton(icon: const Icon(Icons.auto_stories),
-            onPressed: (){}
+            onPressed: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => const HomePageHistory())
+              );
+            }
             ,),
           IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark))
         ]

@@ -8,3 +8,9 @@ class GetExercisesByCategory extends ExercisesByCategoryEvent {
 
   GetExercisesByCategory(this.selected);
 }
+
+class RefreshExercisesByCategory extends ExercisesByCategoryEvent {
+  final String selected;
+
+  RefreshExercisesByCategory(this.selected);
+}

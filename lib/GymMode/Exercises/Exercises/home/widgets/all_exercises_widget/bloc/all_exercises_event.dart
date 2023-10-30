@@ -15,12 +15,6 @@ class AddExercise extends AllExercisesEvent {
   AddExercise(this.exercise);
 }
 
-class UpdateExercise extends AllExercisesEvent {
-  final Exercise exercise;
-
-  UpdateExercise(this.exercise);
-}
-
 class DeleteExercise extends AllExercisesEvent {
   final String id;
 

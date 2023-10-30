@@ -22,6 +22,18 @@ class ExercisesByCategoryBloc extends Bloc<ExercisesByCategoryEvent, ExercisesBy
         emit(ExercisesByCategoryOperationFailure("Failed to load exercises by category"));
       }
     });
+
+    on<RefreshExercisesByCategory>((event, emit) async {
+      try {
+        emit(ExercisesByCategoryLoading());
+        await firestoreService.clearFirestoreCache();
+
+        final exercisesByCategory = await firestoreService.getExercisesByCategory(event.selected);
+        emit(ExercisesByCategoryLoaded(exercisesByCategory));
+      }catch(e){
+        emit(ExercisesByCategoryOperationFailure("Failed to refresh exercises by category"));
+      }
+    });
   }
 
 }

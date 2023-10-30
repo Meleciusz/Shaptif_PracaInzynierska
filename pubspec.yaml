@@ -36,6 +36,12 @@ dependencies:
     path: packages/exercise_repository
   body_parts_repository:
     path: packages/body_parts_repository
+  history_repository:
+    path: packages/history_repository
+
+
+  container_body:
+    path: packages/container_body
   fab_circural_menu:
     path: packages/fab_circural_menu
 
