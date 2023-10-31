@@ -22,7 +22,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
-    final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
+   // final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
 
     return Scaffold(
       body: const Padding(
@@ -34,8 +34,8 @@ class _HomeLayoutState extends State<HomeLayout> {
             SizedBox(height: 20),
             ContainerBody(
               children: [
-                CategoriesWidget(),
-                ExercisesByCategory(),
+                //CategoriesWidget(),
+                //ExercisesByCategory(),
                 AllExercisesWidget(title: 'All exercises'),
               ],
             ),

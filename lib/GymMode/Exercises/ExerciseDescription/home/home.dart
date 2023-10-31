@@ -8,10 +8,10 @@ import 'widgets/widgets.dart';
 
 
 class ExerciseDescription extends StatefulWidget {
-  const ExerciseDescription({super.key, required this.exercise, required this.allExerciseBloc});
+  const ExerciseDescription({super.key, required this.exercise, required this.contextBloc});
 
   final Exercise exercise;
-  final AllExercisesBloc allExerciseBloc;
+  final AllExercisesBloc contextBloc;
 
   @override
   State<ExerciseDescription> createState() => _ExerciseDescriptionState();
@@ -35,7 +35,7 @@ class ExerciseDescription extends StatefulWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              HeaderTitle(veryfied: widget.exercise.veryfied, addingUser: widget.exercise.adding_user_id, exerciseId: widget.exercise.id, allExercisesBloc: widget.allExerciseBloc,),
+              HeaderTitle(veryfied: widget.exercise.veryfied, addingUser: widget.exercise.adding_user_id, exerciseId: widget.exercise.id, contextBloc: widget.contextBloc,),
               const SizedBox(height: 20),
 
               ContainerBody(

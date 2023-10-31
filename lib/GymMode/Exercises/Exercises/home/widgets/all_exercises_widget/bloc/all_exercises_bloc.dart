@@ -10,70 +10,83 @@ part 'all_exercises_event.dart';
 part 'all_exercises_state.dart';
 
 class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
+  AllExercisesBloc({
+    required this.firestoreService,
+  }) : super(const AllExercisesState()) {
+    on<GetExercises>(_mapGetExercisesEvent);
+    on<RefreshExercises>(_mapRefreshExercisesEvent);
+    on<AddExercise>(_mapAddExerciseEvent);
+    on<DeleteExercise>(_mapDeleteExerciseEvent);
+  }
+
   final FirestoreExerciseService firestoreService;
 
-  AllExercisesBloc(this.firestoreService) : super(AllExercisesInitial()){
-    on<LoadAllExercises>((event, emit) async{
-      try{
-        emit(ExercisesLoading());
-        final exercises = await firestoreService.getExercises();
-        emit(ExercisesLoaded(exercises));
-      } catch(e){
-        emit(ExerciseOperationFailure("Failed to load exercises"));
-      }
-    });
-
-    on<LoadVeryfiedExercises>((event, emit) async{
-      try{
-        emit(ExercisesLoading());
-        final exercises = await firestoreService.getVerifiedExercises();
-        emit(ExercisesLoaded(exercises));
-      } catch(e){
-        emit(ExerciseOperationFailure("Failed to load exercises"));
-      }
-    });
-
-    on<RefreshExercises>((event, emit) async {
-      try {
-        emit(ExercisesLoading());
-
-        await firestoreService.clearFirestoreCache();
-
-        final exercises = await firestoreService.getExercises();
-        emit(ExercisesLoaded(exercises));
-      } catch (e) {
-        emit(ExerciseOperationFailure("Failed to refresh exercises"));
-      }
-    });
-
-    on<AddExercise>((event, emit) async {
-      try{
-        emit(ExercisesLoading());
-        await firestoreService.addExercise(event.exercise);
-        emit(ExerciseOperationSuccess("Exercise added"));
-      } catch(e){
-        emit(ExerciseOperationFailure("Failed to add exercise"));
-      }
-    });
-
-    // on<UpdateExercise>((event, emit) async {
-    //   try{
-    //     emit(ExercisesLoading());
-    //     await firestoreService.updateExercise(event.exercise);
-    //     emit(ExerciseOperationSuccess("Exercise updated"));
-    //   } catch(e){
-    //     emit(ExerciseOperationFailure("Failed to update exercise"));
-    //   }
-    // });
-
-    on<DeleteExercise>((event, emit) async {
-      try{
-        emit(ExercisesLoading());
-        await firestoreService.deleteExercise(event.id);
-        emit(ExerciseOperationSuccess("Exercise deleted"));
-      } catch(e){
-        emit(ExerciseOperationFailure("Failed to delete exercise"));
-      }
-    });
+  void _mapGetExercisesEvent(GetExercises event, Emitter<AllExercisesState> emit) async {
+    try {
+      emit(state.copyWith(status: AllExercisesStatus.loading));
+      final exercises = await firestoreService.getExercises();
+      emit(state.copyWith(status: AllExercisesStatus.success, exercises: exercises));
+    } catch (e) {
+      emit(state.copyWith(status: AllExercisesStatus.error));
+    }
   }
+
+  void _mapRefreshExercisesEvent(RefreshExercises event, Emitter<AllExercisesState> emit) async {
+    try {
+      emit(state.copyWith(status: AllExercisesStatus.loading));
+      await firestoreService.clearFirestoreCache();
+      final exercises = await firestoreService.getExercises();
+      emit(state.copyWith(status: AllExercisesStatus.success, exercises: exercises));
+    } catch (e) {
+      emit(state.copyWith(status: AllExercisesStatus.error));
+    }
+  }
+
+  void _mapAddExerciseEvent(AddExercise event, Emitter<AllExercisesState> emit) async {
+    try {
+      emit(state.copyWith(status: AllExercisesStatus.loading));
+      await firestoreService.addExercise(event.exercise);
+      emit(state.copyWith(status: AllExercisesStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: AllExercisesStatus.error));
+    }
+  }
+
+  void _mapDeleteExerciseEvent(DeleteExercise event, Emitter<AllExercisesState> emit) async {
+    try {
+      emit(state.copyWith(status: AllExercisesStatus.loading));
+      await firestoreService.deleteExercise(event.exerciseID);
+      emit(state.copyWith(status: AllExercisesStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: AllExercisesStatus.error));
+    }
+  }
+  //   on<LoadVeryfiedExercises>((event, emit) async{
+  //     try{
+  //       emit(ExercisesLoading());
+  //       final exercises = await firestoreService.getVerifiedExercises();
+  //       emit(ExercisesLoaded(exercises));
+  //     } catch(e){
+  //       emit(ExerciseOperationFailure("Failed to load exercises"));
+  //     }
+  //   });
+  //   // on<UpdateExercise>((event, emit) async {
+  //   //   try{
+  //   //     emit(ExercisesLoading());
+  //   //     await firestoreService.updateExercise(event.exercise);
+  //   //     emit(ExerciseOperationSuccess("Exercise updated"));
+  //   //   } catch(e){
+  //   //     emit(ExerciseOperationFailure("Failed to update exercise"));
+  //   //   }
+  //   // });
+  //   on<DeleteExercise>((event, emit) async {
+  //     try{
+  //       emit(ExercisesLoading());
+  //       await firestoreService.deleteExercise(event.id);
+  //       emit(ExerciseOperationSuccess("Exercise deleted"));
+  //     } catch(e){
+  //       emit(ExerciseOperationFailure("Failed to delete exercise"));
+  //     }
+  //   });
+  // }
 }

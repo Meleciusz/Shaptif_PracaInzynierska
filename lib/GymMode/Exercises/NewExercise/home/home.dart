@@ -174,7 +174,7 @@ class _NewExerciseState extends State<NewExercise> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          widget.allExercisesBloc.add(AddExercise(Exercise(
+          widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
             id: '',
             adding_user_id: user.name!,
             body_parts: selectedBodyParts.toList(),
@@ -184,6 +184,7 @@ class _NewExerciseState extends State<NewExercise> {
             veryfied: false
           )));
 
+          widget.allExercisesBloc.add(RefreshExercises());
           Navigator.pop(context);
         },
         shape: const CircleBorder(),

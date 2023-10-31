@@ -1,26 +1,33 @@
 part of 'all_exercises_bloc.dart';
 
-@immutable
-abstract class AllExercisesState{}
+enum AllExercisesStatus { initial, loading, success, error }
 
-class AllExercisesInitial extends AllExercisesState {}
-
-class ExercisesLoading extends AllExercisesState {}
-
-class ExercisesLoaded extends AllExercisesState {
-  final List<Exercise> exercises;
-
-  ExercisesLoaded(this.exercises);
+extension AllExercisesStatusX on AllExercisesStatus {
+  bool get isInitial => this == AllExercisesStatus.initial;
+  bool get isLoading => this == AllExercisesStatus.loading;
+  bool get isSuccess => this == AllExercisesStatus.success;
+  bool get isError => this == AllExercisesStatus.error;
 }
 
-class ExerciseOperationSuccess extends AllExercisesState {
-  final String message;
+class AllExercisesState extends Equatable {
+  const AllExercisesState({
+    this.status = AllExercisesStatus.initial,
+    this.exercises,
+  });
 
-  ExerciseOperationSuccess(this.message);
-}
+  final List<Exercise>? exercises;
+  final AllExercisesStatus status;
 
-class ExerciseOperationFailure extends AllExercisesState {
-  final String message;
+  @override
+  List<Object?> get props => [exercises, status];
 
-  ExerciseOperationFailure(this.message);
+  AllExercisesState copyWith({
+    AllExercisesStatus? status,
+    List<Exercise>? exercises,
+  }){
+    return AllExercisesState(
+      status: status ?? this.status,
+      exercises: exercises ?? this.exercises,
+    );
+  }
 }

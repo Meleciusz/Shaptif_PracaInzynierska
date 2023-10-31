@@ -22,11 +22,11 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => ExerciseDescription(exercise: widget.exercise, allExerciseBloc: widget.allExerciseBloc)
-            )
-        );
+        // Navigator.of(context).push(
+        //     MaterialPageRoute(
+        //         builder: (context) => ExerciseDescription(exercise: widget.exercise)
+        //     )
+        // );
       },
       child: Stack(
           children: [

@@ -1,22 +1,37 @@
 part of 'all_exercises_bloc.dart';
 
-@immutable
-abstract class AllExercisesEvent{}
+class AllExercisesEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
-class LoadAllExercises extends AllExercisesEvent {}
+class GetExercises extends AllExercisesEvent {
+  @override
+  List<Object?> get props => [];
+}
 
-class LoadVeryfiedExercises extends AllExercisesEvent {}
-
-class RefreshExercises extends AllExercisesEvent {}
+class RefreshExercises extends AllExercisesEvent {
+  @override
+  List<Object?> get props => [];
+}
 
 class AddExercise extends AllExercisesEvent {
+  AddExercise({
+    required this.exercise,
+  });
+
   final Exercise exercise;
 
-  AddExercise(this.exercise);
+  @override
+  List<Object?> get props => [];
 }
 
 class DeleteExercise extends AllExercisesEvent {
-  final String id;
+  DeleteExercise({
+    required this.exerciseID,
+  });
+  final String exerciseID;
 
-  DeleteExercise(this.id);
+  @override
+  List<Object?> get props => [];
 }
