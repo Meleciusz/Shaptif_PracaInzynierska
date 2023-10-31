@@ -9,3 +9,6 @@ environment:
 dependencies:
   cloud_firestore: ^4.3.0
   connectivity_plus: ^4.0.2
+
+  authorization_repository:
+    path: ../authorization_repository

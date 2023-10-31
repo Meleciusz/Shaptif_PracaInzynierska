@@ -4,12 +4,20 @@ import 'package:history_repository/history_repository.dart';
 import 'history_item.dart';
 
 class ShowHistorySuccessWidget extends StatelessWidget {
-  const ShowHistorySuccessWidget({super.key, required this.history});
+  ShowHistorySuccessWidget({super.key, required this.history});
   final List<History>? history;
   final title = 'History';
 
+  final Set<String> historyUniqueNames ={};
+
   @override
   Widget build(BuildContext context) {
+    if(history!.isNotEmpty){
+      history!.forEach((element) {
+        historyUniqueNames.add(element.name!);
+      });
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -23,9 +31,9 @@ class ShowHistorySuccessWidget extends StatelessWidget {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           height:
-          ((100 * history!.length) + MediaQuery.of(context).size.width) + 24.0,
+          ((100 * historyUniqueNames.length) + MediaQuery.of(context).size.width) + 24.0,
           child: ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.only(
@@ -35,13 +43,14 @@ class ShowHistorySuccessWidget extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return HistoryItem(
-                historyItem: history![index],
+                historyItem: historyUniqueNames.elementAt(index),
+                elements : history!.where((element) => element.name == historyUniqueNames.elementAt(index)).toList(),
               );
             },
             separatorBuilder: (_, __) => const SizedBox(
               height: 20.0,
             ),
-            itemCount: history!.length,
+            itemCount: historyUniqueNames.length,
           ),
         ),
       ],
