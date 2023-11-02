@@ -15,15 +15,24 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-        value: _authorizationRepository,
+      return RepositoryProvider(
+          create: (context) => AuthorizationRepository(),
         child: BlocProvider(
-          create: (_) => AppBloc(
-            authorizationRepository: _authorizationRepository,
+          create: (context) => AppBloc(
+            authorizationRepository: context.read<AuthorizationRepository>(),
           ),
-        child: const AppView(),
-      ),
-    );
+              child: const AppView(),
+        ),
+      );
+    // return RepositoryProvider.value(
+    //     value: _authorizationRepository,
+    //     child: BlocProvider(
+    //       create: (_) => AppBloc(
+    //         authorizationRepository: _authorizationRepository,
+    //       ),
+    //     child: const AppView(),
+    //   ),
+    // );
   }
 }
 

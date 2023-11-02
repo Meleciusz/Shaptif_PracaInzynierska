@@ -8,10 +8,10 @@ import '../all_exercises_widget/bloc/all_exercises_bloc.dart';
 
 class ExerciseByCategoryItem extends StatefulWidget {
   const ExerciseByCategoryItem(
-      {super.key, required this.exercise, required this.allExerciseBloc});
+      {super.key, required this.exercise});
 
   final Exercise exercise;
-  final AllExercisesBloc allExerciseBloc;
+  //final AllExercisesBloc allExerciseBloc;
 
   @override
   State<ExerciseByCategoryItem> createState() => _ExerciseByCategoryItemState();

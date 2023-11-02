@@ -1,7 +1,22 @@
 part of 'category_widget_bloc.dart';
 
-@immutable
-abstract class CategoryWidgetEvent {}
+class CategoryEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
-class GetCategories extends CategoryWidgetEvent {
+class GetCategories extends CategoryEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class SelectCategory extends CategoryEvent {
+  SelectCategory({
+    required this.idSelected,
+  });
+
+  final int idSelected;
+
+  @override
+  List<Object?> get props => [idSelected];
 }

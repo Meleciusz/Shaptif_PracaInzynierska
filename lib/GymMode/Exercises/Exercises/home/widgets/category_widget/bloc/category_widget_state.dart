@@ -1,38 +1,38 @@
 part of 'category_widget_bloc.dart';
 
-@immutable
-abstract class CategoryWidgetState {}
+enum CategoryStatus { initial, loading, success, error, selected }
 
-class CategorySelected extends CategoryWidgetState {
-  final int idCategory;
-
-  CategorySelected(this.idCategory);
+extension CategoryStatusX on CategoryStatus {
+  bool get isInitial => this == CategoryStatus.initial;
+  bool get isLoading => this == CategoryStatus.loading;
+  bool get isSuccess => this == CategoryStatus.success;
+  bool get isError => this == CategoryStatus.error;
+  bool get isSelected => this == CategoryStatus.selected;
 }
 
-class CategoryWidgetInitial extends CategoryWidgetState {}
+final class CategoryState extends Equatable {
+  const CategoryState({
+    this.status = CategoryStatus.initial,
+    List<BodyParts>? categories,
+    this.idSelected = 0,
+  }): categories = categories ?? const [];
 
-class CategoryWidgetLoading extends CategoryWidgetState {}
-
-class CategoryExerciseWidgetLoaded extends CategoryWidgetState {
-  final List<Exercise> exerciseByCategories;
-
-  CategoryExerciseWidgetLoaded(this.exerciseByCategories);
-}
-
-class CategoryWidgetLoaded extends CategoryWidgetState {
   final List<BodyParts> categories;
+  final int idSelected;
+  final CategoryStatus status;
 
-  CategoryWidgetLoaded(this.categories);
-}
+  @override
+  List<Object?> get props => [categories, idSelected, status];
 
-class CategoryOperationSuccess extends CategoryWidgetState {
-  final String message;
-
-  CategoryOperationSuccess(this.message);
-}
-
-class CategoryOperationFailure extends CategoryWidgetState {
-  final String message;
-
-  CategoryOperationFailure(this.message);
+  CategoryState copyWith({
+    CategoryStatus? status,
+    List<BodyParts>? categories,
+    int? idSelected,
+  }) {
+    return CategoryState(
+      status: status ?? this.status,
+      categories: categories ?? this.categories,
+      idSelected: idSelected ?? this.idSelected,
+    );
+  }
 }

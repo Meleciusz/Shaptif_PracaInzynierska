@@ -1,16 +1,18 @@
 part of 'exercises_by_category_bloc.dart';
 
-@immutable
-abstract class ExercisesByCategoryEvent {}
-
-class GetExercisesByCategory extends ExercisesByCategoryEvent {
-  final String selected;
-
-  GetExercisesByCategory(this.selected);
+class ExercisesByCategoryEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
 }
 
-class RefreshExercisesByCategory extends ExercisesByCategoryEvent {
-  final String selected;
+class GetExercisesByCategory extends ExercisesByCategoryEvent {
+  GetExercisesByCategory({
+     required this.idSelected,
+     required this.categoryName,
+  });
+  final int idSelected;
+  final String categoryName;
 
-  RefreshExercisesByCategory(this.selected);
+  @override
+  List<Object?> get props => [idSelected, categoryName];
 }

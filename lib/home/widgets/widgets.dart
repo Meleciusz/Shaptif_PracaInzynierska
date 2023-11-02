@@ -23,19 +23,17 @@ class Avatar extends StatelessWidget {
 }
 
 class GymModeButton extends StatelessWidget {
-  const GymModeButton({super.key, this.user});
+  const GymModeButton({super.key});
 
-  final User? user;
 
   @override
   Widget build(BuildContext context) {
-    final user = this.user;
 
     return ElevatedButton(
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-              builder: (context) => HomePageGym(user : user))
+              builder: (context) => HomePageGym())
         );
       },
       style: ElevatedButton.styleFrom(
@@ -50,6 +48,8 @@ class GymModeButton extends StatelessWidget {
   }
 }
 
+
+//////////////////////////////////////////////////////////
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
 

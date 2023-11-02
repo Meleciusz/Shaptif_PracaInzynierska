@@ -1,5 +1,9 @@
+import 'dart:developer';
+
+import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/exercises_by_category/bloc/exercises_by_category_bloc.dart';
 
 import '../../../../../../authorization/app/app.dart';
 import '../../../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
@@ -14,9 +18,12 @@ class HeaderTitle extends StatelessWidget {
   final AllExercisesBloc contextBloc;
 
 
+
   @override
   Widget build(BuildContext context) {
     final user = context.select((AppBloc bloc) => bloc.state.user);
+    log(user.toString());
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [

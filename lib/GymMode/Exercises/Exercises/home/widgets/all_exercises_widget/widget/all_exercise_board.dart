@@ -3,22 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/exercises.dart';
 import '../../../../../ExerciseDescription/exercises_description.dart';
+import '../../exercises_by_category/exercises_by_category.dart';
 import 'all_exercises.dart';
 
 class AllExerciseBoard extends StatelessWidget {
-const AllExerciseBoard({super.key, required this.exercise, required this.contextBloc});
+const AllExerciseBoard({super.key, required this.exercise});
   final Exercise exercise;
-  final AllExercisesBloc contextBloc;
 
   @override
   Widget build(BuildContext context) {
+    final context_ = context.read<AllExercisesBloc>();
+
     return BlocBuilder<AllExercisesBloc, AllExercisesState>(
         builder: (context, state){
           return GestureDetector(
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => ExerciseDescription(exercise: exercise, contextBloc: contextBloc)
+                      builder: (context) => ExerciseDescription(exercise: exercise, contextBloc: context_)
                   )
               );
             },

@@ -1,39 +1,27 @@
-import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:body_parts_repository/body_parts_repository.dart';
+import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'exercises_by_category_event.dart';
 part 'exercises_by_category_state.dart';
 
 class ExercisesByCategoryBloc extends Bloc<ExercisesByCategoryEvent, ExercisesByCategoryState> {
-  final FirestoreExerciseService firestoreService;
-  final FirestoreBodyPartsService firestoreBodyPartsService;
-
-  ExercisesByCategoryBloc(this.firestoreService, this.firestoreBodyPartsService) : super(ExercisesByCategoryInitial()) {
-    on<GetExercisesByCategory>((event, emit) async{
-      try{
-        emit(ExercisesByCategoryLoading());
-        final exercisesByCategory = await firestoreService.getExercisesByCategory(event.selected);
-        emit(ExercisesByCategoryLoaded(exercisesByCategory));
-      }catch(e){
-        emit(ExercisesByCategoryOperationFailure("Failed to load exercises by category"));
-      }
-    });
-
-    on<RefreshExercisesByCategory>((event, emit) async {
-      try {
-        emit(ExercisesByCategoryLoading());
-        await firestoreService.clearFirestoreCache();
-
-        final exercisesByCategory = await firestoreService.getExercisesByCategory(event.selected);
-        emit(ExercisesByCategoryLoaded(exercisesByCategory));
-      }catch(e){
-        emit(ExercisesByCategoryOperationFailure("Failed to refresh exercises by category"));
-      }
-    });
+  ExercisesByCategoryBloc({
+    required this.firestoreService,
+  }) : super(const ExercisesByCategoryState()) {
+    on<GetExercisesByCategory>(_mapGetExercisesByCategoryEvent);
   }
+  final FirestoreExerciseService firestoreService;
 
+  void _mapGetExercisesByCategoryEvent(GetExercisesByCategory event, Emitter<ExercisesByCategoryState> emit) async {
+    try {
+      emit(state.copyWith(status: ExercisesByCategoryStatus.loading));
+      final exercisesByCategory = await firestoreService.getExercisesByCategory(event.categoryName);
+      emit(state.copyWith(status: ExercisesByCategoryStatus.success, exercises: exercisesByCategory, categoryName: event.categoryName));
+    } catch (e) {
+      emit(state.copyWith(status: ExercisesByCategoryStatus.error));
+    }
+  }
 }

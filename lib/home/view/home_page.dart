@@ -19,18 +19,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
-    var scaffoldKey = GlobalKey<ScaffoldState>();
+    //var scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
-      key: scaffoldKey,
+      //key: scaffoldKey,
       appBar: AppBar(
         title: const Text('Home'),
-        leading: IconButton(
-          onPressed: (){
-            scaffoldKey.currentState?.openDrawer();
-          },
-          icon: const Icon(Icons.settings),
-        ),
+        // leading: IconButton(
+        //   onPressed: (){
+        //     scaffoldKey.currentState?.openDrawer();
+        //   },
+        //   icon: const Icon(Icons.settings),
+        // ),
         actions: <Widget>[
           IconButton(
             key: const Key('homePage_logout_iconButton'),
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 }
             ),
             SizedBox(height: 100),
-            GymModeButton(user: user),
+            GymModeButton(),
           ],
         ),
       ),

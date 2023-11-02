@@ -1,26 +1,31 @@
-import 'dart:async';
-import 'package:exercise_repository/exercise_repository.dart';
+import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:shaptifii/GymMode/Exercises/Exercises/exercises.dart';
 import 'package:body_parts_repository/body_parts_repository.dart';
 
 part 'category_widget_event.dart';
 part 'category_widget_state.dart';
 
-class CategoryWidgetBloc extends Bloc<CategoryWidgetEvent, CategoryWidgetState> {
-  final FirestoreExerciseService firestoreServiceExercise;
-  final FirestoreBodyPartsService firestoreBodyPartsService;
+class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
+  CategoryBloc({
+    required this.firestoreService,
+  }) : super(const CategoryState()){
+    on<GetCategories>(_mapGetCategoriesEvent);
+    on<SelectCategory>(_mapSelectCategoryEvent);
+  }
 
-  CategoryWidgetBloc(this.firestoreServiceExercise, this.firestoreBodyPartsService) : super(CategoryWidgetInitial()) {
-    on<GetCategories>((event, emit) async {
-      try {
-        emit(CategoryWidgetLoading());
-        final categories = await firestoreBodyPartsService.getBodyParts();
-        emit(CategoryWidgetLoaded(categories));
-      } catch (e) {
-        emit(CategoryOperationFailure("Failed to load body parts"));
-      }
-    });
+  final FirestoreBodyPartsService firestoreService;
+
+  void _mapGetCategoriesEvent(GetCategories event, Emitter<CategoryState> emit) async {
+    emit(state.copyWith(status: CategoryStatus.loading));
+    try{
+      final categories = await firestoreService.getBodyParts();
+      emit(state.copyWith(status: CategoryStatus.success, categories: categories));
+    } catch(e){
+      emit(state.copyWith(status: CategoryStatus.error));
+    }
+  }
+
+  void _mapSelectCategoryEvent(SelectCategory event, Emitter<CategoryState> emit) async {
+    emit(state.copyWith(status: CategoryStatus.selected, idSelected: event.idSelected));
   }
 }

@@ -2,6 +2,7 @@ import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
+import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/exercises_by_category/bloc/exercises_by_category_bloc.dart';
 import 'all_exercise_board.dart';
 
 class LoadedStateWidget extends StatelessWidget {
@@ -36,7 +37,6 @@ class LoadedStateWidget extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return AllExerciseBoard(
                             exercise: exercises![index],
-                            contextBloc: context.read<AllExercisesBloc>()
                           );
                     },
                     separatorBuilder: (_, __) => const SizedBox(

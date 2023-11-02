@@ -1,17 +1,21 @@
+import 'dart:developer';
+
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
 import 'exercises_by_category_item.dart';
 
 class CategoriesSuccessWidget extends StatelessWidget {
-  const CategoriesSuccessWidget({super.key, required this.exercises, required this.allExerciseBloc});
+  const CategoriesSuccessWidget({super.key, required this.exercisesByCategory, required this.categoryName});
 
-  final List<Exercise> exercises;
-  final AllExercisesBloc allExerciseBloc;
+  final List<Exercise> exercisesByCategory;
+  final String categoryName;
+
 
   @override
   Widget build(BuildContext context) {
-    return exercises.isNotEmpty ?
+    log(categoryName);
+    log(exercisesByCategory.length.toString());
+    return exercisesByCategory.isNotEmpty ?
       Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,7 +24,7 @@ class CategoriesSuccessWidget extends StatelessWidget {
               left: 24.0,
               bottom: 16.0,
             ),
-          child: Text(exercises.first.body_parts.first.toString(),
+          child: Text(exercisesByCategory.first.body_parts.first.toString(),
           style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
@@ -34,12 +38,12 @@ class CategoriesSuccessWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return ExerciseByCategoryItem(
-                  exercise: exercises[index],
-                  allExerciseBloc: allExerciseBloc,
+                  exercise: exercisesByCategory[index],
+                  //allExerciseBloc: allExerciseBloc,
                 );
               },
               separatorBuilder: (_, __) => const SizedBox(width: 25),
-              itemCount: exercises.length
+              itemCount: exercisesByCategory.length
           ),
         )
       ]
