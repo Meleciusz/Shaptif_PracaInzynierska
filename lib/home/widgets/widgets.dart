@@ -1,6 +1,5 @@
-import 'package:authorization_repository/authorization_repository.dart';
 import 'package:flutter/material.dart';
-import '../../GymMode/Exercises/Exercises/home/pages/home_page.dart';
+import '../../GymMode/main_page/view/main_page.dart';
 
 
 
@@ -33,7 +32,7 @@ class GymModeButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-              builder: (context) => HomePageGym())
+              builder: (context) => const MainPage())
         );
       },
       style: ElevatedButton.styleFrom(
@@ -57,7 +56,7 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.symmetric(vertical: 50),
+        padding: const EdgeInsets.symmetric(vertical: 50),
         children: const [
           DrawerHeader(
             decoration: BoxDecoration(

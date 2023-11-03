@@ -1,0 +1,1 @@
+export 'trainings/trainings.dart';

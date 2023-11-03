@@ -5,7 +5,7 @@ class History{
   String adding_user_name;
   List<String> exercises_name;
   List<int> exercises_sets_count;
-  List<int> exercises_weights;
+  List<String> exercises_weights;
   String date;
 
 
