@@ -25,7 +25,7 @@ class CategoriesSuccessWidget extends StatelessWidget {
                         context.read<ExercisesByCategoryBloc>().add(
                           GetExercisesByCategory(
                             idSelected: categorySelected.id,
-                            categoryName: categorySelected.part ?? '',
+                            categoryName: categorySelected.part,
                           )
                         );
                         context.read<CategoryBloc>().add(
@@ -37,7 +37,7 @@ class CategoriesSuccessWidget extends StatelessWidget {
                   );
                 },
                 scrollDirection: Axis.horizontal,
-                separatorBuilder: (_, __) => SizedBox(
+                separatorBuilder: (_, __) => const SizedBox(
                   width: 16.0,
                 ),
                 itemCount: state.categories.length

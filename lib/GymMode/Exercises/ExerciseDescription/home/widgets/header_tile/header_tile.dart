@@ -11,18 +11,19 @@ import '../../../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercis
 const _avatarSize = 40.0;
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key, required this.veryfied, required this.addingUser, required this.exerciseId, required this.contextBloc});
+  const HeaderTitle({super.key, required this.veryfied, required this.addingUser,
+    required this.exerciseId, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
   final bool veryfied;
   final String addingUser;
   final String exerciseId;
-  final AllExercisesBloc contextBloc;
+  final AllExercisesBloc allExercisesBloc;
+  final ExercisesByCategoryBloc exercisesByCategoryBloc;
 
 
 
   @override
   Widget build(BuildContext context) {
     final user = context.select((AppBloc bloc) => bloc.state.user);
-    log(user.toString());
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -38,8 +39,9 @@ class HeaderTitle extends StatelessWidget {
         veryfied ?
         const SizedBox() :
         IconButton(onPressed: (){
-          contextBloc.add(DeleteExercise(exerciseID: exerciseId));
-          contextBloc.add(RefreshExercises());
+          allExercisesBloc.add(DeleteExercise(exerciseID: exerciseId));
+          allExercisesBloc.add(RefreshExercises());
+          exercisesByCategoryBloc.add(RefreshExercisesByCategory());
           Navigator.pop(context);
         }, icon: const Icon(Icons.delete_forever, size: _avatarSize)) :
         const SizedBox(),

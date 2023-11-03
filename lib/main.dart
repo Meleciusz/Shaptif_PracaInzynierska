@@ -10,9 +10,9 @@ Future<void> main() async{
   Bloc.observer = const AppBlocObserver();
 
   await Firebase.initializeApp();
+  //
+  // final authorizationRepository = AuthorizationRepository();
+  // await authorizationRepository.user.first;
 
-  final authorizationRepository = AuthorizationRepository();
-  await authorizationRepository.user.first;
-
-  runApp(App(authorizationRepository: authorizationRepository));
+  runApp(const App());
 }

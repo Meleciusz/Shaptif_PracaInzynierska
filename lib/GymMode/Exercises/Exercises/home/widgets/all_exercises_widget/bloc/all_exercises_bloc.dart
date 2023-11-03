@@ -61,32 +61,4 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
       emit(state.copyWith(status: AllExercisesStatus.error));
     }
   }
-  //   on<LoadVeryfiedExercises>((event, emit) async{
-  //     try{
-  //       emit(ExercisesLoading());
-  //       final exercises = await firestoreService.getVerifiedExercises();
-  //       emit(ExercisesLoaded(exercises));
-  //     } catch(e){
-  //       emit(ExerciseOperationFailure("Failed to load exercises"));
-  //     }
-  //   });
-  //   // on<UpdateExercise>((event, emit) async {
-  //   //   try{
-  //   //     emit(ExercisesLoading());
-  //   //     await firestoreService.updateExercise(event.exercise);
-  //   //     emit(ExerciseOperationSuccess("Exercise updated"));
-  //   //   } catch(e){
-  //   //     emit(ExerciseOperationFailure("Failed to update exercise"));
-  //   //   }
-  //   // });
-  //   on<DeleteExercise>((event, emit) async {
-  //     try{
-  //       emit(ExercisesLoading());
-  //       await firestoreService.deleteExercise(event.id);
-  //       emit(ExerciseOperationSuccess("Exercise deleted"));
-  //     } catch(e){
-  //       emit(ExerciseOperationFailure("Failed to delete exercise"));
-  //     }
-  //   });
-  // }
 }

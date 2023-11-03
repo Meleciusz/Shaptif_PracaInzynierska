@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../authorization/app/app.dart';
 import '../../ExerciseDescription/widgets/container_body.dart';
 import '../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
+import '../../Exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
 import '../widgets/new_exercise_images.dart';
 
 class NewExercise extends StatefulWidget {
-  const NewExercise({super.key, required this.allExercisesBloc});
+  const NewExercise({super.key, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
   final AllExercisesBloc allExercisesBloc;
+  final ExercisesByCategoryBloc exercisesByCategoryBloc;
 
   @override
   State<NewExercise> createState() => _NewExerciseState();
@@ -185,6 +187,7 @@ class _NewExerciseState extends State<NewExercise> {
           )));
 
           widget.allExercisesBloc.add(RefreshExercises());
+          widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory());
           Navigator.pop(context);
         },
         shape: const CircleBorder(),

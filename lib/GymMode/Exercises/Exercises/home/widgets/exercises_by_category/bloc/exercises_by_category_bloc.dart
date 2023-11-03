@@ -12,6 +12,7 @@ class ExercisesByCategoryBloc extends Bloc<ExercisesByCategoryEvent, ExercisesBy
     required this.firestoreService,
   }) : super(const ExercisesByCategoryState()) {
     on<GetExercisesByCategory>(_mapGetExercisesByCategoryEvent);
+    on<RefreshExercisesByCategory>(_mapRefreshExercisesByCategoryEvent);
   }
   final FirestoreExerciseService firestoreService;
 
@@ -20,6 +21,17 @@ class ExercisesByCategoryBloc extends Bloc<ExercisesByCategoryEvent, ExercisesBy
       emit(state.copyWith(status: ExercisesByCategoryStatus.loading));
       final exercisesByCategory = await firestoreService.getExercisesByCategory(event.categoryName);
       emit(state.copyWith(status: ExercisesByCategoryStatus.success, exercises: exercisesByCategory, categoryName: event.categoryName));
+    } catch (e) {
+      emit(state.copyWith(status: ExercisesByCategoryStatus.error));
+    }
+  }
+
+  void _mapRefreshExercisesByCategoryEvent(RefreshExercisesByCategory event, Emitter<ExercisesByCategoryState> emit) async {
+    try {
+      emit(state.copyWith(status: ExercisesByCategoryStatus.loading));
+      await firestoreService.clearFirestoreCache();
+      final exercisesByCategory = await firestoreService.getExercisesByCategory(state.categoryName);
+      emit(state.copyWith(status: ExercisesByCategoryStatus.success, exercises: exercisesByCategory, categoryName: state.categoryName));
     } catch (e) {
       emit(state.copyWith(status: ExercisesByCategoryStatus.error));
     }

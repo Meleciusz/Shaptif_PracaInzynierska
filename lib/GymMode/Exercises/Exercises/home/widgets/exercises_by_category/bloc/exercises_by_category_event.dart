@@ -16,3 +16,8 @@ class GetExercisesByCategory extends ExercisesByCategoryEvent {
   @override
   List<Object?> get props => [idSelected, categoryName];
 }
+
+class RefreshExercisesByCategory extends ExercisesByCategoryEvent {
+  @override
+  List<Object?> get props => [];
+}

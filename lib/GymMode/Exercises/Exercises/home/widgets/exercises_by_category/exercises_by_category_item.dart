@@ -1,7 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/Exercises/ExerciseDescription/exercises_description.dart';
+import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
 import 'package:shaptifii/GymMode/Exercises/Exercises/home/widgets/exercises_by_category/exercises_by_category_title.dart';
 
 import '../all_exercises_widget/bloc/all_exercises_bloc.dart';
@@ -20,13 +22,17 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
 
   @override
   Widget build(BuildContext context) {
+    final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
+    final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
+
     return GestureDetector(
       onTap: (){
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //         builder: (context) => ExerciseDescription(exercise: widget.exercise)
-        //     )
-        // );
+        Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => ExerciseDescription(exercise: widget.exercise, allExercisesBloc: allExercisesBloc,
+                  exercisesByCategoryBloc: exercisesByCategoryBloc)
+            )
+        );
       },
       child: Stack(
           children: [

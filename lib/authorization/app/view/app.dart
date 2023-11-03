@@ -6,12 +6,8 @@ import 'package:shaptifii/authorization/app/app.dart';
 import 'package:shaptifii/theme.dart';
 
 class App extends StatelessWidget {
-  const App({
-    required AuthorizationRepository authorizationRepository,
-    super.key,
-  }) : _authorizationRepository = authorizationRepository;
+  const App({super.key});
 
-  final AuthorizationRepository _authorizationRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +20,6 @@ class App extends StatelessWidget {
               child: const AppView(),
         ),
       );
-    // return RepositoryProvider.value(
-    //     value: _authorizationRepository,
-    //     child: BlocProvider(
-    //       create: (_) => AppBloc(
-    //         authorizationRepository: _authorizationRepository,
-    //       ),
-    //     child: const AppView(),
-    //   ),
-    // );
   }
 }
 

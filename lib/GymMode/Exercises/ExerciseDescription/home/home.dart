@@ -2,16 +2,17 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import '../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
+import '../../Exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
 import '../widgets/container_body.dart';
 import '../widgets/image_manager.dart';
 import 'widgets/widgets.dart';
 
 
 class ExerciseDescription extends StatefulWidget {
-  const ExerciseDescription({super.key, required this.exercise, required this.contextBloc});
-
+  const ExerciseDescription({super.key, required this.exercise, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
   final Exercise exercise;
-  final AllExercisesBloc contextBloc;
+  final AllExercisesBloc allExercisesBloc;
+  final ExercisesByCategoryBloc exercisesByCategoryBloc;
 
   @override
   State<ExerciseDescription> createState() => _ExerciseDescriptionState();
@@ -35,7 +36,10 @@ class ExerciseDescription extends StatefulWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              HeaderTitle(veryfied: widget.exercise.veryfied, addingUser: widget.exercise.adding_user_id, exerciseId: widget.exercise.id, contextBloc: widget.contextBloc,),
+              HeaderTitle(veryfied: widget.exercise.veryfied, addingUser: widget.exercise.adding_user_id,
+                  exerciseId: widget.exercise.id, allExercisesBloc: widget.allExercisesBloc,
+                  exercisesByCategoryBloc: widget.exercisesByCategoryBloc,
+              ),
               const SizedBox(height: 20),
 
               ContainerBody(

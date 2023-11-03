@@ -12,7 +12,8 @@ const AllExerciseBoard({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
-    final context_ = context.read<AllExercisesBloc>();
+    final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
+    final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
 
     return BlocBuilder<AllExercisesBloc, AllExercisesState>(
         builder: (context, state){
@@ -20,7 +21,9 @@ const AllExerciseBoard({super.key, required this.exercise});
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => ExerciseDescription(exercise: exercise, contextBloc: context_)
+                      builder: (context) => ExerciseDescription(exercise: exercise, allExercisesBloc: allExercisesBloc,
+                        exercisesByCategoryBloc: exercisesByCategoryBloc
+                      )
                   )
               );
             },
