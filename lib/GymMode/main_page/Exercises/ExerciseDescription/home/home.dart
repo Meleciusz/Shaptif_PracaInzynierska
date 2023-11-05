@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import '../../Exercises/home/widgets/all_exercises_widget/all_exercises.dart';
 import '../../Exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
-import '../widgets/container_body.dart';
 import '../widgets/image_manager.dart';
 import 'widgets/widgets.dart';
 

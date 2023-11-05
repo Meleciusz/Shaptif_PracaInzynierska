@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/all_trainings_widget/all_trainings_widget.dart';
 import 'package:training_repository/training_repository.dart';
+import '../../../../../trainings_description/trainings_description.dart';
 
 class AllTrainingsItem extends StatelessWidget {
   const AllTrainingsItem({super.key, required this.training});
@@ -12,7 +13,13 @@ class AllTrainingsItem extends StatelessWidget {
     return BlocBuilder<AllTrainingsBloc, AllTrainingsState>(
         builder: (context, state){
           return GestureDetector(
-            onTap: (){},
+            onTap: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => TrainingsDescription(training: training)
+                  )
+              );
+            },
             child: Container(
               height: 100.0,
               decoration: BoxDecoration(

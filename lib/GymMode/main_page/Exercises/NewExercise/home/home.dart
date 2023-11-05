@@ -1,8 +1,8 @@
+import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../authorization/app/app.dart';
-import '../../ExerciseDescription/widgets/container_body.dart';
 import '../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
 import '../../Exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
 import '../widgets/new_exercise_images.dart';
