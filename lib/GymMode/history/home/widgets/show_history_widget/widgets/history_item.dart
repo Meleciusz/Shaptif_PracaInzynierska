@@ -25,16 +25,24 @@ class HistoryItem extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            top: 25.0,
-            left: 100.0,
-            child: Container(
+            top: 35.0,
+            left: 15.0,
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * .5,
               child: Text(
                 historyItem ?? '',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14.0,
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 70.0,
+            left: 30.0,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * .5,
+              child: Text( "History records:  ${elements.where((element) => element.name == historyItem).length}",
+                style: Theme.of(context).textTheme.titleSmall,
                 overflow: TextOverflow.ellipsis,
               ),
             ),

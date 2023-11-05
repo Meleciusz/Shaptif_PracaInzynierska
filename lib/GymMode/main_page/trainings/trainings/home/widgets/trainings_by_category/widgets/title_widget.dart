@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ExercisesByCategoryTitle extends StatelessWidget {
-  const ExercisesByCategoryTitle({super.key, required this.name});
+class TrainingsByCategoryTitle extends StatelessWidget {
+  const TrainingsByCategoryTitle({super.key, required this.name,});
 
   final String name;
 

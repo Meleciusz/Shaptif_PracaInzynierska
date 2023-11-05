@@ -17,16 +17,7 @@ class CategoriesSuccessWidget extends StatelessWidget {
       Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-            padding: const EdgeInsets.only(
-              left: 24.0,
-              bottom: 16.0,
-            ),
-          child: Text(exercisesByCategory.first.body_parts.first.toString(),
-          style: Theme.of(context).textTheme.headlineMedium,
-          ),
-        ),
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height * .2,
           child: ListView.separated(
             padding: const EdgeInsets.only(
@@ -49,7 +40,7 @@ class CategoriesSuccessWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("No exercises", style: Theme.of(context).textTheme.bodySmall,),
-        SizedBox(height: 50,),
+        const SizedBox(height: 50,),
       ]
     );
   }

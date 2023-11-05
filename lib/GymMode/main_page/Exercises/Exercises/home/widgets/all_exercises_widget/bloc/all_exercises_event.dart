@@ -19,7 +19,6 @@ class AddExercise extends AllExercisesEvent {
   AddExercise({
     required this.exercise,
   });
-
   final Exercise exercise;
 
   @override

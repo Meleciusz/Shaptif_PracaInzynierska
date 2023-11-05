@@ -1,0 +1,11 @@
+name: training_repository
+description: Training repository.
+publish_to: none
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+
+dependencies:
+  cloud_firestore: ^4.3.0
+  connectivity_plus: ^4.0.2

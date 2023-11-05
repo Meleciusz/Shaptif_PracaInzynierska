@@ -6,7 +6,6 @@ import 'history_item.dart';
 class ShowHistorySuccessWidget extends StatelessWidget {
   ShowHistorySuccessWidget({super.key, required this.history});
   final List<History>? history;
-  final title = 'History';
 
   final Set<String> historyUniqueNames ={};
 
@@ -21,16 +20,6 @@ class ShowHistorySuccessWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 24.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-            ),
-          ),
-        ),
         SizedBox(
           height:
           ((100 * historyUniqueNames.length) + MediaQuery.of(context).size.width) + 24.0,

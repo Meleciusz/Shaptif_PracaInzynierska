@@ -1,15 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../history/history.dart';
-import '../../../NewExercise/home/home.dart';
-import '../../widgets/container_body.dart';
-import '../home.dart';
-import '../widgets/all_exercises_widget/all_exercises.dart';
-import 'package:fab_circural_menu/src/fab_circural_menu.dart';
-import '../widgets/exercise_or_trainings_state_widget/exercise_or_trainings_state_widget.dart';
+import '../../../../main_page.dart';
+import 'package:container_body/container_body.dart';
 import '../widgets/exercises_by_category/exercises_by_category.dart';
-import '../widgets/header_title/header_title.dart';
+import 'package:fab_circural_menu/fab_circural_menu.dart';
 
 
 class HomeLayout extends StatefulWidget {
@@ -25,8 +20,10 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
     final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
+    const mainColor = Color.fromARGB(255, 188, 218, 124);
 
     return Scaffold(
+      backgroundColor: mainColor,
       body: const Padding(
         padding: EdgeInsets.only(top: 40.0),
         child: Column(
@@ -36,9 +33,11 @@ class _HomeLayoutState extends State<HomeLayout> {
             SizedBox(height: 20),
             ContainerBody(
               children: [
-                ExerciseOrTrainingsStateWidget(),
+                //ExerciseOrTrainingsStateWidget(),
                 CategoriesWidget(),
+                SizedBox(height: 20),
                 ExercisesByCategory(),
+                SizedBox(height: 20),
                 AllExercisesWidget(title: 'All exercises'),
               ],
             ),
@@ -46,6 +45,9 @@ class _HomeLayoutState extends State<HomeLayout> {
         ),
       ),
     floatingActionButton: FabCircularMenu(
+        fabOpenColor: mainColor,
+        fabColor: mainColor,
+        ringColor: mainColor,
         children: <Widget>[
         FutureBuilder<bool>(
           future: _checkInternetConnection(),
@@ -55,7 +57,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 return IconButton(
                   onPressed: (){
                     allExercisesBloc.add(RefreshExercises());
-                    //exercisesByCategoryBloc.add(RefreshExercisesByCategory());
+                    exercisesByCategoryBloc.add(RefreshExercisesByCategory());
                   },
                   icon:  const Icon(Icons.refresh),
                 );
@@ -88,17 +90,22 @@ class _HomeLayoutState extends State<HomeLayout> {
                 }
               }
           ),
-          IconButton(icon: const Icon(Icons.play_arrow_outlined),
-          onPressed: (){}
-            ,),
-          IconButton(icon: const Icon(Icons.auto_stories),
-            onPressed: (){
-              Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => const HomePageHistory())
-              );
-            }
-            ,),
+          Tooltip(
+            message: "Switch to trainings",
+            child: IconButton(icon: const Icon(Icons.switch_access_shortcut_add_rounded),
+              onPressed: (){
+                context.read<MainPageBloc>().add(ChangeCategory());
+                  }
+              ,),
+          ),
+          // IconButton(icon: const Icon(Icons.auto_stories),
+          //   onPressed: (){
+          //     Navigator.of(context).push(
+          //         MaterialPageRoute(
+          //             builder: (context) => const HomePageHistory())
+          //     );
+          //   }
+          //   ,),
           IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark))
         ]
       ),

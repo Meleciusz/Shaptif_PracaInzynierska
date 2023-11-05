@@ -22,6 +22,8 @@ class HistoryItemElements extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ExpansionTile(
                   title: Text("${elements[index].name}  ${elements[index].date}",
+                    style: Theme.of(context).textTheme.titleLarge,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   children: [
                     Padding(
@@ -31,12 +33,16 @@ class HistoryItemElements extends StatelessWidget {
                         children: [
                           for(int n =0; n < elements[index].exercises_name.length; n++)
                             Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Text(elements[index].exercises_name[n]),
-                                Text("Ilość powtórzeń: ${elements[index].exercises_sets_count[n]}"),
-                                Text("Ciężary: ${elements[index].exercises_weights[n]}"),
+                                Text("Exercise name: ${elements[index].exercises_name[n]}",
+                                  style: Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                Text("Sets: ${elements[index].exercises_sets_count[n]}"),
+                                Text("Weights: ${elements[index].exercises_weights[n]}",
+                                  overflow: TextOverflow.clip,
+                                ),
                                 SizedBox(height: 8.0),
                               ],
                             ),

@@ -13,7 +13,6 @@ class ExerciseByCategoryItem extends StatefulWidget {
       {super.key, required this.exercise});
 
   final Exercise exercise;
-  //final AllExercisesBloc allExerciseBloc;
 
   @override
   State<ExerciseByCategoryItem> createState() => _ExerciseByCategoryItemState();
@@ -40,7 +39,7 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
                 future: _checkInternetConnection(),
                 builder: (context, snapshot){
                   if(snapshot.connectionState == ConnectionState.done){
-                    if(snapshot.data == true){
+                    if(snapshot.data == true && widget.exercise.photo_url != ""){
                       return Container(
                         width: 270.0,
                         height: 150.0,
@@ -58,9 +57,17 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
                           ),
                         ),
                       );
-                    }
-                    else{
-                      return const Icon(Icons.image_not_supported_rounded, size: 190.0);
+                    } else{
+                      return Container(
+                        width: 270.0,
+                        height: 150.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            20.0,
+                          )
+                        ),
+                        child: const Icon(Icons.image_not_supported_rounded, size: 150.0),
+                      );
                     }
                   }
                   else{
@@ -70,7 +77,7 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
             ),
 
             Positioned(
-              bottom: 18.0,
+              bottom: 0.0,
               child: ExercisesByCategoryTitle(
                 name: widget.exercise.name,
               ),

@@ -30,9 +30,9 @@ class CategoryItem extends StatelessWidget {
                 width: state ? 70.0 : 60.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: state ? Colors.deepOrangeAccent : Colors.amberAccent,
+                  color: state ? const Color.fromARGB(255, 128, 150, 84) : const Color.fromARGB(255, 188, 218, 124),
                 ),
-                child: const Icon(Icons.gamepad),
+                child: state ? const Icon(Icons.zoom_out_map_outlined) : const Icon(Icons.zoom_in_map_outlined),
               ),
               const SizedBox(height: 4.0),
               Container(

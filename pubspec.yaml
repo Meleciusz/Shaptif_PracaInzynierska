@@ -38,6 +38,8 @@ dependencies:
     path: packages/body_parts_repository
   history_repository:
     path: packages/history_repository
+  training_repository:
+    path: packages/training_repository
 
 
   container_body:

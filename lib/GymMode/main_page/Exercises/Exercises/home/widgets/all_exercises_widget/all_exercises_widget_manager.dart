@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shaptifii/GymMode/main_page/Exercises/Exercises/home/widgets/all_exercises_widget/widget/loaded_state_widget.dart';
+import 'package:shaptifii/GymMode/main_page/Exercises/Exercises/home/widgets/all_exercises_widget/widget/success_widget.dart';
 import 'all_exercises.dart';
 
 class AllExercisesWidget extends StatelessWidget {

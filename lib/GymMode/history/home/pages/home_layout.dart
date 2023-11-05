@@ -9,11 +9,12 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.only(top: 80.0),
+      padding: EdgeInsets.only(top: 40.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeaderTitle(),
+          SizedBox(height: 20),
           ContainerBody(
             children: [
               ShowHistoryWidget(),
