@@ -77,7 +77,8 @@ class LoadedStateWidgetState extends State<LoadedStateWidget> {
                     separatorBuilder: (_, __) => const SizedBox(
                       height: 20.0,
                     ),
-                    itemCount: items.length),
+                    itemCount: items.length
+                ),
               ),
             ],
           );

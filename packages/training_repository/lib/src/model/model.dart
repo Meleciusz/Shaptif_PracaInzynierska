@@ -5,7 +5,7 @@ class Training{
   String addingUserName;
   List<String> exercises;
   String description;
-  List<int> startingWeight;
+  List<String> startingWeight;
   String mainlyUsedBodyPart;
   bool verified;
   List<String> allBodyParts;
@@ -32,7 +32,7 @@ class Training{
     String? addingUserName,
     List<String>? exercises,
     String? description,
-    List<int>? startingWeight,
+    List<String>? startingWeight,
     String? mainlyUsedBodyPart,
     bool? verified,
     List<String>? allBodyParts,

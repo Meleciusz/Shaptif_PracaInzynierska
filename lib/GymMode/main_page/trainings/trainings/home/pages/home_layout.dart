@@ -57,8 +57,8 @@ class HomeLayoutState extends State<HomeLayout> {
                     if (snapshot.data == true) {
                       return IconButton(
                         onPressed: (){
-                          //allExercisesBloc.add(RefreshExercises());
-                          //exercisesByCategoryBloc.add(RefreshExercisesByCategory());
+                          context.read<AllTrainingsBloc>().add(RefreshTrainings());
+                          context.read<TrainingsByCategoryBloc>().add(RefreshTrainingsByCategory());
                         },
                         icon:  const Icon(Icons.refresh),
                       );
