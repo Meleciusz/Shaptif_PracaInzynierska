@@ -3,11 +3,12 @@ import 'package:container_body/container_body.dart';
 import 'package:fab_circural_menu/fab_circural_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/trainings_by_category/trainings_by_category.dart';
 import '../../../../../history/history.dart';
 import '../../../../bloc/main_page_bloc.dart';
+import '../../../new_training/new_training.dart';
 import '../widgets/category_widget/category_widget_manager.dart';
 import '../widgets/header_tile/header_tile.dart';
-import '../widgets/trainings_by_category/trainings_by_category_manager.dart';
 import '../widgets/widgets.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -75,11 +76,14 @@ class HomeLayoutState extends State<HomeLayout> {
                     if (snapshot.data == true) {
                       return IconButton(
                         onPressed: (){
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => NewExercise(allExercisesBloc: allExercisesBloc, exercisesByCategoryBloc: exercisesByCategoryBloc)
-                          //     )
-                          // );
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => const NewTrainingPage()
+                              )
+                          ).whenComplete(() {
+                            context.read<AllTrainingsBloc>().add(RefreshTrainings());
+                            context.read<TrainingsByCategoryBloc>().add(RefreshTrainingsByCategory());
+                          });
                         },
                         icon:  const Icon(Icons.add),
                       );
@@ -106,7 +110,8 @@ class HomeLayoutState extends State<HomeLayout> {
                 );
               }
               ,),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark))
+            IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
+            IconButton(onPressed: (){}, icon: const Icon(Icons.play_arrow_outlined)),
           ]
       ),
     );

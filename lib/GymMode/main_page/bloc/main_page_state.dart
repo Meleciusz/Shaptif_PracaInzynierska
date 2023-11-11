@@ -9,7 +9,7 @@ extension MainPageStatusX on MainPageStatus {
 
 final class MainPageState extends Equatable {
   const MainPageState({
-    this.status = MainPageStatus.exercisesStatus,
+    this.status = MainPageStatus.trainingsStatus,
   });
 
   final MainPageStatus status;

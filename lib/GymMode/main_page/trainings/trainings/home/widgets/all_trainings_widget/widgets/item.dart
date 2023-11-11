@@ -31,7 +31,7 @@ class AllTrainingsItem extends StatelessWidget {
                   Positioned(
                     top: 25.0,
                     left: 20.0,
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * .75,
                       child: Text(
                         training.name ?? "",
@@ -45,7 +45,7 @@ class AllTrainingsItem extends StatelessWidget {
                       left: 100.0,
                       child: AllTrainingsIcon(
                         veryfied: training.verified,
-                        addingUserName: training.addingUserId,
+                        addingUserName: training.addingUserName,
                       )
                   ),
                 ]

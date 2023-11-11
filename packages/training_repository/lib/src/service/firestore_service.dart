@@ -41,6 +41,7 @@ class FirestoreTrainingService {
         mainlyUsedBodyPart: data['mainly_used_body_part'],
         verified: data['verified'],
         allBodyParts: List<String>.from(data['all_body_parts']),
+        isFinished: List<bool>.from(data['is_finished']),
       );
     }).toList();
   }
@@ -63,6 +64,7 @@ class FirestoreTrainingService {
         mainlyUsedBodyPart: data['mainly_used_body_part'],
         verified: data['verified'],
         allBodyParts: List<String>.from(data['all_body_parts']),
+        isFinished: List<bool>.from(data['is_finished']),
       );
     }).toList();
   }
@@ -77,7 +79,8 @@ class FirestoreTrainingService {
       'starting_weight': training.startingWeight,
       'mainly_used_body_part': training.mainlyUsedBodyPart,
       'verified': training.verified,
-      'all_body_parts': training.allBodyParts
+      'all_body_parts': training.allBodyParts,
+      'is_finished': training.isFinished
     });
   }
 

@@ -9,6 +9,7 @@ class Training{
   String mainlyUsedBodyPart;
   bool verified;
   List<String> allBodyParts;
+  List<bool> isFinished;
 
   Training({
     required this.id,
@@ -20,7 +21,8 @@ class Training{
     required this.startingWeight,
     required this.mainlyUsedBodyPart,
     required this.verified,
-    required this.allBodyParts
+    required this.allBodyParts,
+    required this.isFinished
   });
 
   Training copyWith({
@@ -33,7 +35,8 @@ class Training{
     List<int>? startingWeight,
     String? mainlyUsedBodyPart,
     bool? verified,
-    List<String>? allBodyParts
+    List<String>? allBodyParts,
+    List<bool>? isFinished
   }){
     return Training(
       id: id ?? this.id,
@@ -45,7 +48,8 @@ class Training{
       startingWeight: startingWeight ?? this.startingWeight,
       mainlyUsedBodyPart: mainlyUsedBodyPart ?? this.mainlyUsedBodyPart,
       verified: verified ?? this.verified,
-      allBodyParts: allBodyParts ?? this.allBodyParts
+      allBodyParts: allBodyParts ?? this.allBodyParts,
+      isFinished: isFinished ?? this.isFinished
     );
   }
 }
