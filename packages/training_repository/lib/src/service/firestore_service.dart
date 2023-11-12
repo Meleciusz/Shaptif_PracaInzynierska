@@ -87,4 +87,19 @@ class FirestoreTrainingService {
   Future<void> deleteTraining(String id) {
     return _trainingCollection.doc(id).delete();
   }
+
+  Future<void> updateTraining(Training training) {
+    return _trainingCollection.doc(training.id).update({
+      'name': training.name,
+      'description': training.description,
+      'adding_user_id': training.addingUserId,
+      'adding_user_name': training.addingUserName,
+      'exercises': training.exercises,
+      'starting_weight': training.startingWeight,
+      'mainly_used_body_part': training.mainlyUsedBodyPart,
+      'verified': training.verified,
+      'all_body_parts': training.allBodyParts,
+      'is_finished': training.isFinished
+    });
+  }
 }

@@ -78,6 +78,7 @@ dependencies:
   google_fonts: ^4.0.0
   camera: ^0.10.5+5
   path: ^1.8.3
+  fl_chart: ^0.64.0
 
 dev_dependencies:
   firebase_auth_platform_interface: ^6.15.0

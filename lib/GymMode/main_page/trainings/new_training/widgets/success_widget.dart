@@ -39,7 +39,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.3),
                       child: Text("Training Name", style: Theme.of(context).textTheme.titleLarge,),
                     ),
                     TextField(
@@ -64,7 +63,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     const SizedBox(height: 20),
                     Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.3),
                       child: Text("Description", style: Theme.of(context).textTheme.titleLarge,),
                     ),
                     TextField(
@@ -90,7 +88,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     const SizedBox(height: 20),
                     Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.3),
                       child: Text("Exercises", style: Theme.of(context).textTheme.titleLarge,),
                     ),
                     TrainingExerciseItems(

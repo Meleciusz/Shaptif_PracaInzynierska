@@ -8,8 +8,9 @@ class HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(width: 40,),
         IconButton(
             onPressed: (){
               Navigator.pop(context);

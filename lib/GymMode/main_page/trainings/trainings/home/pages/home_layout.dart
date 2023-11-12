@@ -7,6 +7,7 @@ import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/tra
 import '../../../../../history/history.dart';
 import '../../../../bloc/main_page_bloc.dart';
 import '../../../new_training/new_training.dart';
+import '../../../training_play/home/home.dart';
 import '../widgets/category_widget/category_widget_manager.dart';
 import '../widgets/header_tile/header_tile.dart';
 import '../widgets/widgets.dart';
@@ -111,7 +112,14 @@ class HomeLayoutState extends State<HomeLayout> {
               }
               ,),
             IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.play_arrow_outlined)),
+            IconButton(onPressed: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => const TrainingPlay()
+                  )
+              );
+            },
+                icon: const Icon(Icons.play_arrow_outlined)),
           ]
       ),
     );
