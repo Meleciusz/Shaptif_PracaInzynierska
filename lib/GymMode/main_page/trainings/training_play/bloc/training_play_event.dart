@@ -19,3 +19,8 @@ class GetTrainings extends TrainingPlayEvent {
   @override
   List<Object?> get props => [];
 }
+
+class RefreshPlayTrainings extends TrainingPlayEvent {
+  @override
+  List<Object?> get props => [];
+}
