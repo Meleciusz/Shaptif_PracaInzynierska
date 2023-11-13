@@ -11,11 +11,21 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
   }) : super(const AllTrainingsState()) {
     on<GetTrainings>(_mapGetTrainingsEvent);
     on<RefreshTrainings>(_mapRefreshTrainingsEvent);
-    on<AddTraining>(_mapAddTrainingEvent);
     on<DeleteTraining>(_mapDeleteTrainingEvent);
+    on<GetTrainingsByCategory_>(_mapGetTrainingsByCategoryEvent);
   }
 
   final FirestoreTrainingService firestoreService;
+
+  void _mapGetTrainingsByCategoryEvent(GetTrainingsByCategory_ event, Emitter<AllTrainingsState> emit) async {
+    try {
+      emit(state.copyWith(status: AllTrainingsStatus.loading));
+      final trainings = await firestoreService.getTrainingsByCategory(event.categoryName);
+      emit(state.copyWith(status: AllTrainingsStatus.success, trainings: trainings));
+    } catch (e) {
+      emit(state.copyWith(status: AllTrainingsStatus.error));
+    }
+  }
 
   void _mapGetTrainingsEvent(GetTrainings event, Emitter<AllTrainingsState> emit) async {
     try {
@@ -38,15 +48,6 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
     }
   }
 
-  void _mapAddTrainingEvent(AddTraining event, Emitter<AllTrainingsState> emit) async {
-    // try {
-    //   emit(state.copyWith(status: AllTrainingsStatus.loading));
-    //   await firestoreService.addTraining(event.training);
-    //   emit(state.copyWith(status: AllTrainingsStatus.success));
-    // } catch (e) {
-    //   emit(state.copyWith(status: AllTrainingsStatus.error));
-    // }
-  }
 
   void _mapDeleteTrainingEvent(DeleteTraining event, Emitter<AllTrainingsState> emit) async {
     try {

@@ -21,12 +21,22 @@ class HeaderTitle extends StatelessWidget {
           ),
         ),
         Tooltip(
-          message: "Start quick training",
+          message: "Abandon training",
           child: IconButton(
               onPressed: (){
 
               },
-              icon: const Icon(Icons.local_fire_department_rounded, color: Color.fromARGB(
+              icon: const Icon(Icons.not_interested_rounded, color: Color.fromARGB(
+                  255, 204, 42, 42), size: 40,)
+          ),
+        ),
+        Tooltip(
+          message: "Refresh training",
+          child: IconButton(
+              onPressed: (){
+
+              },
+              icon: const Icon(Icons.refresh, color: Color.fromARGB(
                   255, 204, 42, 42), size: 40,)
           ),
         ),

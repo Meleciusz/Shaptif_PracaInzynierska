@@ -19,6 +19,7 @@ class TrainingPlaySuccess extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const HeaderTitle(),
+            const SizedBox(height: 20),
             ContainerBody(
               children: [
                 const Icon(Icons.bar_chart_sharp,

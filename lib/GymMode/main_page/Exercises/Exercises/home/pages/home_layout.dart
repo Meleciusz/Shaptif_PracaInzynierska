@@ -20,7 +20,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
     final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
-    const mainColor = Color.fromARGB(255, 188, 218, 124);
+    const mainColor = Color.fromARGB(255, 120, 178, 124);
 
     return Scaffold(
       backgroundColor: mainColor,
@@ -98,17 +98,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                   }
               ,),
           ),
-          // IconButton(icon: const Icon(Icons.auto_stories),
-          //   onPressed: (){
-          //     Navigator.of(context).push(
-          //         MaterialPageRoute(
-          //             builder: (context) => const HomePageHistory())
-          //     );
-          //   }
-          //   ,),
           IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark))
         ]
       ),
+      drawer: Drawer(
+        child: ListView(
+
+        )
+      )
     );
 
   }

@@ -19,33 +19,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
-    //var scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
-      //key: scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Home'),
-        // leading: IconButton(
-        //   onPressed: (){
-        //     scaffoldKey.currentState?.openDrawer();
-        //   },
-        //   icon: const Icon(Icons.settings),
-        // ),
-        actions: <Widget>[
-          IconButton(
-            key: const Key('homePage_logout_iconButton'),
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              context.read<AppBloc>().add(const AppLogoutRequested());
-            }
-          )
-        ]
-      ),
       body: Align(
         alignment: const Alignment(0, -2/3),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            HeaderTitle(),
             Text("Witaj ${user.name}!" ?? '', style: textTheme.headlineMedium),
             const SizedBox(height: 8),
             Avatar(photo: user.photo),
@@ -55,13 +36,13 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data == true) {
-                      return SizedBox(height: 0);
+                      return const SizedBox(height: 0);
                     }
                     else {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.signal_wifi_connected_no_internet_4, color: Colors.red,),
+                          const Icon(Icons.signal_wifi_connected_no_internet_4, color: Colors.red,),
                           Text("Brak połączenia z internetem, aplikacja może działać bez niektórych funkcji", style: textTheme.bodySmall)
                         ],
                       );
@@ -71,12 +52,14 @@ class _HomePageState extends State<HomePage> {
                   }
                 }
             ),
-            SizedBox(height: 100),
-            GymModeButton(),
+            const SizedBox(height: 40),
+            const GymModeButton(),
+            const SizedBox(height: 40),
+            const OutdoorModeButton(),
           ],
         ),
       ),
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
     );
   }
 }

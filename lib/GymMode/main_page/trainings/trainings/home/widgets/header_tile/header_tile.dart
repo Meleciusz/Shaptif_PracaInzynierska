@@ -5,15 +5,35 @@ class HeaderTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Training screen",
-          style: textTheme.headlineSmall,),
-        ],
+        Tooltip(
+          message: "Open drawer",
+          child: IconButton(
+              onPressed: (){
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.drag_indicator)
+          ),
+        ),
+        const Text("Trainings", style: TextStyle(
+          color: Color.fromARGB(255, 243, 231, 231),
+          fontSize: 50,
+          fontWeight: FontWeight.bold,
+        ), overflow: TextOverflow.ellipsis,),
+        Tooltip(
+          message: "Log out",
+          child: IconButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.exit_to_app)
+          ),
+        ),
+      ],
     );
   }
 }

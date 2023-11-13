@@ -3,7 +3,6 @@ import 'package:container_body/container_body.dart';
 import 'package:fab_circural_menu/fab_circural_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/trainings_by_category/trainings_by_category.dart';
 import '../../../../../history/history.dart';
 import '../../../../bloc/main_page_bloc.dart';
 import '../../../new_training/new_training.dart';
@@ -23,7 +22,7 @@ class HomeLayoutState extends State<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    const mainColor = Color.fromARGB(255, 188, 218, 124);
+    const mainColor = Color.fromARGB(255, 120, 178, 124);
 
     return Scaffold(
       backgroundColor: mainColor,
@@ -37,9 +36,6 @@ class HomeLayoutState extends State<HomeLayout> {
             ContainerBody(
                 children: [
                   CategoriesWidget(),
-                  SizedBox(height: 20),
-                  TrainingsByCategory(),
-                  SizedBox(height: 20),
                   AllTrainingsWidget(),
                 ]
             )
@@ -59,7 +55,6 @@ class HomeLayoutState extends State<HomeLayout> {
                       return IconButton(
                         onPressed: (){
                           context.read<AllTrainingsBloc>().add(RefreshTrainings());
-                          context.read<TrainingsByCategoryBloc>().add(RefreshTrainingsByCategory());
                         },
                         icon:  const Icon(Icons.refresh),
                       );
@@ -83,7 +78,6 @@ class HomeLayoutState extends State<HomeLayout> {
                               )
                           ).whenComplete(() {
                             context.read<AllTrainingsBloc>().add(RefreshTrainings());
-                            context.read<TrainingsByCategoryBloc>().add(RefreshTrainingsByCategory());
                           });
                         },
                         icon:  const Icon(Icons.add),
@@ -121,6 +115,10 @@ class HomeLayoutState extends State<HomeLayout> {
             },
                 icon: const Icon(Icons.play_arrow_outlined)),
           ]
+      ),
+      drawer: Drawer(
+        child: Container(
+        )
       ),
     );
   }

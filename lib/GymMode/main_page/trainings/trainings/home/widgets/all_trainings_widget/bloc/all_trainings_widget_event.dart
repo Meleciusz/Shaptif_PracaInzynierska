@@ -15,14 +15,16 @@ class RefreshTrainings extends AllTrainingsEvent {
   List<Object?> get props => [];
 }
 
-class AddTraining extends AllTrainingsEvent {
-  AddTraining({
-    required this.training,
+class GetTrainingsByCategory_ extends AllTrainingsEvent {
+  GetTrainingsByCategory_({
+    required this.categoryName,
   });
-  final Training training;
+
+  final String categoryName;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [categoryName];
+
 }
 
 class DeleteTraining extends AllTrainingsEvent {

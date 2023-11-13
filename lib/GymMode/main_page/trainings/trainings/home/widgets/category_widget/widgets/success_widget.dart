@@ -1,7 +1,7 @@
 import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../trainings_by_category/trainings_by_category.dart';
+import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/all_trainings_widget/all_trainings_widget.dart';
 import '../bloc/category_widget_bloc.dart';
 import 'item.dart';
 
@@ -22,12 +22,15 @@ class CategoriesSuccessWidget extends StatelessWidget {
                       key: ValueKey('${state.categories[index].part}$index'),
                       category: state.categories[index],
                       categoryClicked: (BodyParts categorySelected){
-                        context.read<TrainingsByCategoryBloc>().add(
-                            GetTrainingsByCategory(
-                              idSelected: categorySelected.id,
-                              categoryName: categorySelected.part,
-                            )
-                        );
+                        // context.read<TrainingsByCategoryBloc>().add(
+                        //     GetTrainingsByCategory(
+                        //       idSelected: categorySelected.id,
+                        //       categoryName: categorySelected.part,
+                        //     )
+                        // );
+                        context.read<AllTrainingsBloc>().add(GetTrainingsByCategory_(
+                            categoryName: categorySelected.part
+                        ));
                         context.read<CategoryBloc>().add(
                             SelectCategory(
                               idSelected: categorySelected.id,
