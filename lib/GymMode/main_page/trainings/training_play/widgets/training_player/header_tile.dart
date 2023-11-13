@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key});
-
+  const HeaderTitle({super.key, required this.onRefreshTap});
+  final VoidCallback onRefreshTap;
 
   @override
   Widget build(BuildContext context) {
@@ -21,23 +21,12 @@ class HeaderTitle extends StatelessWidget {
           ),
         ),
         Tooltip(
-          message: "Abandon training",
-          child: IconButton(
-              onPressed: (){
-
-              },
-              icon: const Icon(Icons.not_interested_rounded, color: Color.fromARGB(
-                  255, 204, 42, 42), size: 40,)
-          ),
-        ),
-        Tooltip(
           message: "Refresh training",
           child: IconButton(
               onPressed: (){
-
+                onRefreshTap();
               },
-              icon: const Icon(Icons.refresh, color: Color.fromARGB(
-                  255, 204, 42, 42), size: 40,)
+              icon: const Icon(Icons.refresh,  size: 40,)
           ),
         ),
       ],

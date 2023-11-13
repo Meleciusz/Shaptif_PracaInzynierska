@@ -11,20 +11,22 @@ part 'training_play_state.dart';
 
 class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
   TrainingPlayBloc({
-    required this.trainingRepository,
+    required this.trainingRepository, required this.exerciseRepository
   }) : super(const TrainingPlayState()){
     on<UpdateTrainingStatus>(_mapUpdateTrainingStatusEvent);
-    on<GetTrainings>(_mapGetTrainingsEvent);
+    on<GetTrainingsAndExercises>(_mapGetTrainingsEvent);
     on<RefreshPlayTrainings>(_mapRefreshPlayTrainingsEvent);
   }
 
   final FirestoreTrainingService trainingRepository;
+  final FirestoreExerciseService exerciseRepository;
 
-  void _mapGetTrainingsEvent(GetTrainings event, Emitter<TrainingPlayState> emit) async {
+  void _mapGetTrainingsEvent(GetTrainingsAndExercises event, Emitter<TrainingPlayState> emit) async {
     try {
       emit(state.copyWith(status: TrainingPlayStatus.loading));
       final trainings = await trainingRepository.getTrainings();
-      emit(state.copyWith(status: TrainingPlayStatus.success, trainings: trainings));
+      final exercises = await exerciseRepository.getExercises();
+      emit(state.copyWith(status: TrainingPlayStatus.success, trainings: trainings, exercises: exercises));
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
     }

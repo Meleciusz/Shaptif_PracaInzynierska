@@ -11,7 +11,7 @@ class TrainingPlayManager extends StatelessWidget {
     return BlocBuilder<TrainingPlayBloc, TrainingPlayState>(
         builder: (context, state){
           return state.status.isSuccess
-              ? TrainingPlaySuccess(allTrainings: state.trainings)
+              ? TrainingPlaySuccess(allTrainings: state.trainings, allExercises: state.exercises)
               : state.status.isLoading
               ? const Center(child: CircularProgressIndicator(),)
               : state.status.isError

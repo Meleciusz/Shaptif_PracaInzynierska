@@ -114,12 +114,15 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => NewTrainingBuilder(
                     allExercises: widget.allExercises,
                   ))).then((value){
-                    List<Exercise> chosenExercises = value;
-                    setState(() {
-                      exercises.addAll(chosenExercises);
-                      chosenExercises.forEach((exercise) => allBodyParts.addAll(exercise.body_parts));
-                      widget.allExercises!.removeWhere((element) => chosenExercises.contains(element));
-                    });
+                    if (value != null) {
+                      List<Exercise> chosenExercises = value;
+
+                      setState(() {
+                        exercises.addAll(chosenExercises);
+                        chosenExercises.forEach((exercise) => allBodyParts.addAll(exercise.body_parts));
+                        widget.allExercises!.removeWhere((element) => chosenExercises.contains(element));
+                      });
+                    }
                   });
                 }
                 ,),

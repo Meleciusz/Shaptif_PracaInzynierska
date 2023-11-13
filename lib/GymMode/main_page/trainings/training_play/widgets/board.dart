@@ -1,3 +1,4 @@
+import 'package:exercise_repository/exercise_repository.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,9 +8,10 @@ import 'package:training_repository/training_repository.dart';
 import 'training_player/home.dart';
 
 class TrainingPlayBoard extends StatelessWidget {
-  const TrainingPlayBoard({super.key, required this.trainings, required this.mode});
+  const TrainingPlayBoard({super.key, required this.trainings, required this.mode, required this.exercises});
   final List<Training> trainings;
   final String mode;
+  final List<Exercise> exercises;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +125,10 @@ class TrainingPlayBoard extends StatelessWidget {
                               child: IconButton(onPressed: (){
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => TrainingPlayer(exercises: trainings[index].exercises,)
+                                    MaterialPageRoute(builder: (context) => TrainingPlayer(
+                                      exercises: trainings[index].exercises,
+                                      allExercises: exercises,
+                                      )
                                     )
                                 );
                               }, icon: const Icon(Icons.play_arrow_outlined, size: 35, color: Color.fromARGB(

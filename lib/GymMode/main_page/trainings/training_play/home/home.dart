@@ -16,11 +16,15 @@ class TrainingPlay extends StatelessWidget {
           RepositoryProvider(
               create: (context) => FirestoreTrainingService(),
           ),
+          RepositoryProvider(
+            create: (context) => FirestoreExerciseService(),
+          ),
         ],
         child: BlocProvider<TrainingPlayBloc>(
           create: (context) => TrainingPlayBloc(
             trainingRepository: context.read<FirestoreTrainingService>(),
-          )..add(GetTrainings()),
+            exerciseRepository: context.read<FirestoreExerciseService>(),
+          )..add(GetTrainingsAndExercises()),
           child: const TrainingPlayManager(),
         )
     );
