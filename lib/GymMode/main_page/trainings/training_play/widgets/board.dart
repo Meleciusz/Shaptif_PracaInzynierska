@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -123,18 +125,20 @@ class TrainingPlayBoard extends StatelessWidget {
                             ) : Tooltip(
                               message: "Start",
                               child: IconButton(onPressed: (){
-                                Navigator.push(
+                                log("przed mrokiem");
+                                log(exercises.toString());
+                                log(trainings[index].exercises.toString());
+                                Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(builder: (context) => TrainingPlayer(
-                                      exercises: trainings[index].exercises,
-                                      allExercises: exercises,
+                                        exercises: trainings[index].exercises,
+                                        allExercises: exercises,
                                       )
                                     )
                                 );
                               }, icon: const Icon(Icons.play_arrow_outlined, size: 35, color: Color.fromARGB(
                                   255, 70, 136, 5),)),
                             ),
-
                           )
                       ),
                       mode == "Progress" ? Positioned(

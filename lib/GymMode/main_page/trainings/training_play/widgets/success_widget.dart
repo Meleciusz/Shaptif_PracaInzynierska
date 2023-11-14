@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:training_repository/training_repository.dart';
 import 'board.dart';
 import 'header_tile.dart';
+import 'training_player/home.dart';
 
 class TrainingPlaySuccess extends StatelessWidget {
   const TrainingPlaySuccess({super.key, required this.allTrainings, required this.allExercises});
@@ -20,7 +21,18 @@ class TrainingPlaySuccess extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const HeaderTitle(),
+            HeaderTitle(
+              onQuickStartTap: (){
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TrainingPlayer(
+                      exercises: [],
+                      allExercises: allExercises!,
+                    )
+                    )
+                );
+              },
+            ),
             const SizedBox(height: 20),
             ContainerBody(
               children: [

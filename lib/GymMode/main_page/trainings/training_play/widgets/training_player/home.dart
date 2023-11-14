@@ -1,9 +1,6 @@
 import 'dart:developer';
-
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/training_play_bloc.dart';
 import '../../../new_training/widgets/new_training_builder.dart';
 import 'header_tile.dart';
 

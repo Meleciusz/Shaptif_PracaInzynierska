@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key});
+  const HeaderTitle({super.key, required this.onQuickStartTap});
 
+  final VoidCallback onQuickStartTap;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class HeaderTitle extends StatelessWidget {
           message: "Start quick training",
           child: IconButton(
               onPressed: (){
-
+                onQuickStartTap();
               },
               icon: const Icon(Icons.local_fire_department_rounded, color: Color.fromARGB(
                   255, 204, 42, 42), size: 40,)
