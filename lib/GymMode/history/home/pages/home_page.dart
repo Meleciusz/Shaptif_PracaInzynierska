@@ -10,22 +10,18 @@ class HomePageHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepOrangeAccent,
-      body: RepositoryProvider(
-        create: (context) => FirestoreHistoryService(),
-          child: MultiBlocProvider(
-              providers: [
-                BlocProvider<ShowHistoryWidgetBloc>(
-                  create: (context) => ShowHistoryWidgetBloc(
-                    historyRepository: context.read<FirestoreHistoryService>(),
-                  )..add(GetHistoryEvent()),
-                )
-              ],
-              child: const HomeLayout()
-          )
-
-      ),
+    return  RepositoryProvider(
+      create: (context) => FirestoreHistoryService(),
+        child: MultiBlocProvider(
+            providers: [
+              BlocProvider<ShowHistoryWidgetBloc>(
+                create: (context) => ShowHistoryWidgetBloc(
+                  historyRepository: context.read<FirestoreHistoryService>(),
+                )..add(GetHistoryEvent()),
+              )
+            ],
+            child: const HomeLayout()
+        )
     );
   }
 }

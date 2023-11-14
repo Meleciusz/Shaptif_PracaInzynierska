@@ -10,7 +10,9 @@ import 'package:training_repository/training_repository.dart';
 import 'training_player/home.dart';
 
 class TrainingPlayBoard extends StatelessWidget {
-  const TrainingPlayBoard({super.key, required this.trainings, required this.mode, required this.exercises});
+  const TrainingPlayBoard(
+      {super.key, required this.trainings, required this.mode, required this.exercises});
+
   final List<Training> trainings;
   final String mode;
   final List<Exercise> exercises;

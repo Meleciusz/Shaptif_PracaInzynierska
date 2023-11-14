@@ -32,10 +32,10 @@ class CategoryItem extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: state ? const Color.fromARGB(255, 163, 187, 173) : const Color.fromARGB(255, 120, 178, 124),
                   ),
-                  child: state ? const Icon(Icons.zoom_out_map_outlined) : const Icon(Icons.zoom_in_map_outlined),
+                  child: state ? const Icon(Icons.bubble_chart_rounded) : const Icon(Icons.blur_on_rounded),
                 ),
                 const SizedBox(height: 4.0),
-                Container(
+                SizedBox(
                     width: 60,
                     child: Text(
                       category.part ?? "",

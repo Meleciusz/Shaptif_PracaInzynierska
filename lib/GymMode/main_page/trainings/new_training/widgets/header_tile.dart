@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key});
-
+  const HeaderTitle({super.key, required this.onRefreshTap});
+  final VoidCallback onRefreshTap;
 
   @override
   Widget build(BuildContext context) {
@@ -10,11 +10,23 @@ class HeaderTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(
-            onPressed: (){
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios)
+        Tooltip(
+          message: "Go back",
+          child: IconButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+            icon: const Icon(Icons.arrow_back_ios),
+          )
+        ),
+        Tooltip(
+            message: "Refresh",
+            child: IconButton(
+              onPressed: (){
+                onRefreshTap();
+              },
+              icon: const Icon(Icons.refresh),
+            )
         )
       ],
     );

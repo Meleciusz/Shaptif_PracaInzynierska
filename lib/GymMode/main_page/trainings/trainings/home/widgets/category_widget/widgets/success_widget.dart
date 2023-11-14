@@ -22,12 +22,6 @@ class CategoriesSuccessWidget extends StatelessWidget {
                       key: ValueKey('${state.categories[index].part}$index'),
                       category: state.categories[index],
                       categoryClicked: (BodyParts categorySelected){
-                        // context.read<TrainingsByCategoryBloc>().add(
-                        //     GetTrainingsByCategory(
-                        //       idSelected: categorySelected.id,
-                        //       categoryName: categorySelected.part,
-                        //     )
-                        // );
                         context.read<AllTrainingsBloc>().add(GetTrainingsByCategory_(
                             categoryName: categorySelected.part
                         ));

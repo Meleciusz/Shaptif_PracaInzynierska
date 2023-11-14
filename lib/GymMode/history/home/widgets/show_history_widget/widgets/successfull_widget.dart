@@ -5,6 +5,7 @@ import 'history_item.dart';
 
 class ShowHistorySuccessWidget extends StatelessWidget {
   ShowHistorySuccessWidget({super.key, required this.history});
+  static const mainColor = Color.fromARGB(255, 79, 171, 151);
   final List<History>? history;
 
   final Set<String> historyUniqueNames ={};
@@ -20,6 +21,9 @@ class ShowHistorySuccessWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const Icon(Icons.history, size: 100.0, color: mainColor,
+          shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-2, -2), blurRadius: 2)],
+        ),
         SizedBox(
           height:
           ((100 * historyUniqueNames.length) + MediaQuery.of(context).size.width) + 24.0,

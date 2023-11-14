@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:history_repository/history_repository.dart';
 
-import 'history_item_elements.dart';
+import 'history_elements/history_item_elements.dart';
 
 class HistoryItem extends StatelessWidget {
   const HistoryItem({super.key, required this.historyItem, required this.elements});
@@ -25,7 +25,7 @@ class HistoryItem extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            top: 35.0,
+            top: 15.0,
             left: 15.0,
             child: SizedBox(
               width: MediaQuery.of(context).size.width * .5,
@@ -37,14 +37,31 @@ class HistoryItem extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 70.0,
-            left: 30.0,
+            top: -10.0,
+            left: MediaQuery.of(context).size.width * .3,
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * .5,
-              child: Text( "History records:  ${elements.where((element) => element.name == historyItem).length}",
-                style: Theme.of(context).textTheme.titleSmall,
+              //width: MediaQuery.of(context).size.width * .5,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: "History records: ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "${elements.where((element) => element.name == historyItem).length}",
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                  ],
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
+              // Text( "History records:  ${elements.where((element) => element.name == historyItem).length}",
+              //   style: Theme.of(context).textTheme.titleSmall,
+              //   overflow: TextOverflow.ellipsis,
+              // ),
             ),
           ),
         ],

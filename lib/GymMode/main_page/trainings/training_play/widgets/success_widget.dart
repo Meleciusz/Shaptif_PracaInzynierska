@@ -6,11 +6,35 @@ import 'board.dart';
 import 'header_tile.dart';
 import 'training_player/home.dart';
 
-class TrainingPlaySuccess extends StatelessWidget {
-  const TrainingPlaySuccess({super.key, required this.allTrainings, required this.allExercises});
+class TrainingPlaySuccess extends StatefulWidget {
+  const TrainingPlaySuccess(
+      {super.key, required this.allTrainings, required this.allExercises});
 
   final List<Training>? allTrainings;
   final List<Exercise>? allExercises;
+
+  @override
+  State<TrainingPlaySuccess> createState() => _TrainingPlaySuccessState();
+}
+
+class _TrainingPlaySuccessState extends State<TrainingPlaySuccess> {
+  TextEditingController editingController = TextEditingController();
+
+  @override
+  initState() {
+    items = widget.allTrainings!;
+    super.initState();
+  }
+
+  void filterSearchResults(value) {
+    setState(() {
+      items = widget.allTrainings!
+          .where((item) => item.name.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
+
+  List<Training> items = <Training>[];
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +51,7 @@ class TrainingPlaySuccess extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) => TrainingPlayer(
                       exercises: [],
-                      allExercises: allExercises!,
+                      allExercises: widget.allExercises!,
                     )
                     )
                 );
@@ -39,32 +63,49 @@ class TrainingPlaySuccess extends StatelessWidget {
                 const Icon(Icons.bar_chart_sharp,
                   size: 100,
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (value){
+                      filterSearchResults(value);
+                    },
+                    controller: editingController,
+                    decoration: const InputDecoration(
+                        labelText: "Search",
+                        hintText: "Search",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular((25.0)))
+                        )
+                    ),
+                  ),
+                ),
                 Container(
                   alignment: Alignment.center,
                   child: Text("Ended trainings", style: Theme.of(context).textTheme.titleLarge,),
                 ),
                 TrainingPlayBoard(
-                  trainings: allTrainings!.where((element) => element.isFinished.every((e) => e == true)).toList(),
+                  trainings: items.where((element) => element.isFinished.every((e) => e == true)).toList(),
                   mode: "Ended",
-                  exercises: allExercises!,
+                  exercises: widget.allExercises!,
                 ),
                 Container(
                   alignment: Alignment.center,
                   child: Text("Trainings in progress", style: Theme.of(context).textTheme.titleLarge,),
                 ),
                 TrainingPlayBoard(
-                  trainings: allTrainings!.where((element) => element.isFinished.any((e) => e == true) && element.isFinished.any((e) => e == false)).toList(),
+                  trainings: items.where((element) => element.isFinished.any((e) => e == true) && element.isFinished.any((e) => e == false)).toList(),
                   mode: "Progress",
-                    exercises: allExercises!
+                    exercises: widget.allExercises!
                 ),
                 Container(
                   alignment: Alignment.center,
                   child: Text("Trainings to start", style: Theme.of(context).textTheme.titleLarge,),
                 ),
                 TrainingPlayBoard(
-                  trainings: allTrainings!.where((element) => element.isFinished.every((e) => e == false)).toList(),
+                  trainings: items.where((element) => element.isFinished.every((e) => e == false)).toList(),
                   mode: "Start",
-                    exercises: allExercises!
+                    exercises: widget.allExercises!
                 ),
               ],
             ),

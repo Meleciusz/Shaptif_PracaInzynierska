@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/all_trainings_widget/bloc/all_trainings_widget_bloc.dart';
@@ -36,7 +34,6 @@ class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
 
   @override
   Widget build(BuildContext context) {
-    log(widget.trainings.toString());
     return BlocBuilder<AllTrainingsBloc, AllTrainingsState>(
         builder: (context, state){
           return Column(
@@ -59,6 +56,7 @@ class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
                   ),
                 ),
               ),
+              widget.trainings!.isNotEmpty ?
               SizedBox(
                 height: ((items.length * 100) + MediaQuery.of(context).size.width) + 24,
                 child: ListView.separated(
@@ -77,6 +75,15 @@ class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
                     height: 20.0,
                   ),
                   itemCount: items.length,
+                )
+              ) : SizedBox(
+                height: 300,
+                width: 400,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("No trainings", style: Theme.of(context).textTheme.displaySmall,),
+                  ]
                 )
               ),
             ],
