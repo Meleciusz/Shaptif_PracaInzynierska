@@ -13,24 +13,39 @@ class HeaderTitle extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         Tooltip(
-          message: "Go back",
-          child: IconButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back_ios, size: 40,)
-          ),
-        ),
-        Tooltip(
           message: "Start quick training",
           child: IconButton(
               onPressed: (){
                 onQuickStartTap();
               },
-              icon: const Icon(Icons.local_fire_department_rounded, color: Color.fromARGB(
-                  255, 204, 42, 42), size: 40,)
+            icon:  const Icon(Icons.local_fire_department_outlined, size: 60, color: Color.fromARGB(
+                  255, 224, 94, 124), shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-2, -2), blurRadius: 2)],
+            ),
           ),
         ),
+        SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: const Center(
+              child: Text("Play", style: TextStyle(
+                color: Color.fromARGB(255, 243, 231, 231),
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ), overflow: TextOverflow.ellipsis,),
+            )
+        ),
+        Tooltip(
+          message: "Go back",
+          child: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: Transform.rotate(
+              angle: 180 * 3.1416 / 180,
+              child: const Icon(Icons.exit_to_app, size: 40),
+            ),
+          ),
+        ),
+
       ],
     );
   }

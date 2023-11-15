@@ -39,6 +39,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: mainColor,
       body: Padding(
         padding: const EdgeInsets.only(top: 40.0),
         child: Column(
@@ -56,11 +57,10 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
 
                     widget.allExercises!.clear();
                     widget.allExercises!.addAll(originalExercises!);
-                    log(widget.allExercises.toString());
-                    log(originalExercises.toString());
                   });
                 },
               ),
+              const SizedBox(height: 10,),
               ContainerBody(
                   children: [
                     InkWell(

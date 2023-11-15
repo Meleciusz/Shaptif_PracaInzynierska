@@ -24,11 +24,15 @@ class HeaderTitle extends StatelessWidget {
               ),
           ),
         ),
-        Text(title, style: const TextStyle(
-          color: Color.fromARGB(255, 243, 231, 231),
-          fontSize: 50,
-          fontWeight: FontWeight.bold,
-        ), overflow: TextOverflow.ellipsis,),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.6,
+          child: const Center(
+            child: Text("History", style: TextStyle(
+            color: Color.fromARGB(255, 243, 231, 231),
+            fontSize: 50,
+            fontWeight: FontWeight.bold,
+          ), overflow: TextOverflow.ellipsis,),)
+        ),
         Tooltip(
           message: "Go back",
           child: IconButton(

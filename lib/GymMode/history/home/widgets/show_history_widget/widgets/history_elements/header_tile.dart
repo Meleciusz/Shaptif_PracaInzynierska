@@ -25,12 +25,17 @@ class HeaderTitle extends StatelessWidget {
             ),
           ),
         ),
-        Text(title, style: const TextStyle(
-          color: Color.fromARGB(255, 243, 231, 231),
-          fontSize: 50,
-          fontWeight: FontWeight.bold,
-          shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-2, 2), blurRadius: 5)],
-        ), overflow: TextOverflow.ellipsis,),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * .6,
+          child: Center(
+            child: Text(title, style: const TextStyle(
+              color: Color.fromARGB(255, 243, 231, 231),
+              fontSize: 50,
+              fontWeight: FontWeight.bold,
+              shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-2, 2), blurRadius: 5)],
+            ), overflow: TextOverflow.ellipsis,),
+          ),
+        ),
         Tooltip(
           message: "Go back",
           child: IconButton(

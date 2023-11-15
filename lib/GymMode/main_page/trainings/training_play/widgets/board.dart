@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/training_play_bloc.dart';
 import 'package:training_repository/training_repository.dart';
-
 import 'training_player/home.dart';
 
 class TrainingPlayBoard extends StatelessWidget {
@@ -122,18 +119,38 @@ class TrainingPlayBoard extends StatelessWidget {
                             child: mode=="Ended"
                                 ? Tooltip(
                               message: "Refresh",
-                              child: IconButton(onPressed: (){}, icon: const Icon(Icons.refresh, size: 35, color: Color.fromARGB(
+                              child: IconButton(onPressed: (){
+                                context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
+                                    id: trainings[index].id,
+                                    isFinished: trainings[index].isFinished.map((e) => e = false).toList(),
+                                    name: trainings[index].name,
+                                    exercises: trainings[index].exercises,
+                                    startingWeight: trainings[index].startingWeight,
+                                    addingUserId: trainings[index].addingUserId,
+                                    allBodyParts: trainings[index].allBodyParts,
+                                    addingUserName: trainings[index].addingUserName,
+                                    description: trainings[index].description,
+                                    mainlyUsedBodyPart: trainings[index].mainlyUsedBodyPart,
+                                    verified: trainings[index].verified
+                                )));
+                                context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => TrainingPlayer(
+                                      exercisesNames: trainings[index].exercises,
+                                      allExercises: exercises,
+                                    )
+                                    )
+                                );
+                              }, icon: const Icon(Icons.refresh, size: 35, color: Color.fromARGB(
                                   255, 166, 123, 18)))
                             ) : Tooltip(
                               message: "Start",
                               child: IconButton(onPressed: (){
-                                log("przed mrokiem");
-                                log(exercises.toString());
-                                log(trainings[index].exercises.toString());
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(builder: (context) => TrainingPlayer(
-                                        exercises: trainings[index].exercises,
+                                      exercisesNames: trainings[index].exercises,
                                         allExercises: exercises,
                                       )
                                     )
@@ -211,9 +228,9 @@ class TrainingPlayBoard extends StatelessWidget {
 Color getColor(String mode) {
   switch (mode) {
     case "Progress":
-      return Colors.orange;
+      return const Color.fromARGB(255, 248, 191, 175);
     case "Ended":
-      return Colors.green;
+      return const Color.fromARGB(255, 197, 255, 188);
     default:
       return Colors.grey;
   }

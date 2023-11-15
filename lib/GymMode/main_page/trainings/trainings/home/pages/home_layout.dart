@@ -111,7 +111,9 @@ class HomeLayoutState extends State<HomeLayout> {
                   MaterialPageRoute(
                       builder: (context) => const TrainingPlay()
                   )
-              );
+              ).whenComplete((){
+                context.read<AllTrainingsBloc>().add(RefreshTrainings());
+              });
             },
                 icon: const Icon(Icons.play_arrow_outlined)),
           ]
