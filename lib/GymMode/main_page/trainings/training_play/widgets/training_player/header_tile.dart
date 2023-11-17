@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key, required this.onRefreshTap});
+  const HeaderTitle({super.key, required this.onRefreshTap, required this.onExitTap});
   final VoidCallback onRefreshTap;
+  final VoidCallback onExitTap;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class HeaderTitle extends StatelessWidget {
           message: "Go back",
           child: IconButton(
               onPressed: (){
-                Navigator.pop(context);
+                onExitTap();
               },
               icon: const Icon(Icons.arrow_back_ios, size: 40,)
           ),

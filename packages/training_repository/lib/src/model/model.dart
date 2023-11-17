@@ -5,7 +5,6 @@ class Training{
   String addingUserName;
   List<String> exercises;
   String description;
-  List<String> startingWeight;
   String mainlyUsedBodyPart;
   bool verified;
   List<String> allBodyParts;
@@ -18,7 +17,6 @@ class Training{
     required this.addingUserName,
     required this.exercises,
     required this.description,
-    required this.startingWeight,
     required this.mainlyUsedBodyPart,
     required this.verified,
     required this.allBodyParts,
@@ -32,7 +30,6 @@ class Training{
     String? addingUserName,
     List<String>? exercises,
     String? description,
-    List<String>? startingWeight,
     String? mainlyUsedBodyPart,
     bool? verified,
     List<String>? allBodyParts,
@@ -45,7 +42,6 @@ class Training{
       addingUserName: addingUserName ?? this.addingUserName,
       exercises: exercises ?? this.exercises,
       description: description ?? this.description,
-      startingWeight: startingWeight ?? this.startingWeight,
       mainlyUsedBodyPart: mainlyUsedBodyPart ?? this.mainlyUsedBodyPart,
       verified: verified ?? this.verified,
       allBodyParts: allBodyParts ?? this.allBodyParts,

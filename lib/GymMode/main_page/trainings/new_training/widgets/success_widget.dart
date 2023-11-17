@@ -33,7 +33,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
   List<Exercise> exercises = <Exercise>[];
   String trainingName = '';
   String trainingDescription = '';
-  List<double> startingWeights = <double>[];
   List<String> allBodyParts = <String>[];
 
   @override
@@ -52,7 +51,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     exercises.clear();
                     trainingName = '';
                     trainingDescription = '';
-                    startingWeights.clear();
                     allBodyParts.clear();
 
                     widget.allExercises!.clear();
@@ -71,7 +69,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                           name: trainingName.isEmpty ? "Training${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" : trainingName,
                           description: trainingDescription,
                           exercises: exercises.map((e) => e.name).toList(),
-                          startingWeight: startingWeights.map((e) => e.toString()).toList(),
                           allBodyParts: allBodyParts.toSet().toList(),
                           addingUserName: context.read<AppBloc>().state.user.name!,
                           addingUserId: context.read<AppBloc>().state.user.id!,
@@ -191,12 +188,10 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                       )
                     ),
                     TrainingExerciseItems(
-                      exercises: exercises, startingWeight: startingWeights.isEmpty
-                        ? List.generate(exercises.length, (index) => 0.0)
-                        : startingWeights,
+                      exercises: exercises,
                       callback: (List<double> weights) {
                         setState(() {
-                          startingWeights = weights;
+
                         });
                       },
                       onAddExerciseCallback: (){

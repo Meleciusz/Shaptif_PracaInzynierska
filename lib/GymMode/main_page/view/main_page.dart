@@ -11,7 +11,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MainPageBloc(),
-      child: MainPageView(),
+      child: const MainPageView(),
     );
   }
 }

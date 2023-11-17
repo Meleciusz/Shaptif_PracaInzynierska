@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
+import 'package:history_repository/history_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:training_repository/training_repository.dart';
 
@@ -11,7 +12,7 @@ part 'training_play_state.dart';
 
 class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
   TrainingPlayBloc({
-    required this.trainingRepository, required this.exerciseRepository
+    required this.trainingRepository, required this.exerciseRepository, required this.historyRepository
   }) : super(const TrainingPlayState()){
     on<UpdateTrainingStatus>(_mapUpdateTrainingStatusEvent);
     on<GetTrainingsAndExercises>(_mapGetTrainingsEvent);
@@ -20,6 +21,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
 
   final FirestoreTrainingService trainingRepository;
   final FirestoreExerciseService exerciseRepository;
+  final FirestoreHistoryService historyRepository;
 
   void _mapGetTrainingsEvent(GetTrainingsAndExercises event, Emitter<TrainingPlayState> emit) async {
     try {
