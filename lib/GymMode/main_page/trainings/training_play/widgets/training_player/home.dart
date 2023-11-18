@@ -6,17 +6,19 @@ import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/trainin
 import 'package:training_repository/training_repository.dart';
 import '../../../new_training/widgets/new_training_builder.dart';
 import 'header_tile.dart';
+import 'return.dart';
 
 typedef CallbackExercise = void Function(List<String> newExercises);
 
 class TrainingPlayer extends StatefulWidget {
   const TrainingPlayer({super.key, required this.exercisesNames, required this.allExercises,
-    required this.training,
+    required this.training, required this.returnValues
   });
 
   final List<String> exercisesNames;
   final List<Exercise> allExercises;
   final Training training;
+  final Return returnValues;
 
 
 
@@ -36,7 +38,9 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
 
     _pageController = PageController();
     sets = List.generate(widget.exercisesNames.length, (index) => 0);
+    weights = List.generate(widget.exercisesNames.length, (index) => "0.0");
     weightsDouble = List.generate(widget.exercisesNames.length, (index) => 0.0);
+    allWeightsDouble = List.generate(widget.exercisesNames.length, (index) => []);
     exerciseIsClosed = List.generate(widget.exercisesNames.length, (index) => false);
     exerciseDonePrevious = List.generate(widget.exercisesNames.length, (index) => false);
 
@@ -48,8 +52,6 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
         }
       }
     }
-
-
 
     originalExercises.addAll(widget.exercisesNames);
     originalAllExercises.addAll(widget.allExercises);
@@ -76,6 +78,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
   List<double> weightsDouble = <double>[];
   String title = 'Save as new training';
   Color color = Colors.black38;
+  List<List<double>> allWeightsDouble = <List<double>>[];
 
   @override
   Widget build(BuildContext context) {
@@ -91,57 +94,31 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                     widget.exercisesNames.addAll(originalExercises);
                     widget.allExercises.clear();
                     widget.allExercises.addAll(originalAllExercises);
+                    wantToSave = false;
+                    activeDeleteMode = false;
+                    addedExercises = {};
+
+                    sets = List.generate(widget.exercisesNames.length, (index) => 0);
+                    weights = List.generate(widget.exercisesNames.length, (index) => "0.0");
+                    weightsDouble = List.generate(widget.exercisesNames.length, (index) => 0.0);
+                    allWeightsDouble = List.generate(widget.exercisesNames.length, (index) => []);
+                    exerciseIsClosed = List.generate(widget.exercisesNames.length, (index) => false);
+                    exerciseDonePrevious = List.generate(widget.exercisesNames.length, (index) => false);
+
+                    for (int i = 0; i < widget.training.isFinished.length; i++) {
+                      if (widget.training.isFinished[i]) {
+                        if (i != -1) {
+                          exerciseIsClosed[i] = true;
+                          exerciseDonePrevious[i] = true;
+                        }
+                      }
+                    }
+
+                    //initState();
                   });
                  },
                 onExitTap: (){
-                  widget.exercisesNames.isNotEmpty ?
-                  wantToSave ?
-                  {
-
-                    setState(() {
-                      List<String> allBodyParts = realAllExercises
-                          .where((e) => widget.exercisesNames.contains(e.name))
-                          .expand((e) => e.body_parts)
-                          .toList();
-
-
-                      widget.training.exercises = widget.exercisesNames;
-                      widget.training.isFinished = exerciseIsClosed;
-                      widget.training.allBodyParts = allBodyParts.toSet().toList();
-                      widget.training.mainlyUsedBodyPart = findMainlyUsedBodyPart(allBodyParts);
-
-                    }),
-                    Navigator.of(context).pop(widget.training)
-                  } : {
-                    widget.training.exercises =  originalExercises,
-                    Navigator.of(context).pop(widget.training)
-                  } : showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        title: const Text("You can't do that"),
-                        content: const Text("Training should have at least one exercise"),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                backgroundColor: Colors.red
-                            ),
-                            child: const Text("OK"),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-
+                  onExit();
                 },
               ),
               Expanded(
@@ -153,6 +130,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                     return
                     widget.exercisesNames.length != index
                         ? ExercisePage(
+                      allWeightsDouble: allWeightsDouble[index],
                       exerciseDonePreviously: exerciseDonePrevious[index],
                       activeDeleteMode: activeDeleteMode,
                         exercise: widget.exercisesNames[index],
@@ -177,10 +155,10 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                           sets[index]=0;
                         });
                       },
-                      onPressExerciseIsClosed: (){
+                      onPressExerciseIsClosed: (String allWeights){
                         setState(() {
+                          weights[index] = allWeights;
                           exerciseIsClosed[index] = !exerciseIsClosed[index];
-                          widget.training.isFinished = exerciseIsClosed;
                         });
 
                         bool allTrue = exerciseIsClosed.every((e) => e);
@@ -197,7 +175,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                               ElevatedButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();
-                                  Navigator.of(context).pop(widget.training);
+                                  onExit();
                                 },
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -227,7 +205,6 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                           );
                         },
                         ) : null;
-
                       },
                       callbackDelete: (){
                         setState(() {
@@ -243,8 +220,56 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                           exerciseDonePrevious.removeAt(index);
                           widget.exercisesNames.removeAt(index);
                           sets.removeAt(index);
+                          allWeightsDouble.removeAt(index);
                           weightsDouble.removeAt(index);
+                          weights.removeAt(index);
                           exerciseIsClosed.removeAt(index);
+
+                          bool allTrue = exerciseIsClosed.every((e) => e);
+                          allTrue ? showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                title: const Text("Are you sure?"),
+                                content: const Text("Do you want to end training?"),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      onExit();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(16.0),
+                                        ),
+                                        backgroundColor: Colors.red
+                                    ),
+                                    child: const Text("End training"),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      setState(() {
+                                        exerciseDonePrevious[exerciseIsClosed.length - 1] != true ?
+                                        exerciseIsClosed.last = !exerciseIsClosed.last : null;
+                                      });
+
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(16.0),
+                                        ),
+                                        backgroundColor: Colors.green
+                                    ),
+                                    child: const Text("Go back"),
+                                  ),
+                                ],
+                              );
+                            },
+                          ) : null;
                         });
                       },
 
@@ -267,6 +292,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                           widget.allExercises!.removeWhere((element) => exercise.contains(element));
                           sets.addAll(List.generate(exercise.length, (index) => 0));
                           weightsDouble.addAll(List.generate(exercise.length, (index) => 0.0));
+                          allWeightsDouble.addAll(List.generate(exercise.length, (index) => []));
+                          weights.addAll(List.generate(exercise.length, (index) => "0.0"));
                           exerciseIsClosed.addAll(List.generate(exercise.length, (index) => false));
                           exerciseDonePrevious.addAll(List.generate(exercise.length, (index) => false));
                         });
@@ -323,6 +350,82 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
       )
     );
   }
+
+  void onExit(){
+    log(weights.toString());
+    setState(() {
+      widget.returnValues.exercisesWeights = weights;
+      widget.returnValues.exercisesSetsCount = sets;
+      widget.returnValues.wantToSave = wantToSave;
+      widget.returnValues.exercisesNames = widget.exercisesNames;
+
+    });
+
+    widget.exercisesNames.isNotEmpty ?
+    wantToSave ?
+    {
+
+      setState(() {
+        List<String> allBodyParts = realAllExercises
+            .where((e) => widget.exercisesNames.contains(e.name))
+            .expand((e) => e.body_parts)
+            .toList();
+
+        widget.returnValues.isFinished = exerciseIsClosed;
+        widget.returnValues.allBodyParts = allBodyParts.toSet().toList();
+
+
+        allBodyParts.isNotEmpty ?
+        widget.returnValues.mainlyUsedBodyPart = findMainlyUsedBodyPart(allBodyParts)
+            : widget.returnValues.mainlyUsedBodyPart = "No body part";
+
+      }),
+      Navigator.of(context).pop(widget.returnValues)
+    } : {
+      widget.training.exercises = originalExercises,
+      widget.returnValues.exercisesNames = widget.exercisesNames,
+
+      if(exerciseIsClosed.length < widget.training.isFinished.length )
+        {
+          log("tamtamtam"),
+          setState(() {
+            exerciseIsClosed.addAll(widget.training.isFinished.sublist(0, exerciseIsClosed.length));
+          }),
+        },
+
+
+      widget.returnValues.isFinished = exerciseIsClosed,
+
+
+
+      Navigator.of(context).pop(widget.returnValues)
+    } : showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          title: const Text("You can't do that"),
+          content: const Text("Training should have at least one exercise"),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  backgroundColor: Colors.red
+              ),
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 String findMainlyUsedBodyPart(List<String> allBodyParts) {
@@ -353,33 +456,41 @@ bool listEquals(List<dynamic> a, List<dynamic> b) {
 }
 
 typedef Callback = void Function(double weight);
-//typedef CallbackDelete = void Function();
+typedef CallbackWeight = void Function(double weight);
+typedef CallbackAllWeight = void Function(String weights);
 
 class ExercisePage extends StatefulWidget {
   const ExercisePage(
       {super.key, required this.exercise, required this.sets,
         required this.onTapSets, required this.onLongPressSets, required this.exerciseIsClosed, required this.onPressExerciseIsClosed,
         required this.weight, required this.callbackWeight, required this.activeDeleteMode, required this.callbackDelete,
-        required this.exerciseDonePreviously
+        required this.exerciseDonePreviously, required this.allWeightsDouble,
       });
 
   final String exercise;
   final int sets;
   final VoidCallback onTapSets;
   final VoidCallback onLongPressSets;
-  final VoidCallback onPressExerciseIsClosed;
+  final CallbackAllWeight onPressExerciseIsClosed;
   final Callback callbackWeight;
   final bool exerciseIsClosed;
   final double weight;
   final bool activeDeleteMode;
   final VoidCallback callbackDelete;
   final bool exerciseDonePreviously;
+  final List<double> allWeightsDouble;
 
   @override
   State<ExercisePage> createState() => _ExercisePageState();
 }
 
 class _ExercisePageState extends State<ExercisePage> {
+
+  @override
+  initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -410,8 +521,14 @@ class _ExercisePageState extends State<ExercisePage> {
               fontWeight: FontWeight.bold,
             ), overflow: TextOverflow.ellipsis,),
           GestureDetector(
-              onTap: () => widget.onTapSets(),
-              onLongPress: () => widget.onLongPressSets(),
+              onTap: () {
+                widget.allWeightsDouble.add(widget.weight);
+                widget.onTapSets();
+              },
+              onLongPress: () {
+                widget.allWeightsDouble.clear();
+                widget.onLongPressSets();
+                },
               child: SizedBox(
                 height: 120.0,
                 child: Stack(
@@ -561,9 +678,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 message: widget.exerciseIsClosed ?  "Reverse mark" : "Mark exercise as completed" ,
                 child: IconButton(
                     onPressed: (){
-                      setState(() {
-                        widget.onPressExerciseIsClosed();
-                      });
+                      widget.onPressExerciseIsClosed(widget.allWeightsDouble.join(', '));
                     },
                     icon: widget.exerciseIsClosed ? const Icon(Icons.enhanced_encryption, color: Colors.redAccent, size: 40,)
                         : const Icon(Icons.enhanced_encryption, color: Colors.green, size: 40,)

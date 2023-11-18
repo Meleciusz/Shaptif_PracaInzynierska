@@ -17,6 +17,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
     on<UpdateTrainingStatus>(_mapUpdateTrainingStatusEvent);
     on<GetTrainingsAndExercises>(_mapGetTrainingsEvent);
     on<RefreshPlayTrainings>(_mapRefreshPlayTrainingsEvent);
+    on<SaveAsHistoricalTraining>(_mapSaveAsHistoricalTrainingEvent);
   }
 
   final FirestoreTrainingService trainingRepository;
@@ -39,6 +40,8 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
       emit(state.copyWith(status: TrainingPlayStatus.loading));
       await trainingRepository.updateTraining(event.training);
       emit(state.copyWith(status: TrainingPlayStatus.success));
+
+      add(RefreshPlayTrainings());
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
     }
@@ -50,6 +53,18 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
       await trainingRepository.clearFirestoreCache();
       final trainings = await trainingRepository.getTrainings();
       emit(state.copyWith(status: TrainingPlayStatus.success, trainings: trainings));
+    } catch (e) {
+      emit(state.copyWith(status: TrainingPlayStatus.error));
+    }
+  }
+
+  void _mapSaveAsHistoricalTrainingEvent(SaveAsHistoricalTraining event, Emitter<TrainingPlayState> emit) async {
+    try {
+      emit(state.copyWith(status: TrainingPlayStatus.loading));
+      await historyRepository.addHistoricalTraining(event.history);
+      emit(state.copyWith(status: TrainingPlayStatus.success));
+
+      add(RefreshPlayTrainings());
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
     }

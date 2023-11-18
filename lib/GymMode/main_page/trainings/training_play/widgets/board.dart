@@ -1,12 +1,16 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:history_repository/history_repository.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/training_play_bloc.dart';
+import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import 'package:training_repository/training_repository.dart';
 import 'training_player/home.dart';
+import 'training_player/return.dart';
 
 class TrainingPlayBoard extends StatefulWidget {
   TrainingPlayBoard(
@@ -27,10 +31,18 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
 
 
 
-
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final user = context.select((AppBloc bloc) => bloc.state.user);
+
+    return widget.trainings.isEmpty ? Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: 40,),
+        Text("No trainings found ", style: Theme.of(context).textTheme.titleMedium, overflow: TextOverflow.ellipsis,),
+        const SizedBox(height: 40,),
+      ]
+    ) : Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         SizedBox(
@@ -146,37 +158,74 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                     mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
                                     verified: widget.trainings[index].verified
                                 )));
-                                context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => TrainingPlayer(
-                                      training: widget.trainings[index],
-                                      exercisesNames: widget.trainings[index].exercises,
-                                      allExercises: widget.exercises,
-                                    )
-                                    )
-                                ).then((value){
-                                  if(value != null){
-                                    Training updatedTraining = value;
-
-                                    context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
-                                        id: updatedTraining.id,
-                                        isFinished: updatedTraining.isFinished,
-                                        name: updatedTraining.name,
-                                        exercises: updatedTraining.exercises,
-                                        addingUserId: updatedTraining.addingUserId,
-                                        allBodyParts: updatedTraining.allBodyParts,
-                                        addingUserName: updatedTraining.addingUserName,
-                                        description: updatedTraining.description,
-                                        mainlyUsedBodyPart: updatedTraining.mainlyUsedBodyPart,
-                                        verified: updatedTraining.verified
-                                    )));
-                                  }
-                                  setState(() {
-                                    widget.exercises.clear();
-                                    widget.exercises.addAll(widget.originalExercises);
-                                  });
-                                });
+                                //context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
+                                //
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(builder: (context) => TrainingPlayer(
+                                //       returnValues: Return(
+                                //         mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
+                                //         allBodyParts: widget.trainings[index].allBodyParts,
+                                //         exercisesNames: widget.trainings[index].exercises,
+                                //         isFinished: widget.trainings[index].isFinished,
+                                //         exercisesSetsCount: [],
+                                //         exercisesWeights: [],
+                                //         wantToSave: false,
+                                //       ),
+                                //       training: Training(
+                                //           id: widget.trainings[index].id,
+                                //           name: widget.trainings[index].name,
+                                //           addingUserId: widget.trainings[index].addingUserId,
+                                //           addingUserName: widget.trainings[index].addingUserName,
+                                //           exercises: widget.trainings[index].exercises,
+                                //           description: widget.trainings[index].description,
+                                //           mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
+                                //           verified: widget.trainings[index].verified,
+                                //           allBodyParts: widget.trainings[index].allBodyParts,
+                                //           isFinished: widget.trainings[index].isFinished.map((e) => e = false).toList()
+                                //       ),
+                                //       exercisesNames: widget.trainings[index].exercises,
+                                //       allExercises: widget.exercises,
+                                //     )
+                                //     )
+                                // ).then((value){
+                                //   if(value != null){
+                                //     // Return updatedValues = value;
+                                //     //
+                                //     // context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
+                                //     //     id: widget.trainings[index].id,
+                                //     //     isFinished: updatedValues.isFinished,
+                                //     //     name: widget.trainings[index].name,
+                                //     //     exercises: updatedValues.exercisesNames,
+                                //     //     addingUserId: widget.trainings[index].addingUserId,
+                                //     //     allBodyParts: updatedValues.allBodyParts,
+                                //     //     addingUserName: widget.trainings[index].addingUserName,
+                                //     //     description: widget.trainings[index].description,
+                                //     //     mainlyUsedBodyPart: updatedValues.mainlyUsedBodyPart,
+                                //     //     verified: widget.trainings[index].verified
+                                //     // )));
+                                //     //
+                                //     // updatedValues.exercisesSetsCount.every((element) => element == 0) ? null :
+                                //     // context.read<TrainingPlayBloc>().add(SaveAsHistoricalTraining(
+                                //     //     history: History(
+                                //     //         id: "",
+                                //     //         name: widget.trainings[index].name,
+                                //     //         adding_user_id: user.id,
+                                //     //         adding_user_name: user.name!,  //TODO to może powodować błędy
+                                //     //         exercises_name: updatedValues.exercisesNames,
+                                //     //         exercises_sets_count: updatedValues.exercisesSetsCount,
+                                //     //         exercises_weights: updatedValues.exercisesWeights,
+                                //     //         date: "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"
+                                //     //     )
+                                //     // ));
+                                //   }
+                                //   setState(() {
+                                //     widget.exercises.clear();
+                                //     widget.exercises.addAll(widget.originalExercises);
+                                //   });
+                                //
+                                //   context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
+                                // });
                               }, icon: const Icon(Icons.refresh, size: 35, color: Color.fromARGB(
                                   255, 166, 123, 18)))
                             ) : Tooltip(
@@ -186,9 +235,20 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                 log(widget.originalExercises.toString());
                                 log(widget.trainings[index].exercises.toString());
                                 log(widget.trainings[index].name.toString());
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => TrainingPlayer(
+                                      returnValues:
+                                      Return(
+                                        mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
+                                        allBodyParts: widget.trainings[index].allBodyParts,
+                                        exercisesNames: widget.trainings[index].exercises,
+                                        isFinished: widget.trainings[index].isFinished,
+                                        exercisesSetsCount: [],
+                                        exercisesWeights: [],
+                                        wantToSave: false,
+                                      ),
                                       training: widget.trainings[index],
                                       exercisesNames: widget.trainings[index].exercises,
                                         allExercises: widget.exercises,
@@ -196,20 +256,54 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                     )
                                 ).then((value){
                                   if(value != null){
-                                    Training updatedTraining = value;
+                                    Return updatedValues = value;
+                                    log(updatedValues.exercisesNames.toString());
+                                    log(widget.trainings[index].exercises.toString());
 
+                                    log("tutaj");
+                                    log(updatedValues.isFinished.sublist(0, widget.trainings[index].exercises.length).toString());
+
+
+                                    updatedValues.wantToSave ?
                                     context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
-                                        id: updatedTraining.id,
-                                        isFinished: updatedTraining.isFinished,
-                                        name: updatedTraining.name,
-                                        exercises: updatedTraining.exercises,
-                                        addingUserId: updatedTraining.addingUserId,
-                                        allBodyParts: updatedTraining.allBodyParts,
-                                        addingUserName: updatedTraining.addingUserName,
-                                        description: updatedTraining.description,
-                                        mainlyUsedBodyPart: updatedTraining.mainlyUsedBodyPart,
-                                        verified: updatedTraining.verified
+                                        id: widget.trainings[index].id,
+                                        isFinished: updatedValues.isFinished,
+                                        name: widget.trainings[index].name,
+                                        exercises: updatedValues.exercisesNames,
+                                        addingUserId: widget.trainings[index].addingUserId,
+                                        allBodyParts: updatedValues.allBodyParts,
+                                        addingUserName: widget.trainings[index].addingUserName,
+                                        description: widget.trainings[index].description,
+                                        mainlyUsedBodyPart: updatedValues.mainlyUsedBodyPart,
+                                        verified: widget.trainings[index].verified
+                                    )))
+                                        : context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
+                                        id: widget.trainings[index].id,
+                                        isFinished: updatedValues.isFinished.sublist(0, widget.trainings[index].exercises.length),
+                                        name: widget.trainings[index].name,
+                                        exercises: widget.trainings[index].exercises,
+                                        addingUserId: widget.trainings[index].addingUserId,
+                                        allBodyParts: widget.trainings[index].allBodyParts,
+                                        addingUserName: widget.trainings[index].addingUserName,
+                                        description: widget.trainings[index].description,
+                                        mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
+                                        verified: widget.trainings[index].verified
                                     )));
+
+                                    updatedValues.exercisesSetsCount.every((element) => element == 0) ? null :
+                                    context.read<TrainingPlayBloc>().add(SaveAsHistoricalTraining(
+                                        history: History(
+                                            id: "",
+                                            name: widget.trainings[index].name,
+                                            adding_user_id: user.id,
+                                            adding_user_name: user.name!,  //TODO to może powodować błędy
+                                            exercises_name: updatedValues.exercisesNames.length > widget.trainings[index].exercises.length ?
+                                            updatedValues.exercisesNames : widget.trainings[index].exercises,
+                                            exercises_sets_count: updatedValues.exercisesSetsCount,
+                                            exercises_weights: updatedValues.exercisesWeights,
+                                            date: Timestamp.now(),
+                                        )
+                                    ));
                                   }
                                   setState(() {
                                     widget.exercises.clear();
@@ -227,7 +321,7 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                           child: SizedBox(
                             child: Tooltip(
                               message: "Skip",
-                              child: IconButton(onPressed: (){
+                              child: IconButton(onPressed: () {
                                 context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
                                     id: widget.trainings[index].id,
                                     isFinished: widget.trainings[index].isFinished.map((e) => e = true).toList(),

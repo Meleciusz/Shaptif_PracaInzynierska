@@ -63,7 +63,7 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return ExpansionTile(
-                        title: Text("${widget.elements[index].name}  ${widget.elements[index].date}",
+                        title: Text("${widget.elements[index].name}  ${widget.elements[index].date.toDate().toString()}",
                           style: Theme.of(context).textTheme.titleLarge,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -87,13 +87,20 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Text("Date: ", style: Theme.of(context).textTheme.titleLarge,),
-                                    Text(widget.elements[index].date,
-                                      style: Theme.of(context).textTheme.displaySmall,
-                                    )
-                                  ],
+                                Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "Date: ",
+                                          style: Theme.of(context).textTheme.titleLarge
+                                      ),
+                                      TextSpan(
+                                        text: widget.elements[index].date.toDate().toString().substring(0, 19),
+                                        style: Theme.of(context).textTheme.headlineMedium,
+                                      ),
+                                    ],
+                                  ),
+                                  overflow: TextOverflow.clip,
                                 ),
                                 //const SizedBox(height: 8.0),
                                 for(int n =0; n < widget.elements[index].exercises_name.length; n++)
@@ -115,8 +122,11 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                                             ),
                                           ],
                                         ),
-                                        overflow: TextOverflow.ellipsis,
+                                        overflow: TextOverflow.clip,
                                       ),
+                                      widget.elements[index].exercises_sets_count.length > n
+                                          && widget.elements[index].exercises_sets_count[n] != null
+                                          && widget.elements[index].exercises_sets_count[n] != 0 ?
                                       Text.rich(
                                         TextSpan(
                                           children: [
@@ -125,13 +135,22 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                                                 style: Theme.of(context).textTheme.titleLarge
                                             ),
                                             TextSpan(
-                                              text: widget.elements[index].exercises_sets_count[n].toString(),
+                                              text:  widget.elements[index].exercises_sets_count[n].toString(),
                                               style: Theme.of(context).textTheme.headlineMedium,
                                             ),
                                           ],
                                         ),
-                                        overflow: TextOverflow.ellipsis,
+                                        overflow: TextOverflow.clip,
+                                      ) : Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            const SizedBox(height: 16.0),
+                                            Text("Exercise was not made", style: Theme.of(context).textTheme.headlineSmall,)
+                                          ]
                                       ),
+                                      widget.elements[index].exercises_sets_count.length > n
+                                          && widget.elements[index].exercises_sets_count[n] != null
+                                          && widget.elements[index].exercises_sets_count[n] != 0 ?
                                       Text.rich(
                                         TextSpan(
                                           children: [
@@ -140,13 +159,14 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                                                 style: Theme.of(context).textTheme.titleLarge
                                             ),
                                             TextSpan(
-                                              text: widget.elements[index].exercises_weights[n],
+                                              //text: widget.elements[index].exercises_weights[n] == null ? "Exercise was not made" : widget.elements[index].exercises_weights[n].toString(),
+                                              text:  widget.elements[index].exercises_weights[n],
                                               style: Theme.of(context).textTheme.headlineMedium,
                                             ),
                                           ],
                                         ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                                        overflow: TextOverflow.clip,
+                                      ) : const Text(""),
                                       const SizedBox(height: 8.0),
                                     ],
                                   ),

@@ -25,4 +25,12 @@ class RefreshPlayTrainings extends TrainingPlayEvent {
   List<Object?> get props => [];
 }
 
-class
+class SaveAsHistoricalTraining extends TrainingPlayEvent {
+ SaveAsHistoricalTraining({
+    required this.history
+});
+  final History history;
+
+  @override
+  List<Object?> get props => [];
+}

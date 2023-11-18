@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class History{
   String id;
   String name;
@@ -6,7 +8,7 @@ class History{
   List<String> exercises_name;
   List<int> exercises_sets_count;
   List<String> exercises_weights;
-  String date;
+  Timestamp date;
 
 
   History({

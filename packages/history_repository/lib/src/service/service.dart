@@ -28,7 +28,9 @@ class FirestoreHistoryService{
   FirebaseFirestore.instance.collection('History');
 
   Future<List<History>> getHistoryForUser(String currentUserId) async {
-    final querySnapshot = await _exerciseCollection.where('adding_user_id', isEqualTo: currentUserId).get();
+    final querySnapshot = await _exerciseCollection.where('adding_user_id', isEqualTo: currentUserId)
+        .orderBy('date', descending: true)
+        .get();
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return History(
@@ -42,6 +44,18 @@ class FirestoreHistoryService{
           date: data['date']
       );
     }).toList();
+  }
+
+  Future<void> addHistoricalTraining(History history) async {
+    await _exerciseCollection.add({
+      'name': history.name,
+      'adding_user_name': history.adding_user_name,
+      'adding_user_id': history.adding_user_id,
+      'exercises_name': history.exercises_name,
+      'exercises_sets_count': history.exercises_sets_count,
+      'exercises_weights': history.exercises_weights,
+      'date': history.date
+    });
   }
 
 }
