@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ImageProcessor extends StatelessWidget {
-  ImageProcessor({super.key, required this.allUsedBodyParts});
+  ImageProcessor({super.key, required this.allUsedBodyParts, required this.mainlyUsedBodyPart});
   final List<String> allUsedBodyParts;
+  final String mainlyUsedBodyPart;
 
   final List<String> bodyPartsList = List.of(
       [
@@ -19,7 +20,7 @@ class ImageProcessor extends StatelessWidget {
       children: <Widget>[
         for(int i=0; i<bodyPartsList.length; i++)
           ColorFiltered(
-            colorFilter: allUsedBodyParts[0] == bodyPartsList[i] ?
+            colorFilter: mainlyUsedBodyPart == bodyPartsList[i] ?
             const ColorFilter.mode(Colors.red, BlendMode.srcATop) :
             allUsedBodyParts.contains(bodyPartsList[i])
                 ? const ColorFilter.mode(Colors.deepOrangeAccent, BlendMode.srcATop)

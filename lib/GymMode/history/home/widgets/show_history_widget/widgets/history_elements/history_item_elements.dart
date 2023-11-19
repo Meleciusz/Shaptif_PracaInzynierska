@@ -102,7 +102,6 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                                   ),
                                   overflow: TextOverflow.clip,
                                 ),
-                                //const SizedBox(height: 8.0),
                                 for(int n =0; n < widget.elements[index].exercises_name.length; n++)
                                   Column(
                                     mainAxisSize: MainAxisSize.min,

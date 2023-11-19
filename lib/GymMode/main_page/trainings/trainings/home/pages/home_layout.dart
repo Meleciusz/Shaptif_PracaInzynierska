@@ -22,7 +22,7 @@ class HomeLayoutState extends State<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    const mainColor = Color.fromARGB(255, 120, 178, 124);
+    const mainColor = Color.fromARGB(255, 21, 117, 1);
 
     return Scaffold(
       backgroundColor: mainColor,

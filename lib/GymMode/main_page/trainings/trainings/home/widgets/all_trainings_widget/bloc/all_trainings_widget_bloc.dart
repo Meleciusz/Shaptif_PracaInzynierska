@@ -54,6 +54,8 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
       emit(state.copyWith(status: AllTrainingsStatus.loading));
       await firestoreService.deleteTraining(event.trainingID);
       emit(state.copyWith(status: AllTrainingsStatus.success));
+
+      add(RefreshTrainings());
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
     }

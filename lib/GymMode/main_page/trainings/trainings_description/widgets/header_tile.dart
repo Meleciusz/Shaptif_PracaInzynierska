@@ -1,36 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../authorization/app/app.dart';
-
-const _avatarSize = 40.0;
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key});
+  const HeaderTitle({super.key, required this.onRefreshTap});
+  final VoidCallback onRefreshTap;
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((AppBloc bloc) => bloc.state.user);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(
-          onPressed: (){
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new, size: _avatarSize),
+        Tooltip(
+          message: "Go back",
+          child: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: Transform.rotate(
+              angle: 180 * 3.1416 / 180,
+              child: const Icon(Icons.exit_to_app, size: 40),
+            ),
+          ),
         ),
-        const SizedBox(width: 30.0),
-        // user.name == addingUser ?
-        // veryfied ?
-        // const SizedBox() :
-        // IconButton(onPressed: (){
-        //   allExercisesBloc.add(DeleteExercise(exerciseID: exerciseId));
-        //   allExercisesBloc.add(RefreshExercises());
-        //   exercisesByCategoryBloc.add(RefreshExercisesByCategory());
-        //   Navigator.pop(context);
-        // }, icon: const Icon(Icons.delete_forever, size: _avatarSize)) :
-        // const SizedBox(),
+        SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: const Center(
+              child: Text("Description", style: TextStyle(
+                color: Color.fromARGB(255, 243, 231, 231),
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ), overflow: TextOverflow.ellipsis,),
+            )
+        ),
+        Tooltip(
+            message: "Refresh",
+            child: IconButton(
+              onPressed: (){
+                onRefreshTap();
+              },
+              icon: Transform.rotate(
+                angle: 180 * 3.1416 / 180,
+                child: const Icon(Icons.refresh, size: 40,),
+              ),
+            )
+        )
       ],
     );
   }
