@@ -296,7 +296,7 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                             id: "",
                                             name: widget.trainings[index].name,
                                             adding_user_id: user.id,
-                                            adding_user_name: user.name!,  //TODO to może powodować błędy
+                                            adding_user_name: user.name == null ? user.email!.split('@').first : user.name!,
                                             exercises_name: updatedValues.exercisesNames.length > widget.trainings[index].exercises.length ?
                                             updatedValues.exercisesNames : widget.trainings[index].exercises,
                                             exercises_sets_count: updatedValues.exercisesSetsCount,

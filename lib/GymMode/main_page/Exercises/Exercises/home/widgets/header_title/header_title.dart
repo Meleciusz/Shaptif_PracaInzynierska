@@ -17,22 +17,21 @@ class HeaderTitle extends StatelessWidget {
               onPressed: (){
                 Scaffold.of(context).openDrawer();
               },
-              icon: const Icon(Icons.drag_indicator)
+              icon: Transform.rotate(
+              angle: 270 * 3.1416 / 180,
+            child: const Icon(Icons.drag_indicator, size: 40),
+          ),
           ),
         ),
-        const Text("Exercises", style: TextStyle(
-          color: Color.fromARGB(255, 243, 231, 231),
-          fontSize: 50,
-          fontWeight: FontWeight.bold,
-        ), overflow: TextOverflow.ellipsis,),
-        Tooltip(
-          message: "Log out",
-          child: IconButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.exit_to_app)
-          ),
+        SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: const Center(
+              child: Text("Exercises", style: TextStyle(
+                color: Color.fromARGB(255, 243, 231, 231),
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ), overflow: TextOverflow.ellipsis,),
+            )
         ),
       ],
     );

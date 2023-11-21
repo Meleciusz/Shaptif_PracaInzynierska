@@ -58,7 +58,7 @@ class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
               ),
               widget.trainings!.isNotEmpty ?
               SizedBox(
-                height: ((items.length * 100) + MediaQuery.of(context).size.width) + 24,
+                height: items.length * 100 + items.length * 20 + 90,
                 child: ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.only(

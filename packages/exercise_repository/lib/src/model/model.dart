@@ -4,8 +4,9 @@ class Exercise{
   String photo_url;
   String name;
   String description;
-  bool veryfied;
+  bool verified;
   String adding_user_id;
+  String adding_user_name;
 
   Exercise({
     required this.id,
@@ -13,8 +14,9 @@ class Exercise{
     required this.photo_url,
     required this.name,
     required this.description,
-    required this.veryfied,
-    required this.adding_user_id
+    required this.verified,
+    required this.adding_user_id,
+    required this.adding_user_name
   });
 
   Exercise copyWith({
@@ -23,8 +25,9 @@ class Exercise{
     String? photo_url,
     String? name,
     String? description,
-    bool? veryfied,
-    String? adding_user_id
+    bool? verified,
+    String? adding_user_id,
+    String? adding_user_name
   }){
     return Exercise(
       id: id ?? this.id,
@@ -32,8 +35,9 @@ class Exercise{
       photo_url: photo_url ?? this.photo_url,
       name: name ?? this.name,
       description: description ?? this.description,
-      veryfied: veryfied ?? this.veryfied,
-      adding_user_id: adding_user_id ?? this.adding_user_id
+        verified: verified ?? this.verified,
+      adding_user_id: adding_user_id ?? this.adding_user_id,
+      adding_user_name: adding_user_name ?? this.adding_user_name
     );
   }
 }

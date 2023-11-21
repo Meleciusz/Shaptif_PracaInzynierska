@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../authorization/app/app.dart';
 import '../../Exercises/home/widgets/all_exercises_widget/bloc/all_exercises_bloc.dart';
 import '../../Exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
-import '../widgets/new_exercise_images.dart';
+import '../widgets/widgets.dart';
 
 class NewExercise extends StatefulWidget {
   const NewExercise({super.key, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
@@ -18,6 +18,7 @@ class NewExercise extends StatefulWidget {
 
 
 class _NewExerciseState extends State<NewExercise> {
+  static const mainColor = Color.fromARGB(255, 105, 70, 70);
 
   final List<String> bodyPartsList = List.of(
       [
@@ -26,7 +27,14 @@ class _NewExerciseState extends State<NewExercise> {
       ]
   );
 
+  @override
+  initState(){
+    bodyPartClicked = List.generate(bodyPartsList.length, (index) => false);
+    super.initState();
+  }
+
   Set<String> selectedBodyParts = {};
+  List<bool> bodyPartClicked = [];
   String photoUrl = "";
   String exerciseName = "";
   String exerciseDescription = "";
@@ -61,137 +69,235 @@ class _NewExerciseState extends State<NewExercise> {
     final user = context.select((AppBloc bloc) => bloc.state.user);
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ContainerBody(
-            children: [
-              Text("Exercise Images: ", style: Theme.of(context).textTheme.headlineSmall,),
-              NewExerciseImages(selectedBodyParts: selectedBodyParts, handleUrlChanged: handleUrlChanged, iconController: iconController,),
-              Row(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(onPressed: () {
-                    _toggleIcon();
-                  },
-                      icon: const Icon(Icons.arrow_back_ios)),
-                  IconButton(onPressed: (){
-                    _toggleIcon();
-                  },
-                      icon: const Icon(Icons.arrow_forward_ios)),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Text("Body Parts:", style: Theme.of(context).textTheme.headlineSmall,),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .15,
-                child: ListView.separated(
-                    itemBuilder: (context, index){
-                      return GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            selectedBodyParts.contains(bodyPartsList[index]) ?
-                            selectedBodyParts.remove(bodyPartsList[index]) :
-                            selectedBodyParts.add(bodyPartsList[index]);
-                          });
-                        },
-                        child: Column(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                alignment: Alignment.center,
-                                height: 60.0,
-                                width: 60.0,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.amberAccent
+      backgroundColor: mainColor,
+
+      body: Padding(
+          padding: const EdgeInsets.only(top: 40.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            HeaderTitle(
+              onRefreshTap: () {
+                setState(() {
+                  selectedBodyParts.clear();
+                  photoUrl = "";
+                  exerciseName = "";
+                  exerciseDescription = "";
+                });
+              },
+            ),
+            const SizedBox(height: 10,),
+            ContainerBody(
+              children: [
+                InkWell(
+                  onTap: (){
+                    exerciseName.isNotEmpty ?{
+                      widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
+                      id: '',
+                      adding_user_id: user.id,
+                      body_parts: selectedBodyParts.toList(),
+                      description: exerciseDescription,
+                      name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
+                      photo_url: photoUrl,
+                      verified: false,
+                          adding_user_name: user.name == null ? user.email!.split('@').first : user.name!
+                      ))),
+
+                      widget.allExercisesBloc.add(RefreshExercises()),
+                      widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory()),
+                      Navigator.pop(context),
+                    } : showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            title: Text("You are adding exercise with generated name!", style: Theme.of(context).textTheme.titleLarge,),
+                            content: Text("Are you sure? It can make it difficult to search", style: Theme.of(context).textTheme.titleMedium,),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    backgroundColor: Colors.green
                                 ),
-                                child: const Icon(Icons.adb),
+                                child: const Text("Go back"),
                               ),
-                              Container(
-                                width: 60,
-                                child: Text(
-                                  bodyPartsList[index],
-                                  style: const TextStyle(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                              ElevatedButton(
+                                onPressed: () {
+                                  widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
+                                      id: '',
+                                      adding_user_id: user.id,
+                                      body_parts: selectedBodyParts.toList(),
+                                      description: exerciseDescription,
+                                      name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
+                                      photo_url: photoUrl,
+                                      verified: false,
+                                      adding_user_name: user.name == null ? user.email!.split('@').first : user.name!
+                                  )));
+
+                                  widget.allExercisesBloc.add(RefreshExercises());
+                                  widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory());
+                                  Navigator.pop(context);
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    backgroundColor: Colors.red
                                 ),
+                                child: const Text("I understand"),
                               ),
-                            ]
-                        ),
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (_, __) => const SizedBox(width: 16),
-                    itemCount: bodyPartsList.length
+                            ],
+                          );
+                        }
+                    );
+                  },
+                  child: const Tooltip(
+                      message: "Save",
+                      child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Icon(Icons.add_task_rounded, size: 100, color: mainColor),
+                      )
+                  ),
                 ),
-              ),
-              Text("Exercise Name:", style: Theme.of(context).textTheme.headlineSmall,),
-              Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextField(
-                    controller: _textController1,
-                    maxLength: 30,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
+                const SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text("Exercise Name", style: Theme.of(context).textTheme.titleLarge, ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" : exerciseName,
+                    hintMaxLines: 15,
+                    hintStyle: Theme.of(context).textTheme.titleLarge,
+                    prefixIcon: Transform.rotate(angle: 270 * 3.1416 /180, child: const Icon(Icons.edit_rounded,
+                      color: mainColor,
+                      shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-2, -2), blurRadius: 2)],
+                    )), border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                  ),
+                  onChanged: (text) {
+                    setState(() {
+                      exerciseName = text;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text("Description", style: Theme.of(context).textTheme.titleLarge,),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    hintStyle: Theme.of(context).textTheme.titleMedium,
+                    prefixIcon: Transform.rotate(angle: 270 * 3.1416 /180, child: const Icon(Icons.edit_rounded,
+                      color: mainColor,
+                      shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-2, -2), blurRadius: 2)],
+                    )),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(18.0),
                     ),
-                    onChanged: (text){
-
-                      setState(() {
-                        exerciseName = text;
-                      });
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                  ),
+                  onChanged: (text) {
+                    setState(() {
+                      exerciseDescription = text;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20,),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text("Exercise images", style: Theme.of(context).textTheme.titleLarge, ),
+                ),
+                NewExerciseImages(selectedBodyParts: selectedBodyParts, handleUrlChanged: handleUrlChanged, iconController: iconController,),
+                Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(onPressed: () {
+                      _toggleIcon();
                     },
-                  )
-              ),
-              Text("Exercise Description:", style: Theme.of(context).textTheme.headlineSmall,),
-              Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextField(
-                    maxLines: 3,
-                    controller: _textController2,
-                    maxLength: 200,
-                    decoration: const InputDecoration(
-                      labelText: 'Description',
-                    ),
-                    onChanged: (text){
-                      text.isEmpty ?
-
-                      setState(() {
-                        exerciseDescription = "Exercise has no description";
-                      }) :
-
-                      setState(() {
-                        exerciseDescription = text;
-                      });
+                        icon: const Icon(Icons.arrow_back_ios)),
+                    IconButton(onPressed: (){
+                      _toggleIcon();
                     },
-                  )
-              )
-            ],
-          ),
-        ]
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
-            id: '',
-            adding_user_id: user.name!,
-            body_parts: selectedBodyParts.toList(),
-            description: exerciseDescription,
-            name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
-            photo_url: photoUrl,
-            veryfied: false
-          )));
+                        icon: const Icon(Icons.arrow_forward_ios)),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text("Body parts", style: Theme.of(context).textTheme.titleLarge, ),
+                ),
+                const SizedBox(height: 20,),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .15,
+                  child: ListView.separated(
+                      itemBuilder: (context, index){
+                        return GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              selectedBodyParts.contains(bodyPartsList[index]) ?
+                              selectedBodyParts.remove(bodyPartsList[index]) :
+                              selectedBodyParts.add(bodyPartsList[index]);
 
-          widget.allExercisesBloc.add(RefreshExercises());
-          widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory());
-          Navigator.pop(context);
-        },
-        shape: const CircleBorder(),
-          child: const Icon(Icons.add),
+                              bodyPartClicked[index] = !bodyPartClicked[index];
+                            });
+                          },
+                          child: Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                  alignment: Alignment.center,
+                                  height: 60.0,
+                                  width: 60.0,
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromARGB(0, 0, 0, 0)
+                                  ),
+                                  child: bodyPartClicked[index]
+                                      ? const Icon(Icons.check_circle, color: mainColor, size: 40,)
+                                      : const Icon(Icons.radio_button_unchecked_outlined),
+                                ),
+                                SizedBox(
+                                  width: 60,
+                                  child: Text(
+                                    bodyPartsList[index],
+                                    style: const TextStyle(
+                                        fontSize: 13.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                  ),
+                                ),
+                              ]
+                          ),
+                        );
+                      },
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (_, __) => const SizedBox(width: 16),
+                      itemCount: bodyPartsList.length
+                  ),
+                ),
+              ],
+            ),
+          ]
+       ),
       ),
     );
   }

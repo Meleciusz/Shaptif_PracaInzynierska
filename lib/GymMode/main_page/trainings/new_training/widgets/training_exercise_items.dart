@@ -1,15 +1,13 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 
-typedef WeightPicked = Function(List<double> weightPicked);
 
 class TrainingExerciseItems extends StatefulWidget {
   const TrainingExerciseItems({super.key, required this.exercises,
-    required this.callback, required this.onAddExerciseCallback
+    required this.onAddExerciseCallback
   });
 
   final List<Exercise> exercises;
-  final WeightPicked callback;
   final VoidCallback onAddExerciseCallback;
 
   @override

@@ -70,7 +70,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                           description: trainingDescription,
                           exercises: exercises.map((e) => e.name).toList(),
                           allBodyParts: allBodyParts.toSet().toList(),
-                          addingUserName: context.read<AppBloc>().state.user.name!,
+                          addingUserName: context.read<AppBloc>().state.user.name == null ? context.read<AppBloc>().state.user.email!.split('@').first : context.read<AppBloc>().state.user.name!,
                           addingUserId: context.read<AppBloc>().state.user.id!,
                           id: "",
                           verified: false,
@@ -171,10 +171,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                       ? ImageProcessor(allUsedBodyParts: allBodyParts, mainlyUsedBodyPart: allBodyParts.isNotEmpty ? findMainlyUsedBodyPart(exercises, allBodyParts) : "",)
                       : const SizedBox(),
                     const SizedBox(height: 20),
-                    // Container(
-                    //   alignment: Alignment.center,
-                    //   child: Text("Exercises", style: Theme.of(context).textTheme.titleLarge,),
-                    // ),
                     Container(
                       alignment: Alignment.bottomLeft,
                       child: Row(
@@ -189,11 +185,6 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     ),
                     TrainingExerciseItems(
                       exercises: exercises,
-                      callback: (List<double> weights) {
-                        setState(() {
-
-                        });
-                      },
                       onAddExerciseCallback: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => NewTrainingBuilder(
                           allExercises: widget.allExercises,

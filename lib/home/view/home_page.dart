@@ -20,14 +20,15 @@ class _HomePageState extends State<HomePage> {
     final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
 
+
     return Scaffold(
       body: Align(
         alignment: const Alignment(0, -2/3),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            HeaderTitle(),
-            Text("Witaj ${user.name}!" ?? '', style: textTheme.headlineMedium),
+            const HeaderTitle(),
+            Text("Welcome ${user.name ?? user.email!.split('@').first}!", style: textTheme.headlineMedium),
             const SizedBox(height: 8),
             Avatar(photo: user.photo),
             const SizedBox(height: 100),
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(Icons.signal_wifi_connected_no_internet_4, color: Colors.red,),
-                          Text("Brak połączenia z internetem, aplikacja może działać bez niektórych funkcji", style: textTheme.bodySmall)
+                          Text("You got no Internet connection, application may work without some functionalities", style: textTheme.bodySmall)
                         ],
                       );
                     }

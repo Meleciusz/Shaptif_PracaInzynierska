@@ -18,10 +18,7 @@ class TrainingsDescription extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            HeaderTitle(onRefreshTap: (){
-                Navigator.pop(context);
-              },
-            ),
+            const HeaderTitle(),
             const SizedBox(height: 20),
             ContainerBody(
                 children: [

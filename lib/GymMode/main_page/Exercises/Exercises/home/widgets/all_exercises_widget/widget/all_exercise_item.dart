@@ -39,10 +39,10 @@ const AllExerciseBoard({super.key, required this.exercise});
                   Positioned(
                     top: 25.0,
                     left: 20.0,
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * .75,
                       child: Text(
-                        exercise.name ?? "",
+                        exercise.name,
                         style: Theme.of(context).textTheme.headlineSmall,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -52,8 +52,8 @@ const AllExerciseBoard({super.key, required this.exercise});
                       top: 65.0,
                       left: 100.0,
                       child: ExerciseVeryfiedIcon(
-                        veryfied: exercise.veryfied,
-                        addingUserName: exercise.adding_user_id,
+                        veryfied: exercise.verified,
+                        addingUserName: exercise.adding_user_name,
                       )
                   ),
                 ],

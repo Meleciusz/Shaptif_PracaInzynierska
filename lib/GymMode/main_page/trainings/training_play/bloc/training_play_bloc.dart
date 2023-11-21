@@ -27,7 +27,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
   void _mapGetTrainingsEvent(GetTrainingsAndExercises event, Emitter<TrainingPlayState> emit) async {
     try {
       emit(state.copyWith(status: TrainingPlayStatus.loading));
-      final trainings = await trainingRepository.getTrainings();
+      final trainings = await trainingRepository.getAllTrainings();
       final exercises = await exerciseRepository.getExercises();
       emit(state.copyWith(status: TrainingPlayStatus.success, trainings: trainings, exercises: exercises));
     } catch (e) {
@@ -51,7 +51,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
     try {
       emit(state.copyWith(status: TrainingPlayStatus.loading));
       await trainingRepository.clearFirestoreCache();
-      final trainings = await trainingRepository.getTrainings();
+      final trainings = await trainingRepository.getAllTrainings();
       emit(state.copyWith(status: TrainingPlayStatus.success, trainings: trainings));
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));

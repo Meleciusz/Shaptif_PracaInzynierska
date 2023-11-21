@@ -61,7 +61,7 @@ class LoadedStateWidgetState extends State<LoadedStateWidget> {
                 ),
               ),
               SizedBox(
-                height: ((items.length * 100) + MediaQuery.of(context).size.width) + 24,
+                height: items.length * 100 + 20 * items.length + 70,
                 child: ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.only(

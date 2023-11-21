@@ -3,6 +3,7 @@ import 'package:container_body/container_body.dart';
 import 'package:fab_circural_menu/fab_circural_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/category_widget/bloc/category_widget_bloc.dart';
 import '../../../../../history/history.dart';
 import '../../../../bloc/main_page_bloc.dart';
 import '../../../new_training/new_training.dart';
@@ -22,7 +23,7 @@ class HomeLayoutState extends State<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    const mainColor = Color.fromARGB(255, 21, 117, 1);
+    const mainColor = Color.fromARGB(255, 130, 189, 149);
 
     return Scaffold(
       backgroundColor: mainColor,
@@ -54,7 +55,8 @@ class HomeLayoutState extends State<HomeLayout> {
                     if (snapshot.data == true) {
                       return IconButton(
                         onPressed: (){
-                          context.read<AllTrainingsBloc>().add(RefreshTrainings());
+                          context.read<AllTrainingsBloc>().add(RefreshAllTrainings());
+                          context.read<CategoryBloc>().add(SelectCategory(idSelected: 0));
                         },
                         icon:  const Icon(Icons.refresh),
                       );
@@ -77,7 +79,7 @@ class HomeLayoutState extends State<HomeLayout> {
                                   builder: (context) => const NewTrainingPage()
                               )
                           ).whenComplete(() {
-                            context.read<AllTrainingsBloc>().add(RefreshTrainings());
+                            context.read<AllTrainingsBloc>().add(RefreshAllTrainings());
                           });
                         },
                         icon:  const Icon(Icons.add),
@@ -112,7 +114,7 @@ class HomeLayoutState extends State<HomeLayout> {
                       builder: (context) => const TrainingPlay()
                   )
               ).whenComplete((){
-                context.read<AllTrainingsBloc>().add(RefreshTrainings());
+                context.read<AllTrainingsBloc>().add(RefreshAllTrainings());
               });
             },
                 icon: const Icon(Icons.play_arrow_outlined)),

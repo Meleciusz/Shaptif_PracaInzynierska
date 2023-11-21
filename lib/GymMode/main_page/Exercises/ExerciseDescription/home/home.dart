@@ -30,13 +30,16 @@ class ExerciseDescription extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: Padding(
+
+      backgroundColor: const Color.fromARGB(255, 232, 64, 64),
+
+        body: Padding(
         padding: const EdgeInsets.only(top: 40.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              HeaderTitle(veryfied: widget.exercise.veryfied, addingUser: widget.exercise.adding_user_id,
+              HeaderTitle(verified: widget.exercise.verified, addingUser: widget.exercise.adding_user_id,
                   exerciseId: widget.exercise.id, allExercisesBloc: widget.allExercisesBloc,
                   exercisesByCategoryBloc: widget.exercisesByCategoryBloc,
               ),
@@ -115,7 +118,7 @@ class ExerciseDescription extends StatefulWidget {
                         icon: const Icon(Icons.arrow_forward_ios)),
                   ],),
                   const SizedBox(height: 20),
-                  Text("Mięsnie zaangażowane w ruch:", style: Theme.of(context).textTheme.headlineSmall,),
+                  Text("Body parts used in exercise:", style: Theme.of(context).textTheme.headlineSmall,),
 
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -123,17 +126,17 @@ class ExerciseDescription extends StatefulWidget {
                     children: widget.exercise.body_parts!.map((part) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 20.0),
-                        child: Text("- " +
-                          part,
-                          style: Theme.of(context).textTheme.bodySmall,
+                        child: Text("- $part",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       );
                     }).toList(),
                   ),
 
                   const SizedBox(height: 20),
-                  Text("Wykonanie:", style: Theme.of(context).textTheme.headlineSmall,),
-                  Text(widget.exercise.description ?? '', style: Theme.of(context).textTheme.bodySmall,),
+                  Text("Note:", style: Theme.of(context).textTheme.headlineSmall,),
+                  Text(widget.exercise.description ?? '', style: Theme.of(context).textTheme.bodyMedium,),
                 ],
               ),
             ]

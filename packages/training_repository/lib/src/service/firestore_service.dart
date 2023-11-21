@@ -26,7 +26,51 @@ class FirestoreTrainingService {
   final CollectionReference _trainingCollection =
   FirebaseFirestore.instance.collection('Training');
 
-  Future<List<Training>> getTrainings() async {
+  Future<List<Training>> getUserTrainings(String userId) async {
+    final querySnapshot = await _trainingCollection
+        .where('adding_user_id', isEqualTo: userId)
+        .get();
+
+    return querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return Training(
+        id: doc.id,
+        name: data['name'],
+        description: data['description'],
+        addingUserId: data['adding_user_id'],
+        addingUserName: data['adding_user_name'],
+        exercises: List<String>.from(data['exercises']),
+        mainlyUsedBodyPart: data['mainly_used_body_part'],
+        verified: data['verified'],
+        allBodyParts: List<String>.from(data['all_body_parts']),
+        isFinished: List<bool>.from(data['is_finished']),
+      );
+    }).toList();
+  }
+
+  Future<List<Training>> getVerifiedTrainings() async {
+    final querySnapshot = await _trainingCollection
+        .where('verified', isEqualTo: true)
+        .get();
+
+    return querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return Training(
+        id: doc.id,
+        name: data['name'],
+        description: data['description'],
+        addingUserId: data['adding_user_id'],
+        addingUserName: data['adding_user_name'],
+        exercises: List<String>.from(data['exercises']),
+        mainlyUsedBodyPart: data['mainly_used_body_part'],
+        verified: data['verified'],
+        allBodyParts: List<String>.from(data['all_body_parts']),
+        isFinished: List<bool>.from(data['is_finished']),
+      );
+    }).toList();
+  }
+
+  Future<List<Training>> getAllTrainings() async {
     final querySnapshot = await _trainingCollection.get();
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;

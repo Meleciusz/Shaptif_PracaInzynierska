@@ -12,13 +12,13 @@ class ExerciseVeryfiedIcon extends StatelessWidget {
 
     return Row(
       children: [
-        Text("Veryfied:  "),
-        SizedBox(width: 3),
-        veryfied ? Icon(Icons.check, color: Colors.green)
-            : Icon(Icons.not_interested_rounded, color: Colors.red),
-        SizedBox(width: 3),
+        const Text("Verified:  "),
+        const SizedBox(width: 3),
+        veryfied ? const Icon(Icons.check, color: Colors.green)
+            : const Icon(Icons.not_interested_rounded, color: Colors.red),
+        const SizedBox(width: 3),
         veryfied ? Container() :
-        Text("Added by:  " + addingUserName ?? ''),
+        Text("Added by:  $addingUserName" ?? ''),
       ]
     );
   }

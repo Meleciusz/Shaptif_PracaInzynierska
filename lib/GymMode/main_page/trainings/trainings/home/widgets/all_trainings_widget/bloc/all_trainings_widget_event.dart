@@ -5,18 +5,19 @@ class AllTrainingsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetTrainings extends AllTrainingsEvent {
+class GetAllTrainings extends AllTrainingsEvent {
   @override
   List<Object?> get props => [];
 }
 
-class RefreshTrainings extends AllTrainingsEvent {
+class RefreshAllTrainings extends AllTrainingsEvent {
   @override
   List<Object?> get props => [];
 }
 
-class GetTrainingsByCategory_ extends AllTrainingsEvent {
-  GetTrainingsByCategory_({
+
+class GetTrainingsByCategory extends AllTrainingsEvent {
+  GetTrainingsByCategory({
     required this.categoryName,
   });
 

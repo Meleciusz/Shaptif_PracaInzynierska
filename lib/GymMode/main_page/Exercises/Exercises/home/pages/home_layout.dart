@@ -20,7 +20,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
     final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
-    const mainColor = Color.fromARGB(255, 120, 178, 124);
+    const mainColor = Color.fromARGB(255, 196, 115, 115);
 
     return Scaffold(
       backgroundColor: mainColor,

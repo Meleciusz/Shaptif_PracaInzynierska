@@ -9,15 +9,15 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
   AllTrainingsBloc({
     required this.firestoreService,
   }) : super(const AllTrainingsState()) {
-    on<GetTrainings>(_mapGetTrainingsEvent);
-    on<RefreshTrainings>(_mapRefreshTrainingsEvent);
+    on<GetAllTrainings>(_mapGetTrainingsEvent);
+    on<RefreshAllTrainings>(_mapRefreshTrainingsEvent);
     on<DeleteTraining>(_mapDeleteTrainingEvent);
-    on<GetTrainingsByCategory_>(_mapGetTrainingsByCategoryEvent);
+    on<GetTrainingsByCategory>(_mapGetTrainingsByCategoryEvent);
   }
 
   final FirestoreTrainingService firestoreService;
 
-  void _mapGetTrainingsByCategoryEvent(GetTrainingsByCategory_ event, Emitter<AllTrainingsState> emit) async {
+  void _mapGetTrainingsByCategoryEvent(GetTrainingsByCategory event, Emitter<AllTrainingsState> emit) async {
     try {
       emit(state.copyWith(status: AllTrainingsStatus.loading));
       final trainings = await firestoreService.getTrainingsByCategory(event.categoryName);
@@ -27,21 +27,21 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
     }
   }
 
-  void _mapGetTrainingsEvent(GetTrainings event, Emitter<AllTrainingsState> emit) async {
+  void _mapGetTrainingsEvent(GetAllTrainings event, Emitter<AllTrainingsState> emit) async {
     try {
       emit(state.copyWith(status: AllTrainingsStatus.loading));
-      final trainings = await firestoreService.getTrainings();
+      final trainings = await firestoreService.getAllTrainings();
       emit(state.copyWith(status: AllTrainingsStatus.success, trainings: trainings));
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
     }
   }
 
-  void _mapRefreshTrainingsEvent(RefreshTrainings event, Emitter<AllTrainingsState> emit) async {
+  void _mapRefreshTrainingsEvent(RefreshAllTrainings event, Emitter<AllTrainingsState> emit) async {
     try {
       emit(state.copyWith(status: AllTrainingsStatus.loading));
       await firestoreService.clearFirestoreCache();
-      final trainings = await firestoreService.getTrainings();
+      final trainings = await firestoreService.getAllTrainings();
       emit(state.copyWith(status: AllTrainingsStatus.success, trainings: trainings));
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
@@ -55,7 +55,7 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
       await firestoreService.deleteTraining(event.trainingID);
       emit(state.copyWith(status: AllTrainingsStatus.success));
 
-      add(RefreshTrainings());
+      add(RefreshAllTrainings());
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
     }

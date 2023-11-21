@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'category_widget_event.dart';
 part 'category_widget_state.dart';

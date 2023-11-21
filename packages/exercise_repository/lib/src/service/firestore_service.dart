@@ -39,8 +39,9 @@ class FirestoreExerciseService {
         photo_url: data['photo_url'],
         name: data['name'],
         description: data['description'],
-        veryfied: data['veryfied'],
+        verified: data['verified'],
         adding_user_id: data['adding_user_id'],
+        adding_user_name: data['adding_user_name'],
       );
     }).toList();
   }
@@ -60,14 +61,15 @@ class FirestoreExerciseService {
         photo_url: data['photo_url'],
         name: data['name'],
         description: data['description'],
-        veryfied: data['veryfied'],
+        verified: data['verified'],
         adding_user_id: data['adding_user_id'],
+        adding_user_name: data['adding_user_name'],
       );
     }).toList();
   }
 
   Future<List<Exercise>> getVerifiedExercises() async {
-    final querySnapshot = await _exerciseCollection.where('veryfied', isEqualTo: true).get();
+    final querySnapshot = await _exerciseCollection.where('verified', isEqualTo: true).get();
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       List<String> bodyPartsList = List<String>.from(data['body_part_id']);
@@ -77,8 +79,9 @@ class FirestoreExerciseService {
         photo_url: data['photo_url'],
         name: data['name'],
         description: data['description'],
-        veryfied: data['veryfied'],
+        verified: data['verified'],
         adding_user_id: data['adding_user_id'],
+        adding_user_name: data['adding_user_name'],
       );
     }).toList();
   }
@@ -89,8 +92,9 @@ class FirestoreExerciseService {
       'photo_url': exercise.photo_url,
       'name': exercise.name,
       'description': exercise.description,
-      'veryfied': exercise.veryfied,
-      'adding_user_id': exercise.adding_user_id
+      'verified': exercise.verified,
+      'adding_user_id': exercise.adding_user_id,
+      'adding_user_name': exercise.adding_user_name
     });
   }
 
@@ -100,8 +104,9 @@ class FirestoreExerciseService {
       'photo_url': exercise.photo_url,
       'name': exercise.name,
       'description': exercise.description,
-      'veryfied': exercise.veryfied,
-      'adding_user_id': exercise.adding_user_id
+      'verified': exercise.verified,
+      'adding_user_id': exercise.adding_user_id,
+      'adding_user_name': exercise.adding_user_name
     });
   }
 

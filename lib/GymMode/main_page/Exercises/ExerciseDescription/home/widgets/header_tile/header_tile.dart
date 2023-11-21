@@ -4,12 +4,11 @@ import '../../../../../../../authorization/app/app.dart';
 import '../../../../Exercises/home/widgets/all_exercises_widget/all_exercises.dart';
 import '../../../../Exercises/home/widgets/exercises_by_category/bloc/exercises_by_category_bloc.dart';
 
-const _avatarSize = 40.0;
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key, required this.veryfied, required this.addingUser,
+  const HeaderTitle({super.key, required this.verified, required this.addingUser,
     required this.exerciseId, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
-  final bool veryfied;
+  final bool verified;
   final String addingUser;
   final String exerciseId;
   final AllExercisesBloc allExercisesBloc;
@@ -24,22 +23,37 @@ class HeaderTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(
-          onPressed: (){
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new, size: _avatarSize),
+        Tooltip(
+          message: "Go back",
+          child: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: Transform.rotate(
+              angle: 180 * 3.1416 / 180,
+              child: const Icon(Icons.exit_to_app, size: 40),
+            ),
+          ),
         ),
-        const SizedBox(width: 30.0),
+        SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: const Center(
+              child: Text("Description", style: TextStyle(
+                color: Color.fromARGB(255, 243, 231, 231),
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ), overflow: TextOverflow.ellipsis,),
+            )
+        ),
         user.name == addingUser ?
-        veryfied ?
+        verified ?
         const SizedBox() :
         IconButton(onPressed: (){
           allExercisesBloc.add(DeleteExercise(exerciseID: exerciseId));
           allExercisesBloc.add(RefreshExercises());
           exercisesByCategoryBloc.add(RefreshExercisesByCategory());
           Navigator.pop(context);
-        }, icon: const Icon(Icons.delete_forever, size: _avatarSize)) :
+        }, icon: const Icon(Icons.delete_forever, size: 40)) :
         const SizedBox(),
       ],
     );
