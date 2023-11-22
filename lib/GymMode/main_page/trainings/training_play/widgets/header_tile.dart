@@ -9,7 +9,7 @@ class HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
       children: [
         Tooltip(
@@ -18,7 +18,7 @@ class HeaderTitle extends StatelessWidget {
               onPressed: (){
                 onQuickStartTap();
               },
-            icon:  const Icon(Icons.local_fire_department_outlined, size: 60, color: Color.fromARGB(
+            icon:  const Icon(Icons.local_fire_department_outlined, size: 50, color: Color.fromARGB(
                   255, 224, 94, 124), shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-2, -2), blurRadius: 2)],
             ),
           ),
@@ -28,7 +28,7 @@ class HeaderTitle extends StatelessWidget {
             child: const Center(
               child: Text("Play", style: TextStyle(
                 color: Color.fromARGB(255, 243, 231, 231),
-                fontSize: 40,
+                fontSize: 50,
                 fontWeight: FontWeight.bold,
               ), overflow: TextOverflow.ellipsis,),
             )

@@ -3,25 +3,13 @@ import 'package:flutter/material.dart';
 class HeaderTitle extends StatelessWidget {
   const HeaderTitle({super.key});
 
-
   @override
   Widget build(BuildContext context) {
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Tooltip(
-          message: "Go back",
-          child: IconButton(
-            onPressed: (){
-              Navigator.pop(context);
-            },
-            icon: Transform.rotate(
-              angle: 180 * 3.1416 / 180,
-              child: const Icon(Icons.exit_to_app, size: 40),
-            ),
-          ),
-        ),
+        IconButton(onPressed: (){}, icon: const Icon(Icons.add), color: const Color.fromARGB(0, 0, 0, 0),),
         SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
             child: const Center(
@@ -31,6 +19,15 @@ class HeaderTitle extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ), overflow: TextOverflow.ellipsis,),
             )
+        ),
+        Tooltip(
+          message: "Go back",
+          child: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.transit_enterexit_rounded, size: 40),
+          ),
         ),
       ],
     );

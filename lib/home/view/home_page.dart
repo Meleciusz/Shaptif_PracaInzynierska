@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +23,9 @@ class _HomePageState extends State<HomePage> {
     final user = context.select((AppBloc bloc) => bloc.state.user);
 
 
+    // log(user.name!);
+    // log(user.email!.split('@').first);
+
     return Scaffold(
       body: Align(
         alignment: const Alignment(0, -2/3),
@@ -28,7 +33,13 @@ class _HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const HeaderTitle(),
-            Text("Welcome ${user.name!.isEmpty ? user.email!.split('@').first : user.name!}!", style: textTheme.headlineMedium),
+
+
+            Text(
+              "Welcome ${user.name != null && user.name!.isNotEmpty ? user.name! : (user.email != null ? user.email!.split('@').first : 'Unknown')}!",
+              style: textTheme.headlineMedium,
+            ),
+
             const SizedBox(height: 8),
             Avatar(photo: user.photo),
             const SizedBox(height: 100),

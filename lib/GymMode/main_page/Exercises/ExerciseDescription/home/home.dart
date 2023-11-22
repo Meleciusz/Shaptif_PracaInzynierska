@@ -41,7 +41,7 @@ class ExerciseDescription extends StatefulWidget {
             children: [
               HeaderTitle(verified: widget.exercise.verified, addingUserID: widget.exercise.adding_user_id,
                   exerciseId: widget.exercise.id, allExercisesBloc: widget.allExercisesBloc,
-                  exercisesByCategoryBloc: widget.exercisesByCategoryBloc,
+                  exercisesByCategoryBloc: widget.exercisesByCategoryBloc, photoUrl: widget.exercise.photo_url
               ),
               const SizedBox(height: 20),
 
@@ -73,7 +73,7 @@ class ExerciseDescription extends StatefulWidget {
                                       image: NetworkImage(widget.exercise.photo_url),
                                       fit: BoxFit.fill,
                                     ),
-                                    shape: BoxShape.rectangle,
+                                    shape: BoxShape.circle,
                                   ),
                                 ) : Column(
                                   mainAxisAlignment: MainAxisAlignment.center,

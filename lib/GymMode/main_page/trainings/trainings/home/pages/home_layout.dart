@@ -29,14 +29,18 @@ class HomeLayoutState extends State<HomeLayout> {
 
     return Scaffold(
       backgroundColor: mainColor,
-      body: const Padding(
-        padding: EdgeInsets.only(top: 40.0),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 40.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HeaderTitle(),
-            SizedBox(height: 20),
-            ContainerBody(
+            HeaderTitle(
+              switchCallback: (){
+                context.read<MainPageBloc>().add(ChangeCategory());
+              },
+            ),
+            const SizedBox(height: 20),
+            const ContainerBody(
                 children: [
                   CategoriesWidget(),
                   AllTrainingsWidget(),
@@ -55,12 +59,15 @@ class HomeLayoutState extends State<HomeLayout> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data == true) {
-                      return IconButton(
-                        onPressed: (){
-                          context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
-                          context.read<CategoryBloc>().add(SelectCategory(idSelected: 0));
-                        },
-                        icon:  const Icon(Icons.refresh),
+                      return Tooltip(
+                        message: 'Refresh',
+                        child: IconButton(
+                          onPressed: (){
+                            context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
+                            context.read<CategoryBloc>().add(SelectCategory(idSelected: 0));
+                          },
+                          icon:  const Icon(Icons.refresh),
+                        ),
                       );
                     }
                     return const SizedBox(height: 0.0, width: 0.0);
@@ -74,17 +81,20 @@ class HomeLayoutState extends State<HomeLayout> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data == true) {
-                      return IconButton(
-                        onPressed: (){
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => const NewTrainingPage()
-                              )
-                          ).whenComplete(() {
-                            context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
-                          });
-                        },
-                        icon:  const Icon(Icons.add),
+                      return Tooltip(
+                        message: 'New training',
+                        child: IconButton(
+                          onPressed: (){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => const NewTrainingPage()
+                                )
+                            ).whenComplete(() {
+                              context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
+                            });
+                          },
+                          icon:  const Icon(Icons.add),
+                        ),
                       );
                     }
                     return const SizedBox(height: 0.0, width: 0.0);
@@ -94,32 +104,30 @@ class HomeLayoutState extends State<HomeLayout> {
                 }
             ),
             Tooltip(
-              message: "Switch to exercises",
-              child: IconButton(icon: const Icon(Icons.switch_access_shortcut_add_rounded),
+              message: 'History',
+              child: IconButton(icon: const Icon(Icons.auto_stories),
                 onPressed: (){
-                  context.read<MainPageBloc>().add(ChangeCategory());
+                  Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const HomePageHistory())
+                  );
                 }
-                ,),
+                ,)
             ),
-            IconButton(icon: const Icon(Icons.auto_stories),
-              onPressed: (){
+            IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
+            Tooltip(
+              message: 'Trainings play',
+              child: IconButton(onPressed: (){
                 Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => const HomePageHistory())
-                );
-              }
-              ,),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
-            IconButton(onPressed: (){
-              Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => const TrainingPlay()
-                  )
-              ).whenComplete((){
-                context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
-              });
-            },
-                icon: const Icon(Icons.play_arrow_outlined)),
+                        builder: (context) => const TrainingPlay()
+                    )
+                ).whenComplete((){
+                  context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
+                });
+              },
+                  icon: const Icon(Icons.play_arrow_outlined)),
+            )
           ]
       ),
       drawer: Drawer(

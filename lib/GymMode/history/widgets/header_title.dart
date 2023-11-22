@@ -10,7 +10,7 @@ class HeaderTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Tooltip(
           message: "Open drawer",
@@ -18,10 +18,7 @@ class HeaderTitle extends StatelessWidget {
               onPressed: (){
                 Scaffold.of(context).openDrawer();
               },
-              icon: Transform.rotate(
-                angle: 270 * 3.1416 / 180,
-                child: const Icon(Icons.drag_indicator, size: size),
-              ),
+              icon:  const Icon(Icons.drag_indicator, size: size),
           ),
         ),
         SizedBox(
@@ -39,10 +36,7 @@ class HeaderTitle extends StatelessWidget {
             onPressed: (){
               Navigator.pop(context);
             },
-            icon: Transform.rotate(
-                angle: 180 * 3.1416 / 180,
-              child: const Icon(Icons.exit_to_app, size: size),
-            ),
+            icon: const Icon(Icons.transit_enterexit_rounded, size: 40),
           ),
         ),
       ],

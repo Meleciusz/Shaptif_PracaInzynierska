@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../authorization/app/bloc/app_bloc.dart';
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key});
+  const HeaderTitle({super.key, required this.switchCallback});
+  final void Function() switchCallback;
 
   @override
   Widget build(BuildContext context) {
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Tooltip(
           message: "Open drawer",
@@ -17,21 +16,27 @@ class HeaderTitle extends StatelessWidget {
               onPressed: (){
                 Scaffold.of(context).openDrawer();
               },
-              icon: Transform.rotate(
-              angle: 270 * 3.1416 / 180,
-            child: const Icon(Icons.drag_indicator, size: 40),
+              icon: const Icon(Icons.drag_indicator, size: 40),
+            ),
           ),
-          ),
-        ),
         SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.6,
             child: const Center(
               child: Text("Exercises", style: TextStyle(
                 color: Color.fromARGB(255, 243, 231, 231),
-                fontSize: 40,
+                fontSize: 50,
                 fontWeight: FontWeight.bold,
               ), overflow: TextOverflow.ellipsis,),
             )
+        ),
+        Tooltip(
+          message: "Switch to trainings",
+          child: IconButton(
+            onPressed: (){
+              switchCallback();
+            },
+            icon: const Icon(Icons.switch_right_rounded, size: 40),
+          ),
         ),
       ],
     );

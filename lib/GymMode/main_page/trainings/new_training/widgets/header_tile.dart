@@ -8,19 +8,16 @@ class HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Tooltip(
-          message: "Go back",
-          child: IconButton(
-            onPressed: (){
-              Navigator.pop(context);
-            },
-            icon: Transform.rotate(
-              angle: 180 * 3.1416 / 180,
-              child: const Icon(Icons.exit_to_app, size: 40),
-            ),
-          ),
+            message: "Refresh",
+            child: IconButton(
+              onPressed: (){
+                onRefreshTap();
+              },
+              icon:  const Icon(Icons.refresh, size: 40,),
+            )
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
@@ -33,17 +30,14 @@ class HeaderTitle extends StatelessWidget {
           )
         ),
         Tooltip(
-            message: "Refresh",
-            child: IconButton(
-              onPressed: (){
-                onRefreshTap();
-              },
-              icon: Transform.rotate(
-                angle: 180 * 3.1416 / 180,
-                child: const Icon(Icons.refresh, size: 40,),
-              ),
-            )
-        )
+          message: "Go back",
+          child: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.transit_enterexit_rounded, size: 40),
+          ),
+        ),
       ],
     );
   }

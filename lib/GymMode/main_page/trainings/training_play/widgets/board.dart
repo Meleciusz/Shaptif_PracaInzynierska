@@ -158,74 +158,7 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                 ),
                                   userID: user.id
                                 ));
-                                //context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
-                                //
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(builder: (context) => TrainingPlayer(
-                                //       returnValues: Return(
-                                //         mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
-                                //         allBodyParts: widget.trainings[index].allBodyParts,
-                                //         exercisesNames: widget.trainings[index].exercises,
-                                //         isFinished: widget.trainings[index].isFinished,
-                                //         exercisesSetsCount: [],
-                                //         exercisesWeights: [],
-                                //         wantToSave: false,
-                                //       ),
-                                //       training: Training(
-                                //           id: widget.trainings[index].id,
-                                //           name: widget.trainings[index].name,
-                                //           addingUserId: widget.trainings[index].addingUserId,
-                                //           addingUserName: widget.trainings[index].addingUserName,
-                                //           exercises: widget.trainings[index].exercises,
-                                //           description: widget.trainings[index].description,
-                                //           mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
-                                //           verified: widget.trainings[index].verified,
-                                //           allBodyParts: widget.trainings[index].allBodyParts,
-                                //           isFinished: widget.trainings[index].isFinished.map((e) => e = false).toList()
-                                //       ),
-                                //       exercisesNames: widget.trainings[index].exercises,
-                                //       allExercises: widget.exercises,
-                                //     )
-                                //     )
-                                // ).then((value){
-                                //   if(value != null){
-                                //     // Return updatedValues = value;
-                                //     //
-                                //     // context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
-                                //     //     id: widget.trainings[index].id,
-                                //     //     isFinished: updatedValues.isFinished,
-                                //     //     name: widget.trainings[index].name,
-                                //     //     exercises: updatedValues.exercisesNames,
-                                //     //     addingUserId: widget.trainings[index].addingUserId,
-                                //     //     allBodyParts: updatedValues.allBodyParts,
-                                //     //     addingUserName: widget.trainings[index].addingUserName,
-                                //     //     description: widget.trainings[index].description,
-                                //     //     mainlyUsedBodyPart: updatedValues.mainlyUsedBodyPart,
-                                //     //     verified: widget.trainings[index].verified
-                                //     // )));
-                                //     //
-                                //     // updatedValues.exercisesSetsCount.every((element) => element == 0) ? null :
-                                //     // context.read<TrainingPlayBloc>().add(SaveAsHistoricalTraining(
-                                //     //     history: History(
-                                //     //         id: "",
-                                //     //         name: widget.trainings[index].name,
-                                //     //         adding_user_id: user.id,
-                                //     //         adding_user_name: user.name!,  //TODO to może powodować błędy
-                                //     //         exercises_name: updatedValues.exercisesNames,
-                                //     //         exercises_sets_count: updatedValues.exercisesSetsCount,
-                                //     //         exercises_weights: updatedValues.exercisesWeights,
-                                //     //         date: "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"
-                                //     //     )
-                                //     // ));
-                                //   }
-                                //   setState(() {
-                                //     widget.exercises.clear();
-                                //     widget.exercises.addAll(widget.originalExercises);
-                                //   });
-                                //
-                                //   context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
-                                // });
+
                               }, icon: const Icon(Icons.refresh, size: 35, color: Color.fromARGB(
                                   255, 166, 123, 18)))
                             ) : Tooltip(

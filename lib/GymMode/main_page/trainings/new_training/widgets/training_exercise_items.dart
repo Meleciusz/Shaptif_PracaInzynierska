@@ -2,6 +2,7 @@ import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 
 
+
 class TrainingExerciseItems extends StatefulWidget {
   const TrainingExerciseItems({super.key, required this.exercises,
     required this.onAddExerciseCallback

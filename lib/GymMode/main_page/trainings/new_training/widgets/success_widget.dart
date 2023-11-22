@@ -40,7 +40,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
     return Scaffold(
       backgroundColor: mainColor,
       body: Padding(
-        padding: const EdgeInsets.only(top: 40.0),
+        padding: const EdgeInsets.only(top: 50.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,58 +61,70 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
               const SizedBox(height: 10,),
               ContainerBody(
                   children: [
-                    InkWell(
-                      onTap: (){
-                        exercises.isNotEmpty ?{
-                          context.read<NewTrainingBloc>().add(AddNewTraining(training:
-                          Training(
-                          name: trainingName.isEmpty ? "Training${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" : trainingName,
-                          description: trainingDescription,
-                          exercises: exercises.map((e) => e.name).toList(),
-                          allBodyParts: allBodyParts.toSet().toList(),
-                           addingUserId: context.read<AppBloc>().state.user.id!,
-                          id: "",
-                          verified: false,
-                          isFinished: List.generate(exercises.length, (index) => false),
-                          mainlyUsedBodyPart: findMainlyUsedBodyPart(exercises, allBodyParts),
-                          ))),
-                          //context.read<AllTrainingsBloc>().add(RefreshTrainings());
-                          Navigator.pop(context),
-                        } : showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                title: Text("Wrong!", style: Theme.of(context).textTheme.titleLarge,),
-                                content: Text("Add at least one exercise!", style: Theme.of(context).textTheme.titleMedium,),
-                                actions: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(16.0),
-                                        ),
-                                        backgroundColor: Colors.red
+                    Container(
+                      height: 100,
+                      width: MediaQuery.of(context).size.width,
+                      child: Stack(children: [
+                        Positioned(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            top: 40,
+                            child: const Icon(Icons.touch_app_sharp, size: 30,)),
+                        Positioned(
+                          width: MediaQuery.of(context).size.width,
+                          child: InkWell(
+                          onTap: (){
+                            exercises.isNotEmpty ?{
+                              context.read<NewTrainingBloc>().add(AddNewTraining(training:
+                              Training(
+                                name: trainingName.isEmpty ? "Training${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" : trainingName,
+                                description: trainingDescription,
+                                exercises: exercises.map((e) => e.name).toList(),
+                                allBodyParts: allBodyParts.toSet().toList(),
+                                addingUserId: context.read<AppBloc>().state.user.id!,
+                                id: "",
+                                verified: false,
+                                isFinished: List.generate(exercises.length, (index) => false),
+                                mainlyUsedBodyPart: findMainlyUsedBodyPart(exercises, allBodyParts),
+                              ))),
+                              //context.read<AllTrainingsBloc>().add(RefreshTrainings());
+                              Navigator.pop(context),
+                            } : showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
-                                    child: const Text("OK"),
-                                  ),
-                                ],
-                              );
-                            }
-                        );
-                      },
-                      child: const Tooltip(
-                        message: "Save",
-                        child: SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: Icon(Icons.add_task_rounded, size: 100, color: mainColor),
-                        )
-                      ),
+                                    title: Text("Wrong!", style: Theme.of(context).textTheme.titleLarge,),
+                                    content: Text("Add at least one exercise!", style: Theme.of(context).textTheme.titleMedium,),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(16.0),
+                                            ),
+                                            backgroundColor: Colors.red
+                                        ),
+                                        child: const Text("OK"),
+                                      ),
+                                    ],
+                                  );
+                                }
+                            );
+                          },
+                          child: const Tooltip(
+                              message: "Save",
+                              child: SizedBox(
+                                height: 100,
+                                width: 100,
+                                child: Icon(Icons.add_task_rounded, size: 100, color: mainColor),
+                              )
+                          ),
+                        ),),
+                      ]),
                     ),
                     const SizedBox(height: 20),
                     Container(

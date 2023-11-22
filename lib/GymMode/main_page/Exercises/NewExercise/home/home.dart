@@ -72,7 +72,7 @@ class _NewExerciseState extends State<NewExercise> {
       backgroundColor: mainColor,
 
       body: Padding(
-          padding: const EdgeInsets.only(top: 40.0),
+          padding: const EdgeInsets.only(top: 43.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -90,60 +90,78 @@ class _NewExerciseState extends State<NewExercise> {
             const SizedBox(height: 10,),
             ContainerBody(
               children: [
-                InkWell(
-                  onTap: (){
-                    selectedBodyParts.isEmpty
-                        ? showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          title: Text("You are trying to add exercise without body parts!", style: Theme.of(context).textTheme.titleLarge,),
-                          content: Text("At least one body part must be selected", style: Theme.of(context).textTheme.titleMedium,),
-                          actions: [
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
+              Container(
+              height: 100,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: [
+                  Positioned(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      top: 40,
+                      child: const Icon(Icons.touch_app_sharp, size: 30,)),
+                  Positioned(
+                    width: MediaQuery.of(context).size.width,
+                    child:InkWell(
+                      onTap: (){
+                        selectedBodyParts.isEmpty
+                            ? showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                title: Text("You are trying to add exercise without body parts!", style: Theme.of(context).textTheme.titleLarge,),
+                                content: Text("At least one body part must be selected", style: Theme.of(context).textTheme.titleMedium,),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(16.0),
+                                        ),
+                                        backgroundColor: Colors.red
+                                    ),
+                                    child: const Text("Go back"),
                                   ),
-                                  backgroundColor: Colors.red
-                              ),
-                              child: const Text("Go back"),
-                            ),
-                          ],
-                        );
-                      }
-                    ) : {
-                      widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
-                      id: '',
-                      adding_user_id: user.id,
-                      body_parts: selectedBodyParts.toList(),
-                      description: exerciseDescription,
-                      name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
-                      photo_url: photoUrl,
-                      verified: false,
-                          adding_user_name: user.name == null ? user.email!.split('@').first : user.name!
-                      ))),
+                                ],
+                              );
+                            }
+                        ) : {
+                          widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
+                              id: '',
+                              adding_user_id: user.id,
+                              body_parts: selectedBodyParts.toList(),
+                              description: exerciseDescription,
+                              name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
+                              photo_url: photoUrl,
+                              verified: false,
+                              adding_user_name: user.name != null && user.name!.isNotEmpty ? user.name! : (user.email != null ? user.email!.split('@').first : 'Unknown')
+                          ))),
 
-                      widget.allExercisesBloc.add(RefreshExercises()),
-                      widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory()),
-                      Navigator.pop(context),
-                    };
-                  },
-                  child: const Tooltip(
-                      message: "Save",
-                      child: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Icon(Icons.add_task_rounded, size: 100, color: mainColor),
-                      )
-                  ),
+                          widget.allExercisesBloc.add(RefreshExercises()),
+                          widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory()),
+                          Navigator.pop(context),
+                        };
+                      },
+                      child: const Tooltip(
+                          message: "Save",
+                          child: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Icon(Icons.add_task_rounded, size: 100, color: mainColor),
+                          )
+                      ),
+                    ),
+                    ),
+                  ],
+                  )
                 ),
+
+
+
                 const SizedBox(height: 20),
                 Container(
                   alignment: Alignment.center,
