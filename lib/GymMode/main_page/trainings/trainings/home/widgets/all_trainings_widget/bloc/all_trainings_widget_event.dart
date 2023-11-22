@@ -6,11 +6,21 @@ class AllTrainingsEvent extends Equatable {
 }
 
 class GetAllTrainings extends AllTrainingsEvent {
+  GetAllTrainings({
+    required this.userID,
+  });
+  final String userID;
+
   @override
   List<Object?> get props => [];
 }
 
 class RefreshAllTrainings extends AllTrainingsEvent {
+  RefreshAllTrainings({
+    required this.userID,
+  });
+  final String userID;
+
   @override
   List<Object?> get props => [];
 }
@@ -19,8 +29,9 @@ class RefreshAllTrainings extends AllTrainingsEvent {
 class GetTrainingsByCategory extends AllTrainingsEvent {
   GetTrainingsByCategory({
     required this.categoryName,
+    required this.userID,
   });
-
+  final String userID;
   final String categoryName;
 
   @override
@@ -31,8 +42,10 @@ class GetTrainingsByCategory extends AllTrainingsEvent {
 class DeleteTraining extends AllTrainingsEvent {
   DeleteTraining({
     required this.trainingID,
+    required this.userID,
   });
   final String trainingID;
+  final String userID;
 
   @override
   List<Object?> get props => [];

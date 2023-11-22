@@ -49,14 +49,13 @@ class AllTrainingsItem extends StatelessWidget {
                       left: 100.0,
                       child: AllTrainingsIcon(
                         veryfied: training.verified,
-                        addingUserName: training.addingUserName,
                         addingUserId: training.addingUserId,
                       )
                   ),
                   training.verified == false ?
                   training.addingUserId == user.id ?
                   Positioned(
-                      top: 65.0,
+                      top: 50.0,
                       left: 20.0,
                       child: IconButton(
                         onPressed: (){
@@ -72,7 +71,10 @@ class AllTrainingsItem extends StatelessWidget {
                                 actions: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      allTrainingsBloc.add(DeleteTraining(trainingID: training.id));
+                                      allTrainingsBloc.add(DeleteTraining(
+                                          trainingID: training.id,
+                                          userID: user.id
+                                      ));
 
                                       Navigator.of(context).pop();
                                     },
@@ -101,7 +103,7 @@ class AllTrainingsItem extends StatelessWidget {
                             },
                           );
                         },
-                        icon: const Icon(Icons.remove, color: Colors.redAccent, size: 30,),
+                        icon: const Icon(Icons.remove, color: Colors.redAccent, size: 40,),
                       )
                   ) : Container() : Container(),
                 ]

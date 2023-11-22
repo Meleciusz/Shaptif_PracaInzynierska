@@ -21,6 +21,8 @@ class ExercisesByCategoryBloc extends Bloc<ExercisesByCategoryEvent, ExercisesBy
       emit(state.copyWith(status: ExercisesByCategoryStatus.loading));
       final exercisesByCategory = await firestoreService.getExercisesByCategory(event.categoryName);
       emit(state.copyWith(status: ExercisesByCategoryStatus.success, exercises: exercisesByCategory, categoryName: event.categoryName));
+
+      add(RefreshExercisesByCategory());
     } catch (e) {
       emit(state.copyWith(status: ExercisesByCategoryStatus.error));
     }

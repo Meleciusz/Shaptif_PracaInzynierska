@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:history_repository/history_repository.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/training_play_bloc.dart';
+import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import 'package:training_repository/training_repository.dart';
 
 import 'training_play_manager.dart';
@@ -12,6 +13,8 @@ class TrainingPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AppBloc bloc) => bloc.state.user);
+
     return MultiRepositoryProvider(
         providers: [
           RepositoryProvider(
@@ -29,7 +32,7 @@ class TrainingPlay extends StatelessWidget {
             trainingRepository: context.read<FirestoreTrainingService>(),
             exerciseRepository: context.read<FirestoreExerciseService>(),
             historyRepository: context.read<FirestoreHistoryService>(),
-          )..add(GetTrainingsAndExercises()),
+          )..add(GetTrainingsAndExercises(userID: user.id)),
           child: const TrainingPlayManager(),
         )
     );

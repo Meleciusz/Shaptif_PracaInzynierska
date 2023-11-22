@@ -70,8 +70,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                           description: trainingDescription,
                           exercises: exercises.map((e) => e.name).toList(),
                           allBodyParts: allBodyParts.toSet().toList(),
-                          addingUserName: context.read<AppBloc>().state.user.name == null ? context.read<AppBloc>().state.user.email!.split('@').first : context.read<AppBloc>().state.user.name!,
-                          addingUserId: context.read<AppBloc>().state.user.id!,
+                           addingUserId: context.read<AppBloc>().state.user.id!,
                           id: "",
                           verified: false,
                           isFinished: List.generate(exercises.length, (index) => false),
@@ -148,6 +147,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     ),
                     TextField(
                       decoration: InputDecoration(
+                        hintText: trainingDescription,
                         hintStyle: Theme.of(context).textTheme.titleMedium,
                         prefixIcon: Transform.rotate(angle: 270 * 3.1416 /180, child: const Icon(Icons.edit_rounded,
                           color: mainColor,

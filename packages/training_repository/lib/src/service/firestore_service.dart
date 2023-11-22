@@ -26,11 +26,12 @@ class FirestoreTrainingService {
   final CollectionReference _trainingCollection =
   FirebaseFirestore.instance.collection('Training');
 
-  Future<List<Training>> getUserTrainings(String userId) async {
+  Future<List<Training>> getAllTrainings(String userID) async {
     final querySnapshot = await _trainingCollection
-        .where('adding_user_id', isEqualTo: userId)
+        .where('adding_user_id', isEqualTo: userID)
         .get();
 
+
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return Training(
@@ -38,7 +39,6 @@ class FirestoreTrainingService {
         name: data['name'],
         description: data['description'],
         addingUserId: data['adding_user_id'],
-        addingUserName: data['adding_user_name'],
         exercises: List<String>.from(data['exercises']),
         mainlyUsedBodyPart: data['mainly_used_body_part'],
         verified: data['verified'],
@@ -48,50 +48,10 @@ class FirestoreTrainingService {
     }).toList();
   }
 
-  Future<List<Training>> getVerifiedTrainings() async {
-    final querySnapshot = await _trainingCollection
-        .where('verified', isEqualTo: true)
-        .get();
-
-    return querySnapshot.docs.map((doc) {
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      return Training(
-        id: doc.id,
-        name: data['name'],
-        description: data['description'],
-        addingUserId: data['adding_user_id'],
-        addingUserName: data['adding_user_name'],
-        exercises: List<String>.from(data['exercises']),
-        mainlyUsedBodyPart: data['mainly_used_body_part'],
-        verified: data['verified'],
-        allBodyParts: List<String>.from(data['all_body_parts']),
-        isFinished: List<bool>.from(data['is_finished']),
-      );
-    }).toList();
-  }
-
-  Future<List<Training>> getAllTrainings() async {
-    final querySnapshot = await _trainingCollection.get();
-    return querySnapshot.docs.map((doc) {
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      return Training(
-        id: doc.id,
-        name: data['name'],
-        description: data['description'],
-        addingUserId: data['adding_user_id'],
-        addingUserName: data['adding_user_name'],
-        exercises: List<String>.from(data['exercises']),
-        mainlyUsedBodyPart: data['mainly_used_body_part'],
-        verified: data['verified'],
-        allBodyParts: List<String>.from(data['all_body_parts']),
-        isFinished: List<bool>.from(data['is_finished']),
-      );
-    }).toList();
-  }
-
-  Future<List<Training>> getTrainingsByCategory(String category) async{
+  Future<List<Training>> getTrainingsByCategory(String category, String userID) async{
     final querySnapshot = await _trainingCollection
         .where('mainly_used_body_part', isEqualTo: category)
+        .where('adding_user_id', isEqualTo: userID)
         .get();
 
     return querySnapshot.docs.map((doc) {
@@ -101,7 +61,6 @@ class FirestoreTrainingService {
         name: data['name'],
         description: data['description'],
         addingUserId: data['adding_user_id'],
-        addingUserName: data['adding_user_name'],
         exercises: List<String>.from(data['exercises']),
         mainlyUsedBodyPart: data['mainly_used_body_part'],
         verified: data['verified'],
@@ -116,7 +75,6 @@ class FirestoreTrainingService {
       'name': training.name,
       'description': training.description,
       'adding_user_id': training.addingUserId,
-      'adding_user_name': training.addingUserName,
       'exercises': training.exercises,
       'mainly_used_body_part': training.mainlyUsedBodyPart,
       'verified': training.verified,
@@ -134,7 +92,6 @@ class FirestoreTrainingService {
       'name': training.name,
       'description': training.description,
       'adding_user_id': training.addingUserId,
-      'adding_user_name': training.addingUserName,
       'exercises': training.exercises,
       'mainly_used_body_part': training.mainlyUsedBodyPart,
       'verified': training.verified,

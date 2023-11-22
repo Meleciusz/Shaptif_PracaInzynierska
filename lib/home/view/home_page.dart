@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const HeaderTitle(),
-            Text("Welcome ${user.name ?? user.email!.split('@').first}!", style: textTheme.headlineMedium),
+            Text("Welcome ${user.name!.isEmpty ? user.email!.split('@').first : user.name!}!", style: textTheme.headlineMedium),
             const SizedBox(height: 8),
             Avatar(photo: user.photo),
             const SizedBox(height: 100),

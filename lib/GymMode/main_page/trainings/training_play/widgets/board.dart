@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -153,11 +152,12 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                     exercises: widget.trainings[index].exercises,
                                     addingUserId: widget.trainings[index].addingUserId,
                                     allBodyParts: widget.trainings[index].allBodyParts,
-                                    addingUserName: widget.trainings[index].addingUserName,
                                     description: widget.trainings[index].description,
                                     mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
-                                    verified: widget.trainings[index].verified
-                                )));
+                                    verified: widget.trainings[index].verified,
+                                ),
+                                  userID: user.id
+                                ));
                                 //context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
                                 //
                                 // Navigator.push(
@@ -231,10 +231,6 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                             ) : Tooltip(
                               message: "Start",
                               child: IconButton(onPressed: (){
-                                log(widget.exercises.toString());
-                                log(widget.originalExercises.toString());
-                                log(widget.trainings[index].exercises.toString());
-                                log(widget.trainings[index].name.toString());
 
                                 Navigator.push(
                                     context,
@@ -257,12 +253,6 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                 ).then((value){
                                   if(value != null){
                                     Return updatedValues = value;
-                                    log(updatedValues.exercisesNames.toString());
-                                    log(widget.trainings[index].exercises.toString());
-
-                                    log("tutaj");
-                                    log(updatedValues.isFinished.sublist(0, widget.trainings[index].exercises.length).toString());
-
 
                                     updatedValues.wantToSave ?
                                     context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
@@ -272,11 +262,12 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                         exercises: updatedValues.exercisesNames,
                                         addingUserId: widget.trainings[index].addingUserId,
                                         allBodyParts: updatedValues.allBodyParts,
-                                        addingUserName: widget.trainings[index].addingUserName,
                                         description: widget.trainings[index].description,
                                         mainlyUsedBodyPart: updatedValues.mainlyUsedBodyPart,
                                         verified: widget.trainings[index].verified
-                                    )))
+                                    ),
+                                      userID: user.id
+                                    ))
                                         : context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
                                         id: widget.trainings[index].id,
                                         isFinished: updatedValues.isFinished.sublist(0, widget.trainings[index].exercises.length),
@@ -284,11 +275,12 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                         exercises: widget.trainings[index].exercises,
                                         addingUserId: widget.trainings[index].addingUserId,
                                         allBodyParts: widget.trainings[index].allBodyParts,
-                                        addingUserName: widget.trainings[index].addingUserName,
                                         description: widget.trainings[index].description,
                                         mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
                                         verified: widget.trainings[index].verified
-                                    )));
+                                    ),
+                                      userID: user.id
+                                    ));
 
                                     updatedValues.exercisesSetsCount.every((element) => element == 0) ? null :
                                     context.read<TrainingPlayBloc>().add(SaveAsHistoricalTraining(
@@ -302,7 +294,8 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                             exercises_sets_count: updatedValues.exercisesSetsCount,
                                             exercises_weights: updatedValues.exercisesWeights,
                                             date: Timestamp.now(),
-                                        )
+                                        ),
+                                        userID: user.id
                                     ));
                                   }
                                   setState(() {
@@ -329,12 +322,13 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                     exercises: widget.trainings[index].exercises,
                                     addingUserId: widget.trainings[index].addingUserId,
                                     allBodyParts: widget.trainings[index].allBodyParts,
-                                    addingUserName: widget.trainings[index].addingUserName,
                                     description: widget.trainings[index].description,
                                     mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
                                     verified: widget.trainings[index].verified
-                                )));
-                                context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
+                                ),
+                                  userID: user.id
+                                ));
+                                context.read<TrainingPlayBloc>().add(RefreshPlayTrainings(userID: user.id));
                               }, icon: const Icon(Icons.keyboard_double_arrow_right_sharp, size: 30,)),
                             ),)
                       ) : const SizedBox(),
@@ -352,12 +346,13 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                     exercises: widget.trainings[index].exercises,
                                     addingUserId: widget.trainings[index].addingUserId,
                                     allBodyParts: widget.trainings[index].allBodyParts,
-                                    addingUserName: widget.trainings[index].addingUserName,
                                     description: widget.trainings[index].description,
                                     mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
                                     verified: widget.trainings[index].verified
-                                )));
-                                context.read<TrainingPlayBloc>().add(RefreshPlayTrainings());
+                                ),
+                                  userID: user.id
+                                ));
+                                context.read<TrainingPlayBloc>().add(RefreshPlayTrainings(userID: user.id));
                               }, icon: const Icon(Icons.stop_outlined, size: 30, color: Color.fromARGB(
                                   255, 192, 70, 70),)),),
                           )

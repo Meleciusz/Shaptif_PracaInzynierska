@@ -31,7 +31,7 @@ class HomePageTrainings extends StatelessWidget {
             BlocProvider<AllTrainingsBloc>(
                 create: (context) => AllTrainingsBloc(
                   firestoreService: context.read<FirestoreTrainingService>(),
-                )..add(GetAllTrainings())
+                )..add(GetAllTrainings(userID: user.id))
             ),
             BlocProvider(
                 create: (context) => CategoryBloc(

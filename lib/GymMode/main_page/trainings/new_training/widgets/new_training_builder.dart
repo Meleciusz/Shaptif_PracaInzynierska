@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
@@ -129,22 +131,21 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
-                                trailing: selectedIndexes.contains(index) ? const Icon(Icons.check_circle, color: Colors.lightGreen,) : const Icon(Icons.radio_button_unchecked_rounded),
-                                selected: selectedIndexes.contains(index),
+                                trailing: exercisesToAdd.contains(items[index]) ? const Icon(Icons.check_circle, color: Colors.lightGreen,) : const Icon(Icons.radio_button_unchecked_rounded),
+                                selected: exercisesToAdd.contains(items[index]), //selectedIndexes.contains(index),
                                 onTap: (){
+
                                   setState(() {
-                                    if (selectedIndexes.contains(index)) {
-                                      selectedIndexes.remove(index);
+                                    if (exercisesToAdd.contains(items[index])) {
+                                      exercisesToAdd.remove(items[index]);
                                     } else {
-                                      selectedIndexes.add(index);
+                                      exercisesToAdd.add(items[index]);
                                     }
                                   });
 
-                                  if (selectedIndexes.contains(index)) {
-                                    exercisesToAdd.add(items[index]);
-                                  } else {
-                                    exercisesToAdd.remove(items[index]);
-                                  }
+
+                                  log(exercisesToAdd.map((e) => e.name).toList().toString());
+                                  log(exercisesToAdd.contains(items[index]).toString());
                                 },
                                 onLongPress: (){
                                   showDialog(

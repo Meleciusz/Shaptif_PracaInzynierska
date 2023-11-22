@@ -79,7 +79,10 @@ class _HomeLayoutState extends State<HomeLayout> {
                             MaterialPageRoute(
                                 builder: (context) => NewExercise(allExercisesBloc: allExercisesBloc, exercisesByCategoryBloc: exercisesByCategoryBloc)
                             )
-                        );
+                        ).whenComplete((){
+                          allExercisesBloc.add(RefreshExercises());
+                          exercisesByCategoryBloc.add(RefreshExercisesByCategory());
+                        });
                       },
                       icon:  const Icon(Icons.add),
                     );

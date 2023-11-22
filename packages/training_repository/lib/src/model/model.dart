@@ -2,7 +2,6 @@ class Training{
   String id;
   String name;
   String addingUserId;
-  String addingUserName;
   List<String> exercises;
   String description;
   String mainlyUsedBodyPart;
@@ -14,7 +13,6 @@ class Training{
     required this.id,
     required this.name,
     required this.addingUserId,
-    required this.addingUserName,
     required this.exercises,
     required this.description,
     required this.mainlyUsedBodyPart,
@@ -27,7 +25,6 @@ class Training{
     String? id,
     String? name,
     String? addingUserId,
-    String? addingUserName,
     List<String>? exercises,
     String? description,
     String? mainlyUsedBodyPart,
@@ -39,7 +36,6 @@ class Training{
       id: id ?? this.id,
       name: name ?? this.name,
       addingUserId: addingUserId ?? this.addingUserId,
-      addingUserName: addingUserName ?? this.addingUserName,
       exercises: exercises ?? this.exercises,
       description: description ?? this.description,
       mainlyUsedBodyPart: mainlyUsedBodyPart ?? this.mainlyUsedBodyPart,

@@ -8,28 +8,43 @@ class TrainingPlayEvent extends Equatable {
 class UpdateTrainingStatus extends TrainingPlayEvent {
   UpdateTrainingStatus({
     required this.training,
+    required this.userID
   });
   final Training training;
+  final String userID;
 
   @override
   List<Object?> get props => [];
 }
 
 class GetTrainingsAndExercises extends TrainingPlayEvent {
+  GetTrainingsAndExercises({
+    required this.userID,
+  });
+  final String userID;
+
+
   @override
   List<Object?> get props => [];
 }
 
 class RefreshPlayTrainings extends TrainingPlayEvent {
+  RefreshPlayTrainings({
+    required this.userID,
+  });
+  final String userID;
+
   @override
   List<Object?> get props => [];
 }
 
 class SaveAsHistoricalTraining extends TrainingPlayEvent {
  SaveAsHistoricalTraining({
-    required this.history
+    required this.history,
+   required this.userID
 });
   final History history;
+  final String userID;
 
   @override
   List<Object?> get props => [];

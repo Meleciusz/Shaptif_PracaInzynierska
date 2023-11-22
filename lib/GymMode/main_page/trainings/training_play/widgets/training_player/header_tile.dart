@@ -13,12 +13,12 @@ class HeaderTitle extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         Tooltip(
-          message: "Go back",
+          message: "Stop and save training",
           child: IconButton(
               onPressed: (){
                 onExitTap();
               },
-              icon: const Icon(Icons.arrow_back_ios, size: 40,)
+              icon: const Icon(Icons.stop_circle_outlined, size: 40,)
           ),
         ),
         Tooltip(

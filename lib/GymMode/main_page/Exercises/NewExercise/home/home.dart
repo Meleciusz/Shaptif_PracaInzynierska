@@ -92,7 +92,33 @@ class _NewExerciseState extends State<NewExercise> {
               children: [
                 InkWell(
                   onTap: (){
-                    exerciseName.isNotEmpty ?{
+                    selectedBodyParts.isEmpty
+                        ? showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          title: Text("You are trying to add exercise without body parts!", style: Theme.of(context).textTheme.titleLarge,),
+                          content: Text("At least one body part must be selected", style: Theme.of(context).textTheme.titleMedium,),
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  backgroundColor: Colors.red
+                              ),
+                              child: const Text("Go back"),
+                            ),
+                          ],
+                        );
+                      }
+                    ) : {
                       widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
                       id: '',
                       adding_user_id: user.id,
@@ -107,58 +133,7 @@ class _NewExerciseState extends State<NewExercise> {
                       widget.allExercisesBloc.add(RefreshExercises()),
                       widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory()),
                       Navigator.pop(context),
-                    } : showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            title: Text("You are adding exercise with generated name!", style: Theme.of(context).textTheme.titleLarge,),
-                            content: Text("Are you sure? It can make it difficult to search", style: Theme.of(context).textTheme.titleMedium,),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    backgroundColor: Colors.green
-                                ),
-                                child: const Text("Go back"),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
-                                      id: '',
-                                      adding_user_id: user.id,
-                                      body_parts: selectedBodyParts.toList(),
-                                      description: exerciseDescription,
-                                      name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
-                                      photo_url: photoUrl,
-                                      verified: false,
-                                      adding_user_name: user.name == null ? user.email!.split('@').first : user.name!
-                                  )));
-
-                                  widget.allExercisesBloc.add(RefreshExercises());
-                                  widget.exercisesByCategoryBloc.add(RefreshExercisesByCategory());
-                                  Navigator.pop(context);
-                                  Navigator.of(context).pop();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    backgroundColor: Colors.red
-                                ),
-                                child: const Text("I understand"),
-                              ),
-                            ],
-                          );
-                        }
-                    );
+                    };
                   },
                   child: const Tooltip(
                       message: "Save",

@@ -6,10 +6,10 @@ import '../../../../Exercises/home/widgets/exercises_by_category/bloc/exercises_
 
 
 class HeaderTitle extends StatelessWidget {
-  const HeaderTitle({super.key, required this.verified, required this.addingUser,
+  const HeaderTitle({super.key, required this.verified, required this.addingUserID,
     required this.exerciseId, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
   final bool verified;
-  final String addingUser;
+  final String addingUserID;
   final String exerciseId;
   final AllExercisesBloc allExercisesBloc;
   final ExercisesByCategoryBloc exercisesByCategoryBloc;
@@ -45,7 +45,7 @@ class HeaderTitle extends StatelessWidget {
               ), overflow: TextOverflow.ellipsis,),
             )
         ),
-        user.name == addingUser ?
+        user.id == addingUserID ?
         verified ?
         const SizedBox() :
         IconButton(onPressed: (){

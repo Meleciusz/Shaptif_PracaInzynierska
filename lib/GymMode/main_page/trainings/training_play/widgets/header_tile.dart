@@ -39,13 +39,9 @@ class HeaderTitle extends StatelessWidget {
             onPressed: (){
               Navigator.pop(context);
             },
-            icon: Transform.rotate(
-              angle: 180 * 3.1416 / 180,
-              child: const Icon(Icons.exit_to_app, size: 40),
+            icon: const Icon(Icons.transit_enterexit_rounded, size: 40),
             ),
           ),
-        ),
-
       ],
     );
   }

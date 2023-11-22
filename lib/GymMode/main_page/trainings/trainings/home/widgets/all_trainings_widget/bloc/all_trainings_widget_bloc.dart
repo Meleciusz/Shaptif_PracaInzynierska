@@ -20,7 +20,7 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
   void _mapGetTrainingsByCategoryEvent(GetTrainingsByCategory event, Emitter<AllTrainingsState> emit) async {
     try {
       emit(state.copyWith(status: AllTrainingsStatus.loading));
-      final trainings = await firestoreService.getTrainingsByCategory(event.categoryName);
+      final trainings = await firestoreService.getTrainingsByCategory(event.categoryName, event.userID);
       emit(state.copyWith(status: AllTrainingsStatus.success, trainings: trainings));
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
@@ -30,7 +30,7 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
   void _mapGetTrainingsEvent(GetAllTrainings event, Emitter<AllTrainingsState> emit) async {
     try {
       emit(state.copyWith(status: AllTrainingsStatus.loading));
-      final trainings = await firestoreService.getAllTrainings();
+      final trainings = await firestoreService.getAllTrainings(event.userID);
       emit(state.copyWith(status: AllTrainingsStatus.success, trainings: trainings));
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
@@ -41,7 +41,7 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
     try {
       emit(state.copyWith(status: AllTrainingsStatus.loading));
       await firestoreService.clearFirestoreCache();
-      final trainings = await firestoreService.getAllTrainings();
+      final trainings = await firestoreService.getAllTrainings(event.userID);
       emit(state.copyWith(status: AllTrainingsStatus.success, trainings: trainings));
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
@@ -55,7 +55,7 @@ class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
       await firestoreService.deleteTraining(event.trainingID);
       emit(state.copyWith(status: AllTrainingsStatus.success));
 
-      add(RefreshAllTrainings());
+      add(RefreshAllTrainings(userID: event.userID));
     } catch (e) {
       emit(state.copyWith(status: AllTrainingsStatus.error));
     }

@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:history_repository/history_repository.dart';
-import 'package:meta/meta.dart';
 import 'package:training_repository/training_repository.dart';
 
 part 'training_play_event.dart';
@@ -27,7 +26,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
   void _mapGetTrainingsEvent(GetTrainingsAndExercises event, Emitter<TrainingPlayState> emit) async {
     try {
       emit(state.copyWith(status: TrainingPlayStatus.loading));
-      final trainings = await trainingRepository.getAllTrainings();
+      final trainings = await trainingRepository.getAllTrainings(event.userID);
       final exercises = await exerciseRepository.getExercises();
       emit(state.copyWith(status: TrainingPlayStatus.success, trainings: trainings, exercises: exercises));
     } catch (e) {
@@ -41,7 +40,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
       await trainingRepository.updateTraining(event.training);
       emit(state.copyWith(status: TrainingPlayStatus.success));
 
-      add(RefreshPlayTrainings());
+      add(RefreshPlayTrainings(userID: event.userID));
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
     }
@@ -51,7 +50,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
     try {
       emit(state.copyWith(status: TrainingPlayStatus.loading));
       await trainingRepository.clearFirestoreCache();
-      final trainings = await trainingRepository.getAllTrainings();
+      final trainings = await trainingRepository.getAllTrainings(event.userID);
       emit(state.copyWith(status: TrainingPlayStatus.success, trainings: trainings));
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
@@ -64,7 +63,7 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
       await historyRepository.addHistoricalTraining(event.history);
       emit(state.copyWith(status: TrainingPlayStatus.success));
 
-      add(RefreshPlayTrainings());
+      add(RefreshPlayTrainings(userID: event.userID));
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
     }

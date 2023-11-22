@@ -39,7 +39,7 @@ class ExerciseDescription extends StatefulWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              HeaderTitle(verified: widget.exercise.verified, addingUser: widget.exercise.adding_user_id,
+              HeaderTitle(verified: widget.exercise.verified, addingUserID: widget.exercise.adding_user_id,
                   exerciseId: widget.exercise.id, allExercisesBloc: widget.allExercisesBloc,
                   exercisesByCategoryBloc: widget.exercisesByCategoryBloc,
               ),

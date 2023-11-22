@@ -26,6 +26,8 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
       emit(state.copyWith(status: AllExercisesStatus.loading));
       final exercises = await firestoreService.getExercises();
       emit(state.copyWith(status: AllExercisesStatus.success, exercises: exercises));
+
+      add(RefreshExercises());
     } catch (e) {
       emit(state.copyWith(status: AllExercisesStatus.error));
     }
@@ -47,6 +49,8 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
       emit(state.copyWith(status: AllExercisesStatus.loading));
       await firestoreService.addExercise(event.exercise);
       emit(state.copyWith(status: AllExercisesStatus.success));
+
+      add(RefreshExercises());
     } catch (e) {
       emit(state.copyWith(status: AllExercisesStatus.error));
     }
@@ -57,6 +61,8 @@ class AllExercisesBloc extends Bloc<AllExercisesEvent, AllExercisesState> {
       emit(state.copyWith(status: AllExercisesStatus.loading));
       await firestoreService.deleteExercise(event.exerciseID);
       emit(state.copyWith(status: AllExercisesStatus.success));
+
+      add(RefreshExercises());
     } catch (e) {
       emit(state.copyWith(status: AllExercisesStatus.error));
     }
