@@ -69,7 +69,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                   ),
                 );
               }
-              return const SizedBox(height: 0.0, width: 0.0);
+              return const Tooltip(
+                  message: 'Refresh',
+                  child: Icon(Icons.refresh, color: Colors.grey,));
             }else {
               return const CircularProgressIndicator();
             }
@@ -97,7 +99,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                       ),
                     );
                   }
-                  return const SizedBox(height: 0.0, width: 0.0);
+                  return const Tooltip(
+                      message: 'Add new exercise',
+                      child: Icon(Icons.add, color: Colors.grey,));
                 }else {
                   return const CircularProgressIndicator();
                 }

@@ -70,7 +70,9 @@ class HomeLayoutState extends State<HomeLayout> {
                         ),
                       );
                     }
-                    return const SizedBox(height: 0.0, width: 0.0);
+                    return const Tooltip(
+                        message: 'Refresh',
+                        child: Icon(Icons.refresh, color: Colors.grey,));
                   }else {
                     return const CircularProgressIndicator();
                   }
@@ -82,7 +84,7 @@ class HomeLayoutState extends State<HomeLayout> {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data == true) {
                       return Tooltip(
-                        message: 'New training',
+                        message: 'Add training',
                         child: IconButton(
                           onPressed: (){
                             Navigator.of(context).push(
@@ -97,7 +99,9 @@ class HomeLayoutState extends State<HomeLayout> {
                         ),
                       );
                     }
-                    return const SizedBox(height: 0.0, width: 0.0);
+                    return const Tooltip(
+                        message: 'Add training',
+                        child: Icon(Icons.add, color: Colors.grey,));
                   }else {
                     return const CircularProgressIndicator();
                   }
@@ -115,19 +119,33 @@ class HomeLayoutState extends State<HomeLayout> {
                 ,)
             ),
             IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
-            Tooltip(
-              message: 'Trainings play',
-              child: IconButton(onPressed: (){
-                Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const TrainingPlay()
-                    )
-                ).whenComplete((){
-                  context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
-                });
-              },
-                  icon: const Icon(Icons.play_arrow_outlined)),
-            )
+            FutureBuilder<bool>(
+                future: _checkInternetConnection(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.data == true) {
+                      return Tooltip(
+                        message: 'Trainings play',
+                        child: IconButton(onPressed: (){
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => const TrainingPlay()
+                              )
+                          ).whenComplete((){
+                            context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
+                          });
+                        },
+                            icon: const Icon(Icons.play_arrow_outlined)),
+                      );
+                    }
+                    return const Tooltip(
+                      message: 'Trainings play',
+                      child: Icon(Icons.play_arrow_outlined, color: Colors.grey,));
+                  }else {
+                    return const CircularProgressIndicator();
+                  }
+                }
+            ),
           ]
       ),
       drawer: Drawer(

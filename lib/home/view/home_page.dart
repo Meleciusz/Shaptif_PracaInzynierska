@@ -51,11 +51,11 @@ class _HomePageState extends State<HomePage> {
                       return const SizedBox(height: 0);
                     }
                     else {
-                      return Row(
+                      return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(Icons.signal_wifi_connected_no_internet_4, color: Colors.red,),
-                          Text("You got no Internet connection, application may work without some functionalities", style: textTheme.bodySmall)
+                          Text("You got no Internet connection, application may work without some functionalities", style: textTheme.bodySmall, overflow: TextOverflow.clip,)
                         ],
                       );
                     }
