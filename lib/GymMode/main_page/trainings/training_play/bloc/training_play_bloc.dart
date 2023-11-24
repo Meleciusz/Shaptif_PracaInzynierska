@@ -17,6 +17,8 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
     on<GetTrainingsAndExercises>(_mapGetTrainingsEvent);
     on<RefreshPlayTrainings>(_mapRefreshPlayTrainingsEvent);
     on<SaveAsHistoricalTraining>(_mapSaveAsHistoricalTrainingEvent);
+    on<UpdateTrainingStatusWithoutInternet>(_mapUpdateTrainingStatusWithoutInternetEvent);
+    on<SaveAsHistoricalTrainingWithoutInternet>(_mapSaveAsHistoricalTrainingWithoutInternetEvent);
   }
 
   final FirestoreTrainingService trainingRepository;
@@ -46,6 +48,16 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
     }
   }
 
+  void _mapUpdateTrainingStatusWithoutInternetEvent(UpdateTrainingStatusWithoutInternet event, Emitter<TrainingPlayState> emit) async {
+    try {
+      emit(state.copyWith(status: TrainingPlayStatus.loading));
+      await trainingRepository.updateTraining(event.training);
+      emit(state.copyWith(status: TrainingPlayStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: TrainingPlayStatus.error));
+    }
+  }
+
   void _mapRefreshPlayTrainingsEvent(RefreshPlayTrainings event, Emitter<TrainingPlayState> emit) async {
     try {
       emit(state.copyWith(status: TrainingPlayStatus.loading));
@@ -64,6 +76,16 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
       emit(state.copyWith(status: TrainingPlayStatus.success));
 
       add(RefreshPlayTrainings(userID: event.userID));
+    } catch (e) {
+      emit(state.copyWith(status: TrainingPlayStatus.error));
+    }
+  }
+
+  void _mapSaveAsHistoricalTrainingWithoutInternetEvent(SaveAsHistoricalTrainingWithoutInternet event, Emitter<TrainingPlayState> emit) async {
+    try {
+      emit(state.copyWith(status: TrainingPlayStatus.loading));
+      await historyRepository.addHistoricalTraining(event.history);
+      emit(state.copyWith(status: TrainingPlayStatus.success));
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
     }

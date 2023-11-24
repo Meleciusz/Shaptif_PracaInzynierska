@@ -17,6 +17,18 @@ class UpdateTrainingStatus extends TrainingPlayEvent {
   List<Object?> get props => [];
 }
 
+class UpdateTrainingStatusWithoutInternet extends TrainingPlayEvent {
+  UpdateTrainingStatusWithoutInternet({
+    required this.training,
+    required this.userID
+  });
+  final Training training;
+  final String userID;
+
+  @override
+  List<Object?> get props => [];
+}
+
 class GetTrainingsAndExercises extends TrainingPlayEvent {
   GetTrainingsAndExercises({
     required this.userID,
@@ -40,6 +52,18 @@ class RefreshPlayTrainings extends TrainingPlayEvent {
 
 class SaveAsHistoricalTraining extends TrainingPlayEvent {
  SaveAsHistoricalTraining({
+    required this.history,
+   required this.userID
+});
+  final History history;
+  final String userID;
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SaveAsHistoricalTrainingWithoutInternet extends TrainingPlayEvent {
+  SaveAsHistoricalTrainingWithoutInternet({
     required this.history,
    required this.userID
 });

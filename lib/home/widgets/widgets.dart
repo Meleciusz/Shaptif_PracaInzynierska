@@ -49,33 +49,6 @@ class GymModeButton extends StatelessWidget {
   }
 }
 
-class OutdoorModeButton extends StatelessWidget {
-  const OutdoorModeButton({super.key});
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    return ElevatedButton(
-      onPressed: () {
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //         builder: (context) => const MainPage())
-        // );
-      },
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(27.0),
-        ),
-        backgroundColor: const Color.fromARGB(255, 255, 89, 36),
-        minimumSize: const Size(300, 70),
-      ),
-      child: const Text('Outdoor exercise mode', style: TextStyle(fontSize: 20, color: Color.fromARGB(
-          255, 234, 233, 233), fontWeight: FontWeight.w700)),
-    );
-  }
-}
-
 
 //////////////////////////////////////////////////////////
 class HeaderTitle extends StatelessWidget {

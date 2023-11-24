@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class TrainingPlayBoard extends StatefulWidget {
 }
 
 class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
-
+  bool hasInternetConnection = false;
 
 
   @override
@@ -187,8 +188,11 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                   if(value != null){
                                     Return updatedValues = value;
 
+                                    log(hasInternetConnection.toString());
+                                    hasInternetConnection ?
+
                                     updatedValues.wantToSave ?
-                                    context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
+                                    context.read<TrainingPlayBloc>().add(UpdateTrainingStatusWithoutInternet(training: Training(
                                         id: widget.trainings[index].id,
                                         isFinished: updatedValues.isFinished,
                                         name: widget.trainings[index].name,
@@ -201,7 +205,7 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                     ),
                                       userID: user.id
                                     ))
-                                        : context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
+                                        : context.read<TrainingPlayBloc>().add(UpdateTrainingStatusWithoutInternet(training: Training(
                                         id: widget.trainings[index].id,
                                         isFinished: updatedValues.isFinished.sublist(0, widget.trainings[index].exercises.length),
                                         name: widget.trainings[index].name,
@@ -213,10 +217,41 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                         verified: widget.trainings[index].verified
                                     ),
                                       userID: user.id
+                                    ))
+
+
+                                        : updatedValues.wantToSave ?
+                                    context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
+                                        id: widget.trainings[index].id,
+                                        isFinished: updatedValues.isFinished,
+                                        name: widget.trainings[index].name,
+                                        exercises: updatedValues.exercisesNames,
+                                        addingUserId: widget.trainings[index].addingUserId,
+                                        allBodyParts: updatedValues.allBodyParts,
+                                        description: widget.trainings[index].description,
+                                        mainlyUsedBodyPart: updatedValues.mainlyUsedBodyPart,
+                                        verified: widget.trainings[index].verified
+                                    ),
+                                        userID: user.id
+                                    ))
+                                        : context.read<TrainingPlayBloc>().add(UpdateTrainingStatus(training: Training(
+                                        id: widget.trainings[index].id,
+                                        isFinished: updatedValues.isFinished.sublist(0, widget.trainings[index].exercises.length),
+                                        name: widget.trainings[index].name,
+                                        exercises: widget.trainings[index].exercises,
+                                        addingUserId: widget.trainings[index].addingUserId,
+                                        allBodyParts: widget.trainings[index].allBodyParts,
+                                        description: widget.trainings[index].description,
+                                        mainlyUsedBodyPart: widget.trainings[index].mainlyUsedBodyPart,
+                                        verified: widget.trainings[index].verified
+                                    ),
+                                        userID: user.id
                                     ));
 
+                                    hasInternetConnection ?
+
                                     updatedValues.exercisesSetsCount.every((element) => element == 0) ? null :
-                                    context.read<TrainingPlayBloc>().add(SaveAsHistoricalTraining(
+                                    context.read<TrainingPlayBloc>().add(SaveAsHistoricalTrainingWithoutInternet(
                                         history: History(
                                             id: "",
                                             name: widget.trainings[index].name,
@@ -229,7 +264,22 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                                             date: Timestamp.now(),
                                         ),
                                         userID: user.id
-                                    ));
+                                    )) :
+                                        updatedValues.exercisesSetsCount.every((element) => element == 0) ? null :
+                                        context.read<TrainingPlayBloc>().add(SaveAsHistoricalTraining(
+                                            history: History(
+                                              id: "",
+                                              name: widget.trainings[index].name,
+                                              adding_user_id: user.id,
+                                              adding_user_name: user.name == null ? user.email!.split('@').first : user.name!,
+                                              exercises_name: updatedValues.exercisesNames.length > widget.trainings[index].exercises.length ?
+                                              updatedValues.exercisesNames : widget.trainings[index].exercises,
+                                              exercises_sets_count: updatedValues.exercisesSetsCount,
+                                              exercises_weights: updatedValues.exercisesWeights,
+                                              date: Timestamp.now(),
+                                            ),
+                                            userID: user.id
+                                        ));
                                   }
                                   setState(() {
                                     widget.exercises.clear();
@@ -304,6 +354,14 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
       ],
     );
   }
+
+
+  Future<void> _checkInternetConnection() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      hasInternetConnection = connectivityResult != ConnectivityResult.none;
+    });
+  }
 }
 
 Color getColor(String mode) {
@@ -316,3 +374,5 @@ Color getColor(String mode) {
       return Colors.grey;
   }
 }
+
+

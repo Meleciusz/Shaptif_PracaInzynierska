@@ -119,33 +119,19 @@ class HomeLayoutState extends State<HomeLayout> {
                 ,)
             ),
             IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
-            FutureBuilder<bool>(
-                future: _checkInternetConnection(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.data == true) {
-                      return Tooltip(
-                        message: 'Trainings play',
-                        child: IconButton(onPressed: (){
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => const TrainingPlay()
-                              )
-                          ).whenComplete((){
-                            context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
-                          });
-                        },
-                            icon: const Icon(Icons.play_arrow_outlined)),
-                      );
-                    }
-                    return const Tooltip(
-                      message: 'Trainings play',
-                      child: Icon(Icons.play_arrow_outlined, color: Colors.grey,));
-                  }else {
-                    return const CircularProgressIndicator();
-                  }
-                }
-            ),
+            Tooltip(
+              message: 'Trainings play',
+              child: IconButton(onPressed: (){
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const TrainingPlay()
+                    )
+                ).whenComplete((){
+                  context.read<AllTrainingsBloc>().add(RefreshAllTrainings(userID: user.id));
+                });
+              },
+                  icon: const Icon(Icons.play_arrow_outlined)),
+            )
           ]
       ),
       drawer: Drawer(
