@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../instructions/home/home.dart';
 import '../../../../main_page.dart';
 import 'package:container_body/container_body.dart';
 import '../widgets/exercises_by_category/exercises_by_category.dart';
@@ -37,7 +38,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             const SizedBox(height: 20),
             const ContainerBody(
               children: [
-                //ExerciseOrTrainingsStateWidget(),
+                SizedBox(height: 20),
                 CategoriesWidget(),
                 SizedBox(height: 20),
                 ExercisesByCategory(),
@@ -109,7 +110,13 @@ class _HomeLayoutState extends State<HomeLayout> {
           ),
           Tooltip(
             message: 'QA',
-            child: IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
+            child: IconButton(onPressed: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ExerciseInstructionsHome()
+                )
+              );
+            }, icon: const Icon(Icons.question_mark)),
           )
         ]
       ),

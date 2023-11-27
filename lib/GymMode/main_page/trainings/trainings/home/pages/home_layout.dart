@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/category_widget/bloc/category_widget_bloc.dart';
 import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import '../../../../../history/history.dart';
+import '../../../../../instructions/home/home.dart';
 import '../../../../bloc/main_page_bloc.dart';
 import '../../../new_training/new_training.dart';
 import '../../../training_play/home/home.dart';
@@ -42,6 +43,7 @@ class HomeLayoutState extends State<HomeLayout> {
             const SizedBox(height: 20),
             const ContainerBody(
                 children: [
+                  SizedBox(height: 20),
                   CategoriesWidget(),
                   AllTrainingsWidget(),
                 ]
@@ -118,7 +120,13 @@ class HomeLayoutState extends State<HomeLayout> {
                 }
                 ,)
             ),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.question_mark)),
+            IconButton(onPressed: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => const TrainingInstructionsHome()
+                  )
+              );
+            }, icon: const Icon(Icons.question_mark)),
             Tooltip(
               message: 'Trainings play',
               child: IconButton(onPressed: (){

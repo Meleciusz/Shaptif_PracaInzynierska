@@ -1,10 +1,11 @@
-import 'dart:developer';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/app/app.dart';
 import 'package:shaptifii/home/home.dart';
+
+
+GlobalKey _one = GlobalKey();
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,9 +23,6 @@ class _HomePageState extends State<HomePage> {
     final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
 
-
-    // log(user.name!);
-    // log(user.email!.split('@').first);
 
     return Scaffold(
       body: Align(
