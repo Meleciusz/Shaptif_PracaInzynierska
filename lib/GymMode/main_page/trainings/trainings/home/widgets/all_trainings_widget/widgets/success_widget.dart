@@ -4,9 +4,14 @@ import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/all
 import 'package:training_repository/training_repository.dart';
 import 'item.dart';
 
+/*
+ * Main description:
+This class describes look of all trainings widget
+ */
 class TrainingsSuccessWidget extends StatefulWidget {
   const TrainingsSuccessWidget({super.key, required this.trainings});
 
+  //list of all trainings
   final List<Training>? trainings;
 
   @override
@@ -14,16 +19,22 @@ class TrainingsSuccessWidget extends StatefulWidget {
 }
 
 class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
+
+  //text editing controller
   TextEditingController editingController = TextEditingController();
 
+  //list of filtered all trainings
   List<Training> items = <Training>[];
 
   @override
   initState() {
+
+    //fill item list with all trainings
     items = widget.trainings!;
     super.initState();
   }
 
+  //filter all trainings
   void filterSearchResults(value) {
     setState(() {
       items = widget.trainings!

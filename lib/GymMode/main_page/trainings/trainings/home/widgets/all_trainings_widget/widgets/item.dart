@@ -5,14 +5,26 @@ import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import 'package:training_repository/training_repository.dart';
 import '../../../../../trainings_description/trainings_description.dart';
 
+/*
+ * Main description:
+This file describes item of all trainings widget
+
+ */
 class AllTrainingsItem extends StatelessWidget {
   const AllTrainingsItem({super.key, required this.training});
+
+  // displayed training
   final Training training;
 
   @override
   Widget build(BuildContext context) {
+
+    // allTrainingsBloc from context
     final AllTrainingsBloc allTrainingsBloc = BlocProvider.of<AllTrainingsBloc>(context);
+
+    // user from context
     final user = context.select((AppBloc bloc) => bloc.state.user);
+
 
     return BlocBuilder<AllTrainingsBloc, AllTrainingsState>(
         builder: (context, state){
@@ -48,7 +60,7 @@ class AllTrainingsItem extends StatelessWidget {
                       top: 65.0,
                       left: 100.0,
                       child: AllTrainingsIcon(
-                        veryfied: training.verified,
+                        verified: training.verified,
                         addingUserId: training.addingUserId,
                       )
                   ),

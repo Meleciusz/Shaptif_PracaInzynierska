@@ -1,9 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/all_trainings_widget/all_trainings_widget.dart';
 
+/*
+ * Main description:
+ This class build screen basing on bloc state
+ */
 class AllTrainingsWidget extends StatelessWidget {
   const AllTrainingsWidget({super.key});
 

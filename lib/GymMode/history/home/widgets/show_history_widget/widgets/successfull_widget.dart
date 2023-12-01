@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:history_repository/history_repository.dart';
-
 import 'history_item.dart';
+
+/*
+* Main description:
+This class describes history screen
+ */
 
 class ShowHistorySuccessWidget extends StatelessWidget {
   ShowHistorySuccessWidget({super.key, required this.history});
   static const mainColor = Color.fromARGB(255, 79, 171, 151);
+
+  //every history records
   final List<History>? history;
 
+  //history records names
   final Set<String> historyUniqueNames ={};
 
   @override
   Widget build(BuildContext context) {
-    if(history!.isNotEmpty){
-      history!.forEach((element) {
-        historyUniqueNames.add(element.name!);
-      });
-    }
+
+    //fill historyUniqueNames only with unique names from history records
+    fillUniqueNames();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -36,7 +41,7 @@ class ShowHistorySuccessWidget extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return HistoryItem(
-                historyItem: historyUniqueNames.elementAt(index),
+                historyItemName: historyUniqueNames.elementAt(index),
                 elements : history!.where((element) => element.name == historyUniqueNames.elementAt(index)).toList(),
               );
             },
@@ -49,4 +54,13 @@ class ShowHistorySuccessWidget extends StatelessWidget {
       ],
     );
   }
+
+  void fillUniqueNames(){
+    if(history!.isNotEmpty){
+      history!.forEach((element) {
+        historyUniqueNames.add(element.name);
+      });
+    }
+  }
 }
+

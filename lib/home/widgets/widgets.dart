@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-
 import '../../GymMode/main_page/view/main_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/app/app.dart';
 
 
+/*
+*Main description:
+This class describes user avatar
+ */
 const _avatarSize = 70.0;
-
-
 class Avatar extends StatelessWidget {
   const Avatar({super.key, this.photo});
 
-
+  //user photo
   final String? photo;
 
   @override
@@ -27,6 +28,13 @@ class Avatar extends StatelessWidget {
   }
 }
 
+/*
+*Main description:
+This class describes gym mode button
+
+* Navigator:
+User can navigate to gym mode page
+ */
 class GymModeButton extends StatelessWidget {
   const GymModeButton({super.key});
 
@@ -54,11 +62,13 @@ class GymModeButton extends StatelessWidget {
   }
 }
 
-
-//////////////////////////////////////////////////////////
+/*
+ * Main description:
+This is HeaderTitle widget
+HeaderTitle - Upper part of the screen where title and IconButtons are displayed
+ */
 class HeaderTitle extends StatelessWidget {
   const HeaderTitle({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,62 +97,6 @@ class HeaderTitle extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 50),
-        children: const [
-          // DrawerHeader(
-          //   decoration: BoxDecoration(
-          //     color: Colors.orangeAccent,
-          //     shape: BoxShape.circle,
-          //     ),
-          //   child: Center(child: Text('Settings', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),)
-          // ),
-          // Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       SwitchTheme(),
-          // ])
-        ]
-      )
-    );
-  }
-}
-class SwitchTheme extends StatefulWidget {
-  const SwitchTheme({super.key});
-
-  @override
-  State<SwitchTheme> createState() => _SwitchState();
-}
-
-class _SwitchState extends State<SwitchTheme> {
-  bool light = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: 1.5,
-      child: Switch(
-        value: light,
-        activeColor: Colors.orange,
-        thumbColor: const MaterialStatePropertyAll<Color>(Colors.grey),
-        onChanged: (bool value) {
-
-          setState(() {
-            light = value;
-          });
-        },
-
-      ),
     );
   }
 }

@@ -6,6 +6,10 @@ import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import '../bloc/category_widget_bloc.dart';
 import 'item.dart';
 
+/*
+ *Main description:
+class that describes look of the categories widget
+ */
 class CategoriesSuccessWidget extends StatelessWidget {
   const CategoriesSuccessWidget({super.key});
 

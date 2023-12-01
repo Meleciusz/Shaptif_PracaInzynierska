@@ -5,6 +5,10 @@ import 'package:equatable/equatable.dart';
 part 'category_widget_event.dart';
 part 'category_widget_state.dart';
 
+/*
+ * Main description:
+This file describes every event that bloc can have and connects those events with the states and repositories
+ */
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc({
     required this.firestoreService,

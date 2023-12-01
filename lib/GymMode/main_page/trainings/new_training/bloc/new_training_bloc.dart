@@ -6,6 +6,10 @@ import 'package:training_repository/training_repository.dart';
 part 'new_training_event.dart';
 part 'new_training_state.dart';
 
+/*
+ * Main description:
+This file describes every event that bloc can have and connects those events with the states and repositories
+ */
 class NewTrainingBloc extends Bloc<NewTrainingEvent, NewTrainingState> {
   NewTrainingBloc({
     required this.trainingRepository, required this.exerciseRepository,

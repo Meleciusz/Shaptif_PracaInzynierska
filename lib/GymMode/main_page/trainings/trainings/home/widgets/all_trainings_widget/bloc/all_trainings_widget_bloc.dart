@@ -5,6 +5,10 @@ import 'package:training_repository/training_repository.dart';
 part 'all_trainings_widget_event.dart';
 part 'all_trainings_widget_state.dart';
 
+/*
+ * Main description:
+This file describes every event that bloc can have and connects those events with the states and repositories
+ */
 class AllTrainingsBloc extends Bloc<AllTrainingsEvent, AllTrainingsState> {
   AllTrainingsBloc({
     required this.firestoreService,

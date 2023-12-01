@@ -5,8 +5,13 @@ import 'package:history_repository/history_repository.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/training_play_bloc.dart';
 import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import 'package:training_repository/training_repository.dart';
-
 import 'training_play_manager.dart';
+
+/*
+ * Main description:
+This is the home page
+This class is used to provide bloc and repository to layout
+ */
 
 class TrainingPlay extends StatelessWidget {
   const TrainingPlay({super.key});

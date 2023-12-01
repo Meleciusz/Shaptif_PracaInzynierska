@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/*
+ * Main description:
+This is HeaderTitle widget
+HeaderTitle - Upper part of the screen where title and IconButtons are displayed
+ */
+
+double size = 40;
 class HeaderTitle extends StatelessWidget {
   const HeaderTitle({super.key, required this.title});
   final String title;
@@ -10,7 +17,7 @@ class HeaderTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const Icon(Icons.add, color: Color.fromARGB(0, 0, 0, 0),),
+        SizedBox(width: size,),
         SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: Center(
@@ -27,7 +34,7 @@ class HeaderTitle extends StatelessWidget {
             onPressed: (){
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.transit_enterexit_rounded, size: 40),
+            icon: Icon(Icons.transit_enterexit_rounded, size: size),
           ),
         ),
       ],

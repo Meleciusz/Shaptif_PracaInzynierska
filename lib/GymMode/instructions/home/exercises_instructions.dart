@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:container_body/container_body.dart';
 import '../widgets/widgets.dart';
 
+/*
+ * Main description:
+ This class describes what is displayed on the exercise qa screen
+ */
+
 class ExerciseInstructionsHome extends StatelessWidget {
   const ExerciseInstructionsHome({Key? key}) : super(key: key);
   static const mainColor = Color.fromARGB(255, 92, 96, 95);

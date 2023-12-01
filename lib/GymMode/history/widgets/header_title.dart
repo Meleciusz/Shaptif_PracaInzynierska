@@ -12,15 +12,7 @@ class HeaderTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Tooltip(
-          message: "Open drawer",
-          child: IconButton(
-              onPressed: (){
-                Scaffold.of(context).openDrawer();
-              },
-              icon:  const Icon(Icons.drag_indicator, size: size),
-          ),
-        ),
+        const SizedBox(width: size,),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
           child: const Center(

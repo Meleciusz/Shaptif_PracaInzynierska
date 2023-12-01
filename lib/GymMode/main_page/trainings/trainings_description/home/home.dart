@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:training_repository/training_repository.dart';
 import '../trainings_description.dart';
 
+/*
+ * Main description:
+ * This class describes training description screen
+ */
 class TrainingsDescription extends StatelessWidget {
   const TrainingsDescription({super.key, required this.training});
   final Training training;

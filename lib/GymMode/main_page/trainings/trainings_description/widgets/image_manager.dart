@@ -1,11 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/*
+ * Main description:
+This class is used to display and control color filter of display images
+ */
 class ImageProcessor extends StatelessWidget {
   ImageProcessor({super.key, required this.allUsedBodyParts, required this.mainlyUsedBodyPart});
+
+  //list of all used body parts
   final List<String> allUsedBodyParts;
+
+  //mainly used body part
   final String mainlyUsedBodyPart;
 
+  //list of all body parts
   final List<String> bodyPartsList = List.of(
       [
         "Adductor", "Biceps", "Butt", "Calf", "Chest", "CoreAbs", "Deltoid", "Dorsi", "DownAbs", "Femoris",

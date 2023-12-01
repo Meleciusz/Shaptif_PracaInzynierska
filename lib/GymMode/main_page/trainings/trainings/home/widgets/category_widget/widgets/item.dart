@@ -4,12 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/category_widget_bloc.dart';
 
+//function that return selected category from body parts
 typedef CategoryCLicked = Function(BodyParts categorySelected);
 
+
+/*
+ * Main description:
+class that describes item of category widget
+ */
 class CategoryItem extends StatelessWidget {
   const CategoryItem({super.key, required this.category, required this.categoryClicked});
 
+  //function that return selected category from body parts
   final CategoryCLicked categoryClicked;
+
+  //category that will be displayed
   final BodyParts category;
 
   @override

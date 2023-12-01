@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
@@ -6,19 +7,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:history_repository/history_repository.dart';
 import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import 'package:training_repository/training_repository.dart';
-import '../../new_training/home/home.dart';
-import '../../trainings/home/widgets/all_trainings_widget/bloc/all_trainings_widget_bloc.dart';
 import '../bloc/training_play_bloc.dart';
-import 'board.dart';
+import 'item.dart';
 import 'header_tile.dart';
 import 'training_player/home.dart';
 import 'training_player/return.dart';
 
+/*
+ * Main description:
+ * This class describes look of training play screen and divide it into 3 parts(finished, ended and in progress)
+ */
 class TrainingPlaySuccess extends StatefulWidget {
   const TrainingPlaySuccess(
       {super.key, required this.allTrainings, required this.allExercises});
 
+  //list of all trainings
   final List<Training>? allTrainings;
+
+  //list of all exercises
   final List<Exercise>? allExercises;
 
   @override
@@ -26,15 +32,24 @@ class TrainingPlaySuccess extends StatefulWidget {
 }
 
 class _TrainingPlaySuccessState extends State<TrainingPlaySuccess> {
+
+  //text editing controller
   TextEditingController editingController = TextEditingController();
   static const mainColor = Color.fromARGB(255, 164, 141, 204);
 
+  //list of filtered trainings
+  List<Training> items = <Training>[];
+
+
   @override
   initState() {
+
+    //fill items list with all exercises list
     items = widget.allTrainings!;
     super.initState();
   }
 
+  //filter search results
   void filterSearchResults(value) {
     setState(() {
       items = widget.allTrainings!
@@ -43,10 +58,12 @@ class _TrainingPlaySuccessState extends State<TrainingPlaySuccess> {
     });
   }
 
-  List<Training> items = <Training>[];
+
 
   @override
   Widget build(BuildContext context) {
+
+    //get user from context
     final user = context.select((AppBloc bloc) => bloc.state.user);
 
 
@@ -135,32 +152,60 @@ class _TrainingPlaySuccessState extends State<TrainingPlaySuccess> {
                     ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text("Ended trainings", style: Theme.of(context).textTheme.titleLarge,),
-                ),
-                TrainingPlayBoard(
-                  trainings: items.where((element) => element.isFinished.every((e) => e == true)).toList(),
-                  mode: "Ended",
-                  exercises: widget.allExercises!,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text("Trainings in progress", style: Theme.of(context).textTheme.titleLarge,),
-                ),
-                TrainingPlayBoard(
-                  trainings: items.where((element) => element.isFinished.any((e) => e == true) && element.isFinished.any((e) => e == false)).toList(),
-                  mode: "Progress",
-                    exercises: widget.allExercises!,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text("Trainings to start", style: Theme.of(context).textTheme.titleLarge,),
-                ),
-                TrainingPlayBoard(
-                  trainings: items.where((element) => element.isFinished.every((e) => e == false)).toList(),
-                  mode: "Start",
-                    exercises: widget.allExercises!,
+                FutureBuilder<bool>(
+                    future: _checkInternetConnection(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.data == true) {
+                          return Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text("Ended trainings", style: Theme.of(context).textTheme.titleLarge,),
+                              ),
+                              TrainingPlayBoard(
+                                trainings: items.where((element) => element.isFinished.every((e) => e == true)).toList(),
+                                mode: "Ended",
+                                exercises: widget.allExercises!,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text("Trainings in progress", style: Theme.of(context).textTheme.titleLarge,),
+                              ),
+                              TrainingPlayBoard(
+                                trainings: items.where((element) => element.isFinished.any((e) => e == true) && element.isFinished.any((e) => e == false)).toList(),
+                                mode: "Progress",
+                                exercises: widget.allExercises!,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text("Trainings to start", style: Theme.of(context).textTheme.titleLarge,),
+                              ),
+                              TrainingPlayBoard(
+                                trainings: items.where((element) => element.isFinished.every((e) => e == false)).toList(),
+                                mode: "Start",
+                                exercises: widget.allExercises!,
+                              ),
+                            ],
+                          );
+                        }
+                        return Column(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              child: Text("Trainings to start", style: Theme.of(context).textTheme.titleLarge,),
+                            ),
+                            TrainingPlayBoard(
+                              trainings: items,
+                              mode: "Start",
+                              exercises: widget.allExercises!,
+                            ),
+                          ],
+                        );
+                      }else {
+                        return const CircularProgressIndicator();
+                      }
+                    }
                 ),
               ],
             ),
@@ -168,5 +213,14 @@ class _TrainingPlaySuccessState extends State<TrainingPlaySuccess> {
         )
       )
     );
+  }
+}
+
+Future<bool> _checkInternetConnection() async {
+  var connectivityResult = await Connectivity().checkConnectivity();
+  if (connectivityResult != ConnectivityResult.none) {
+    return true;
+  }else {
+    return false;
   }
 }

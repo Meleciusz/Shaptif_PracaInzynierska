@@ -4,8 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/app/app.dart';
 import 'package:shaptifii/home/home.dart';
 
+/*
+* Main description:
+This class is responsible for displaying the home page of the app.
 
-GlobalKey _one = GlobalKey();
+* Navigator:
+User can navigate to gym mode page
+ */
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,7 +37,6 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             const HeaderTitle(),
 
-
             Text(
               "Welcome ${user.name != null && user.name!.isNotEmpty ? user.name! : (user.email != null ? user.email!.split('@').first : 'Unknown')}!",
               style: textTheme.headlineMedium,
@@ -40,7 +44,7 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 8),
             Avatar(photo: user.photo),
-            const SizedBox(height: 100),
+            const SizedBox(height: 20),
             FutureBuilder(
                 future: _checkInternetConnection(),
                 builder: (context, snapshot) {
@@ -68,11 +72,12 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      drawer: const DrawerWidget(),
+      // drawer: const DrawerWidget(),
     );
   }
 }
 
+//This function is responsible for checking the internet connection.
 Future<bool> _checkInternetConnection() async {
   var connectivityResult = await Connectivity().checkConnectivity();
   if (connectivityResult != ConnectivityResult.none) {

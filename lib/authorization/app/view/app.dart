@@ -3,7 +3,6 @@ import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/app/app.dart';
-import 'package:shaptifii/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -29,7 +28,7 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: theme,
+      // theme: theme,
       home: FlowBuilder<AppStatus>(
           state: context.select((AppBloc bloc) => bloc.state.status),
           onGeneratePages: onGenerateAppViewPages

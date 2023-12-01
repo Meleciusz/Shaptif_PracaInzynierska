@@ -2,7 +2,10 @@ import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 
 
-
+/*
+ * Main description:
+ This file describes item of list of exercises added to training
+ */
 class TrainingExerciseItems extends StatefulWidget {
   const TrainingExerciseItems({super.key, required this.exercises,
     required this.onAddExerciseCallback

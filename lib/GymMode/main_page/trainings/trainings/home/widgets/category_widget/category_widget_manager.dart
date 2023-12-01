@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/category_widget_bloc.dart';
 import 'widgets/success_widget.dart';
 
-
+/*
+ * Main description:
+ This class build screen basing on bloc state
+ */
 class CategoriesWidget extends StatelessWidget {
   const CategoriesWidget({super.key});
 

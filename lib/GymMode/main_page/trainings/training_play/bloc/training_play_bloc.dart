@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
@@ -9,6 +7,10 @@ import 'package:training_repository/training_repository.dart';
 part 'training_play_event.dart';
 part 'training_play_state.dart';
 
+/*
+ * Main description:
+This file describes every event that bloc can have and connects those events with the states and repositories
+ */
 class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
   TrainingPlayBloc({
     required this.trainingRepository, required this.exerciseRepository, required this.historyRepository
@@ -17,7 +19,6 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
     on<GetTrainingsAndExercises>(_mapGetTrainingsEvent);
     on<RefreshPlayTrainings>(_mapRefreshPlayTrainingsEvent);
     on<SaveAsHistoricalTraining>(_mapSaveAsHistoricalTrainingEvent);
-    on<UpdateTrainingStatusWithoutInternet>(_mapUpdateTrainingStatusWithoutInternetEvent);
     on<SaveAsHistoricalTrainingWithoutInternet>(_mapSaveAsHistoricalTrainingWithoutInternetEvent);
   }
 
@@ -48,15 +49,6 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
     }
   }
 
-  void _mapUpdateTrainingStatusWithoutInternetEvent(UpdateTrainingStatusWithoutInternet event, Emitter<TrainingPlayState> emit) async {
-    try {
-      emit(state.copyWith(status: TrainingPlayStatus.loading));
-      await trainingRepository.updateTraining(event.training);
-      emit(state.copyWith(status: TrainingPlayStatus.success));
-    } catch (e) {
-      emit(state.copyWith(status: TrainingPlayStatus.error));
-    }
-  }
 
   void _mapRefreshPlayTrainingsEvent(RefreshPlayTrainings event, Emitter<TrainingPlayState> emit) async {
     try {
@@ -83,9 +75,9 @@ class TrainingPlayBloc extends Bloc<TrainingPlayEvent, TrainingPlayState> {
 
   void _mapSaveAsHistoricalTrainingWithoutInternetEvent(SaveAsHistoricalTrainingWithoutInternet event, Emitter<TrainingPlayState> emit) async {
     try {
-      emit(state.copyWith(status: TrainingPlayStatus.loading));
+      // emit(state.copyWith(status: TrainingPlayStatus.loading));
       await historyRepository.addHistoricalTraining(event.history);
-      emit(state.copyWith(status: TrainingPlayStatus.success));
+      // emit(state.copyWith(status: TrainingPlayStatus.success));
     } catch (e) {
       emit(state.copyWith(status: TrainingPlayStatus.error));
     }

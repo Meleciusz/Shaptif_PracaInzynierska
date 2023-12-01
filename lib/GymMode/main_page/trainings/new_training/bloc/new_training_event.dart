@@ -1,5 +1,9 @@
 part of 'new_training_bloc.dart';
 
+/*
+ * Main description:
+This file contains every event that bloc can have
+ */
 class NewTrainingEvent extends Equatable {
   @override
   List<Object?> get props => [];

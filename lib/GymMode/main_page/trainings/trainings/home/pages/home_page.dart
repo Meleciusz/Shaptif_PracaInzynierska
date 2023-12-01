@@ -5,9 +5,14 @@ import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/all
 import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import 'package:training_repository/training_repository.dart';
 import '../widgets/category_widget/category_widget.dart';
-
 import 'home_layout.dart';
 
+
+/*
+ * Main description:
+This is the home page
+This class is used to provide bloc and repository to layout
+ */
 class HomePageTrainings extends StatelessWidget {
   const HomePageTrainings({super.key});
 

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 
-
+/*
+  *Main description:
+This class is used to display if training is verified or not.
+ */
 class AllTrainingsIcon extends StatelessWidget {
-  const AllTrainingsIcon({super.key, required this.veryfied, required this.addingUserId});
+  const AllTrainingsIcon({super.key, required this.verified, required this.addingUserId});
 
   final String addingUserId;
-  final bool veryfied;
+  final bool verified;
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((AppBloc bloc) => bloc.state.user);
 
     return Row(
         children: [
           const Text("Verified:  "),
           const SizedBox(width: 3),
-          veryfied ? const Icon(Icons.check, color: Colors.green)
+          verified ? const Icon(Icons.check, color: Colors.green)
               : const Icon(Icons.not_interested_rounded, color: Colors.red),
         ]
     );

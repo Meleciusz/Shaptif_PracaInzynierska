@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
+/*
+ * Main description:
+This is HeaderTitle widget
+HeaderTitle - Upper part of the screen where title and IconButtons are displayed
+ */
 class HeaderTitle extends StatelessWidget {
   const HeaderTitle({super.key, required this.onRefreshTap});
+
+  //function that is called when refresh button is pressed
   final VoidCallback onRefreshTap;
 
   @override

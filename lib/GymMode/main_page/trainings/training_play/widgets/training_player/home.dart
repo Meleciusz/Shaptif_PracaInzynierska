@@ -1,23 +1,28 @@
-import 'dart:developer';
-
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/training_play_bloc.dart';
+import 'package:shaptifii/GymMode/main_page/trainings/training_play/widgets/training_player/exercise_item.dart';
+import 'package:shaptifii/GymMode/main_page/trainings/training_play/widgets/training_player/training_change.dart';
 import 'package:training_repository/training_repository.dart';
 import '../../../new_training/widgets/new_training_builder.dart';
 import 'header_tile.dart';
 import 'return.dart';
 
-typedef CallbackExercise = void Function(List<String> newExercises);
 
 class TrainingPlayer extends StatefulWidget {
   const TrainingPlayer({super.key, required this.exercisesNames, required this.allExercises,
     required this.training, required this.returnValues
   });
 
+  //list of all exercises names
   final List<String> exercisesNames;
+
+  //list of all exercises
   final List<Exercise> allExercises;
+
+  //chosen training
   final Training training;
+
+  //values that'll be returned
   final Return returnValues;
 
 
@@ -28,11 +33,14 @@ class TrainingPlayer extends StatefulWidget {
 }
 
 class _TrainingPlayerState extends State<TrainingPlayer> {
+
+  //page controller - controls which page is visible for user
   late PageController _pageController;
 
+  //initialization of variables
   @override
   initState() {
-    realAllExercises.addAll(widget.allExercises);
+    originalAllExercises.addAll(widget.allExercises);
     allExercises.addAll(widget.allExercises);
     widget.allExercises!.removeWhere((element) => widget.exercisesNames.contains(element.name));
 
@@ -44,8 +52,9 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
     exerciseIsClosed = List.generate(widget.exercisesNames.length, (index) => false);
     exerciseDonePrevious = List.generate(widget.exercisesNames.length, (index) => false);
 
-    for (int i = 0; i < widget.training.isFinished.length; i++) {
-      if (widget.training.isFinished[i]) {
+    //initialize values that controls if exercise was done previously
+    for (int i = 0; i < widget.returnValues.isFinished.length; i++) {
+      if (widget.returnValues.isFinished[i]) {
         if (i != -1) {
           exerciseIsClosed[i] = true;
           exerciseDonePrevious[i] = true;
@@ -53,8 +62,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
       }
     }
 
-    originalExercises.addAll(widget.exercisesNames);
-    originalAllExercises.addAll(widget.allExercises);
+    originalExercisesNames.addAll(widget.exercisesNames);
     super.initState();
   }
 
@@ -64,20 +72,46 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
     super.dispose();
   }
 
+  //list that controls if exercise was done previously
   List<bool> exerciseDonePrevious = <bool>[];
-  List<Exercise> realAllExercises = <Exercise>[];
-  bool wantToSave = false;
-  List<Exercise> allExercises = <Exercise>[];
-  bool activeDeleteMode = false;
-  Set<Exercise> addedExercises = {};
-  List<String> originalExercises = <String>[];
+
+  //original list of all exercises
   List<Exercise> originalAllExercises = <Exercise>[];
+
+  //if user want to save as a new training
+  bool wantToSave = false;
+
+  //list of all exercises
+  List<Exercise> allExercises = <Exercise>[];
+
+  //mode that is activated if user want to delete exercise from training
+  bool activeDeleteMode = false;
+
+  //list of added exercises to training
+  Set<Exercise> addedExercises = {};
+
+  //original list of exercise names
+  List<String> originalExercisesNames = <String>[];
+
+  //list that controls if exercise is closed
   List<bool> exerciseIsClosed = <bool>[];
+
+  //list of sets
   List<int> sets = <int>[];
+
+  //list of weights in String format(String is original database format for weight)
   List<String> weights = <String>[];
+
+  //list of weights(for one training) in double format
   List<double> weightsDouble = <double>[];
+
+  //title of page
   String title = 'Save as new training';
+
+  //used color
   Color color = Colors.black38;
+
+  //list of all weights in double format
   List<List<double>> allWeightsDouble = <List<double>>[];
 
   @override
@@ -91,9 +125,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                 onRefreshTap: (){
                   setState(() {
                     widget.exercisesNames.clear();
-                    widget.exercisesNames.addAll(originalExercises);
+                    widget.exercisesNames.addAll(originalExercisesNames);
                     widget.allExercises.clear();
-                    widget.allExercises.addAll(originalAllExercises);
                     wantToSave = false;
                     activeDeleteMode = false;
                     addedExercises = {};
@@ -105,8 +138,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                     exerciseIsClosed = List.generate(widget.exercisesNames.length, (index) => false);
                     exerciseDonePrevious = List.generate(widget.exercisesNames.length, (index) => false);
 
-                    for (int i = 0; i < widget.training.isFinished.length; i++) {
-                      if (widget.training.isFinished[i]) {
+                    for (int i = 0; i < widget.returnValues.isFinished.length; i++) {
+                      if (widget.returnValues.isFinished[i]) {
                         if (i != -1) {
                           exerciseIsClosed[i] = true;
                           exerciseDonePrevious[i] = true;
@@ -133,7 +166,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                       allWeightsDouble: allWeightsDouble[index],
                       exerciseDonePreviously: exerciseDonePrevious[index],
                       activeDeleteMode: activeDeleteMode,
-                        exercise: widget.exercisesNames[index],
+                        exerciseName: widget.exercisesNames[index],
                       sets: sets[index],
                       weight: weightsDouble[index],
                       callbackWeight: (double value){
@@ -273,10 +306,10 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                         });
                       },
 
-                    ) : QuickExerciseAdd(
+                    ) : TrainingChange(
                       title: title,
                       color: color,
-                      canBeSaved: listEquals(widget.exercisesNames, originalExercises),
+                      canBeSaved: listEquals(widget.exercisesNames, originalExercisesNames),
                       allExercises: widget.allExercises,
                       callbackSave: (){
                         setState(() {
@@ -352,7 +385,6 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
   }
 
   void onExit(){
-    log(weights.toString());
     setState(() {
       widget.returnValues.exercisesWeights = weights;
       widget.returnValues.exercisesSetsCount = sets;
@@ -366,7 +398,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
     {
 
       setState(() {
-        List<String> allBodyParts = realAllExercises
+        List<String> allBodyParts = originalAllExercises
             .where((e) => widget.exercisesNames.contains(e.name))
             .expand((e) => e.body_parts)
             .toList();
@@ -382,14 +414,13 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
       }),
       Navigator.of(context).pop(widget.returnValues)
     } : {
-      widget.training.exercises = originalExercises,
+      widget.training.exercises = originalExercisesNames,
       widget.returnValues.exercisesNames = widget.exercisesNames,
 
-      if(exerciseIsClosed.length < widget.training.isFinished.length )
+      if(exerciseIsClosed.length < widget.returnValues.isFinished.length )
         {
-          log("tamtamtam"),
           setState(() {
-            exerciseIsClosed.addAll(widget.training.isFinished.sublist(0, exerciseIsClosed.length));
+            exerciseIsClosed.addAll(widget.returnValues.isFinished.sublist(0, exerciseIsClosed.length));
           }),
         },
 
@@ -455,314 +486,4 @@ bool listEquals(List<dynamic> a, List<dynamic> b) {
   return false;
 }
 
-typedef Callback = void Function(double weight);
-typedef CallbackWeight = void Function(double weight);
-typedef CallbackAllWeight = void Function(String weights);
 
-class ExercisePage extends StatefulWidget {
-  const ExercisePage(
-      {super.key, required this.exercise, required this.sets,
-        required this.onTapSets, required this.onLongPressSets, required this.exerciseIsClosed, required this.onPressExerciseIsClosed,
-        required this.weight, required this.callbackWeight, required this.activeDeleteMode, required this.callbackDelete,
-        required this.exerciseDonePreviously, required this.allWeightsDouble,
-      });
-
-  final String exercise;
-  final int sets;
-  final VoidCallback onTapSets;
-  final VoidCallback onLongPressSets;
-  final CallbackAllWeight onPressExerciseIsClosed;
-  final Callback callbackWeight;
-  final bool exerciseIsClosed;
-  final double weight;
-  final bool activeDeleteMode;
-  final VoidCallback callbackDelete;
-  final bool exerciseDonePreviously;
-  final List<double> allWeightsDouble;
-
-  @override
-  State<ExercisePage> createState() => _ExercisePageState();
-}
-
-class _ExercisePageState extends State<ExercisePage> {
-
-  @override
-  initState() {
-    super.initState();
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return
-      widget.exerciseDonePreviously
-          ? Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * .05,),
-          Text(widget.exercise, style: const TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ), overflow: TextOverflow.ellipsis,),
-          SizedBox(height: MediaQuery.of(context).size.height * .05,),
-          const Text("Exercise was already done", style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ), overflow: TextOverflow.ellipsis,),
-          SizedBox(height: MediaQuery.of(context).size.height * .15,),
-          const Icon(Icons.account_tree_rounded, size: 100, color: Color.fromARGB(255, 214, 189, 219),),
-        ],
-      ): Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * .05,),
-            Text(widget.exercise, style: const TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ), overflow: TextOverflow.ellipsis,),
-          GestureDetector(
-              onTap: () {
-                widget.allWeightsDouble.add(widget.weight);
-                widget.onTapSets();
-              },
-              onLongPress: () {
-                widget.allWeightsDouble.clear();
-                widget.onLongPressSets();
-                },
-              child: SizedBox(
-                height: 120.0,
-                child: Stack(
-                    children: [
-                      Positioned(
-                          top: 70.0,
-                          left: MediaQuery.of(context).size.width * .0,
-                          child: widget.sets == 0 ? SizedBox(
-                              width: MediaQuery.of(context).size.width * .75,
-                              child: const Icon(Icons.touch_app)
-                          ) : const SizedBox()
-                      ),
-                      Positioned(
-                        top: 90.0,
-                        left: MediaQuery.of(context).size.width * .35,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * .75,
-                          child: const Text(
-                            "sets: ",
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 5.0,
-                        left: MediaQuery.of(context).size.width * .45,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * .75,
-                          child: Text(
-                              "${widget.sets}",
-                              style: Theme.of(context).textTheme.displayLarge),
-                        ),
-                      ),
-                    ]
-                ),
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * .05,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Slider(
-                  value: widget.weight,
-                  max: 300,
-                  divisions: 30,
-                  activeColor: const Color.fromARGB(255, 214, 189, 219),
-                  inactiveColor: const Color.fromARGB(0, 255, 255, 255),
-                  onChanged: (double value) {
-                    double roundedValue = double.parse(value.toStringAsFixed(2));
-                    setState(() {
-                      widget.callbackWeight(roundedValue);
-                    });
-                  },
-                ),
-                Flexible(
-                  child: Text(
-                    "${widget.weight}" " kg",
-                    style: Theme.of(context).textTheme.displaySmall,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Tooltip(
-                  message: "Remove 1.25kg",
-                  child: IconButton(
-                      onPressed: (){
-                        widget.weight > 1.25 ?
-                        setState(() {
-                          widget.callbackWeight(widget.weight - 1.25);
-                        }) : null;
-                      },
-                      icon: const Icon(Icons.remove)
-                  ),
-                ),
-                Tooltip(
-                  message: "Add 1.25kg",
-                  child: IconButton(
-                      onPressed: (){
-                        widget.weight < 300 ?
-                        setState(() {
-                          widget.callbackWeight(widget.weight + 1.25);
-                        }) : null;
-                      },
-                      icon: const Icon(Icons.add)
-                  ),
-                ),
-              ],
-            ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              widget.activeDeleteMode
-                  ? Tooltip(
-                message: "Delete exercise",
-                child: IconButton(
-                    onPressed: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            title: const Text("Are you sure?"),
-                            content: const Text("If this exercise in no longer in the database and you decide later to overwrite this training this exercise will be deleted forever."),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  widget.callbackDelete();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    backgroundColor: Colors.red
-                                ),
-                                child: const Text("Delete"),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    backgroundColor: Colors.green
-                                ),
-                                child: const Text("Go back"),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.delete, size: 40,)
-                ),
-              ) : Container(),
-
-              Tooltip(
-                message: widget.exerciseIsClosed ?  "Reverse mark" : "Mark exercise as completed" ,
-                child: IconButton(
-                    onPressed: (){
-                      widget.onPressExerciseIsClosed(widget.allWeightsDouble.join(', '));
-                    },
-                    icon: widget.exerciseIsClosed ? const Icon(Icons.enhanced_encryption, color: Colors.redAccent, size: 40,)
-                        : const Icon(Icons.enhanced_encryption, color: Colors.green, size: 40,)
-                ),
-              ),
-            ]
-          )
-        ]
-    );
-  }
-}
-
-
-typedef CallbackAddExercise = void Function(List<Exercise> choosedExercises);
-
-class QuickExerciseAdd extends StatelessWidget {
-  const QuickExerciseAdd({super.key, required this.allExercises,
-    required this.callbackAddExercise, required this.callbackRemoveExercise,
-     required this.canBeSaved, required this.callbackSave, required this.title, required this.color
-  });
-
-  final List<Exercise> allExercises;
-  final CallbackAddExercise callbackAddExercise;
-  final VoidCallback callbackRemoveExercise;
-  final bool canBeSaved;
-  final VoidCallback callbackSave;
-  final String title;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    log(canBeSaved.toString());
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          canBeSaved ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: (){
-                  callbackSave();
-                },
-                icon: Icon(Icons.save_rounded, size: 40, color: color,),
-              ),
-              Text(title, style: Theme.of(context).textTheme.titleMedium,),
-            ]
-          ) : const SizedBox(),
-          SizedBox(height: MediaQuery.of(context).size.height * .05,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NewTrainingBuilder(allExercises: allExercises)
-                      )
-                  ).then((value) {
-                    value == null ? null :
-                    callbackAddExercise(value);
-                  });
-                },
-                icon: const Icon(Icons.add, size: 40,),
-              ),
-              Text("Add exercise", style: Theme.of(context).textTheme.titleMedium,),
-            ],
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * .05,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: (){
-                  callbackRemoveExercise();
-                },
-                icon: const Icon(Icons.remove, size: 40,),
-              ),
-              Text("Remove exercise", style: Theme.of(context).textTheme.titleMedium,),
-            ],
-          ),
-        ],
-      )
-    );
-  }
-}

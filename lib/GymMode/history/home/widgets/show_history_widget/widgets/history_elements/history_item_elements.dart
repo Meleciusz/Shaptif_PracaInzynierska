@@ -1,12 +1,16 @@
-import 'dart:developer';
-
-import 'package:container_body/container_body.dart';
 import 'package:flutter/material.dart';
 import 'package:history_repository/history_repository.dart';
 import 'header_tile.dart';
 
+/*
+* Main description:
+This class is used to display training history records
+ */
+
 class HistoryItemElements extends StatefulWidget {
-  const HistoryItemElements({Key? key, required this.elements});
+  const HistoryItemElements({super.key, required this.elements});
+
+  //history records for specific training
   final List<History> elements;
 
   @override
@@ -19,6 +23,8 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
 
   @override
   void initState() {
+
+    //isExpanded list is initialized with false values for all elements and later used to check if the element is expanded or not
     isExpanded = List.generate(widget.elements.length, (index) => false);
     super.initState();
   }
@@ -35,6 +41,7 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
             HeaderTitle(title: widget.elements.first.name,),
             const SizedBox(height: 15.0),
 
+            //this is custom container, used to allow widgets to expand and collapse
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -70,8 +77,7 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                         controlAffinity: ListTileControlAffinity.leading,
                         onExpansionChanged:  (_) { setState(() {
                           isExpanded[index] = !isExpanded[index];
-                        });
-                        log(isExpanded.toString());
+                          });
                         },
                         leading: isExpanded[index]
                             ? const Icon(Icons.auto_stories, color: mainColor, size: 30,
@@ -81,6 +87,8 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                           shadows: <Shadow>[Shadow(color: Colors.black, offset: Offset(-1, 1), blurRadius: 2)],
                         ),
                         iconColor: mainColor,
+
+                        //this is the body of the tile when it is expanded
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

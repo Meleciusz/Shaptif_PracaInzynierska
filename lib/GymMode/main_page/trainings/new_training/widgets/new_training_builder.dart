@@ -1,11 +1,15 @@
-import 'dart:developer';
-
 import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 
+/*
+ *Main description:
+This class describes new training builder - screen for creating new training by adding exercises that are on this screen
+ */
 class NewTrainingBuilder extends StatefulWidget {
   const NewTrainingBuilder({super.key, required this.allExercises});
+
+  //list of exercises
   final List<Exercise>? allExercises;
 
   @override
@@ -16,18 +20,32 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
 
   @override
   void initState() {
+
+    //fill items with all exercises list
     items = widget.allExercises!;
     super.initState();
   }
 
+  //text editing controller
   TextEditingController editingController = TextEditingController();
+
+  //showOnlyVerified flag(set by user when switching in drawer)
   bool showOnlyVerified = false;
+
+  //selected indexes by user list
   List<int> selectedIndexes = [];
+
+  //key for draggable list
   final GlobalKey draggableKey = GlobalKey();
+
+  //list of exercises to add to training
   List<Exercise> exercisesToAdd = [];
+
+  //list of filtered exercises
   List<Exercise> items = [];
 
 
+  //filter search results
   void filterSearchResults(value) {
     setState(() {
       items = widget.allExercises!
@@ -143,9 +161,6 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                                     }
                                   });
 
-
-                                  log(exercisesToAdd.map((e) => e.name).toList().toString());
-                                  log(exercisesToAdd.contains(items[index]).toString());
                                 },
                                 onLongPress: (){
                                   showDialog(

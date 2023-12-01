@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/main_page/trainings/training_play/bloc/training_play_bloc.dart';
 import '../widgets/widgets.dart';
 
+/*
+ * Main description:
+ This class build screen basing on bloc state
+ */
 class TrainingPlayManager extends StatelessWidget {
   const TrainingPlayManager({super.key});
 

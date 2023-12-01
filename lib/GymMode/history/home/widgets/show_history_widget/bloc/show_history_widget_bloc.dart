@@ -6,6 +6,11 @@ import 'package:history_repository/history_repository.dart';
 part 'show_history_widget_event.dart';
 part 'show_history_widget_state.dart';
 
+/*
+* Main description:
+This file describes every event that bloc can have and connects those events with the states and repositories
+ */
+
 class ShowHistoryWidgetBloc extends Bloc<ShowHistoryWidgetEvent, ShowHistoryWidgetState> {
   ShowHistoryWidgetBloc({
     required this.historyRepository,

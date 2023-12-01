@@ -1,5 +1,10 @@
 part of 'show_history_widget_bloc.dart';
 
+/*
+* Main description:
+This file contains every state that bloc can be in and values that can be used in the bloc
+ */
+
 enum ShowHistoryWidgetStatus { initial, success, loading, error }
 
 extension ShowHistoryWidgetStatusX on ShowHistoryWidgetStatus {

@@ -14,6 +14,25 @@ import '../widgets/category_widget/category_widget_manager.dart';
 import '../widgets/header_tile/header_tile.dart';
 import '../widgets/widgets.dart';
 
+/*
+ * Main description:
+This is layout
+This class define what is displayed on screen
+
+* Main elements:
+HeaderTitle - Upper part of the screen where title and IconButtons are displayed
+ContainerBody - Custom container to display Widgets
+CategoriesWidget - List of categories
+AllTrainingsWidget - List of trainings
+
+* Navigator:
+User can navigate to:
+Training description - description of training
+New training - create new training
+History - history of trainings
+Training instructions - instructions of training
+Trainings play - play trainings
+ */
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
 

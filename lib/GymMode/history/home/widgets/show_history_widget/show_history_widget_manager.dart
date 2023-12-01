@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/GymMode/history/history.dart';
-
 import 'widgets/widgets.dart';
+
+/*
+ * Main description:
+ This class build screen basing on bloc state
+ */
 
 class ShowHistoryWidget extends StatelessWidget {
   const ShowHistoryWidget({super.key});

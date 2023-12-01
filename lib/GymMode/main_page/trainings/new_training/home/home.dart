@@ -5,7 +5,11 @@ import 'package:shaptifii/GymMode/main_page/trainings/new_training/bloc/new_trai
 import 'package:training_repository/training_repository.dart';
 import 'new_training_manager.dart';
 
-
+/*
+ * Main description:
+This is the home page
+This class is used to provide bloc and repository to layout
+ */
 class NewTrainingPage extends StatelessWidget {
   const NewTrainingPage({super.key});
 

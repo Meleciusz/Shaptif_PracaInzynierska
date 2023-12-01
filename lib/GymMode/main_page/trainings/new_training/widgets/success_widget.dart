@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:fab_circural_menu/fab_circural_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_repository/training_repository.dart';
@@ -11,8 +8,17 @@ import 'header_tile.dart';
 import '../bloc/new_training_bloc.dart';
 import 'widgets.dart';
 
+/*
+  *Main description:
+this class describes look of new training page
+
+* Navigator:
+User can navigate to training builder(Screen with list of exercises)
+ */
 class NewTrainingSuccess extends StatefulWidget {
   const NewTrainingSuccess({super.key, required this.allExercises});
+
+  //list of all exercises
   final List<Exercise>? allExercises;
 
   @override
@@ -25,14 +31,25 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
 
   @override
   initState(){
+
+    //fill original exercises list
     originalExercises.addAll(widget.allExercises!);
     super.initState();
   }
 
+  //list of original exercises(exercises from the beginning)
   List<Exercise> originalExercises = <Exercise>[];
+
+  //list of exercises added to the training
   List<Exercise> exercises = <Exercise>[];
+
+  //name of the training
   String trainingName = '';
+
+  //description of the training
   String trainingDescription = '';
+
+  //list of all body parts used in training
   List<String> allBodyParts = <String>[];
 
   @override
@@ -46,6 +63,8 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               HeaderTitle(
+
+                //refresh button
                 onRefreshTap: (){
                   setState(() {
                     exercises.clear();
@@ -61,7 +80,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
               const SizedBox(height: 10,),
               ContainerBody(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 100,
                       width: MediaQuery.of(context).size.width,
                       child: Stack(children: [
@@ -222,6 +241,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
   }
 }
 
+//function that finds main body part used in training
 String findMainlyUsedBodyPart(List<Exercise> exercises, List<String> allBodyParts) {
   var bodyPartCounts = <String, int>{};
   for (var bodyPart in allBodyParts) {

@@ -3,6 +3,17 @@ import 'package:container_body/container_body.dart';
 import '../../widgets/header_title.dart';
 import '../home.dart';
 
+/*
+ * Main description:
+This is history layout
+This class define what is displayed on history screen
+
+ * Elements:
+HeaderTitle - Upper part of the screen where title and IconButtons are displayed
+ContainerBody - Custom container to display Widgets
+ShowHistoryWidget - Widget to display
+ */
+
 class HomeLayout extends StatelessWidget {
   const HomeLayout({super.key});
   static const mainColor = Color.fromARGB(255, 79, 171, 151);
@@ -26,7 +37,7 @@ class HomeLayout extends StatelessWidget {
             ],
           )
       ),
-      drawer: Drawer(),
+      //drawer: Drawer(),
     );
   }
 }
