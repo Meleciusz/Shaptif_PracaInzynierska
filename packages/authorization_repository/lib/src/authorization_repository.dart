@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
+
+//class that describes operations when signing up with email and password have failure detected
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([
     this.message = 'Unknown error has occurred.',
@@ -30,6 +32,7 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
   final String message;
 }
 
+//class that describes operations when signing with google have failure detected
 class SignInWithGoogleFailure implements Exception {
   const SignInWithGoogleFailure([
     this.message = 'Unknown error has occurred.',
@@ -61,6 +64,7 @@ class SignInWithGoogleFailure implements Exception {
   final String message;
 }
 
+//class that describes operations when logging out have failure detected
 class LogOutFailure implements Exception {
   const LogOutFailure([
     this.message = 'Unknown error has occurred.',
@@ -73,14 +77,19 @@ class LogOutFailure implements Exception {
     }
   }
 
-
   final String message;
 }
 
 class AuthorizationRepository {
   AuthorizationRepository({
+
+    //cache that is used to store the current user
     CacheClient? cache,
+
+    //firebase authentication instance
     firebase_auth.FirebaseAuth? firebaseAuth,
+
+    //google sign in instance
     GoogleSignIn? googleSignIn,
     }) : _cache = cache ?? CacheClient(),
         _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
@@ -107,7 +116,7 @@ class AuthorizationRepository {
     return _cache.readFromMemoryCache(key: userCacheKey) ?? User.empty;
   }
 
-  //Create a new user with the provided [email] and [password]
+  //Create a new user with the provided email and password function
   Future<void> signUpWithEmailAndPassword({
     required String email, required String password,
   }) async{
@@ -123,6 +132,7 @@ class AuthorizationRepository {
       }
     }
 
+    //log in with google function
   Future<void> logInWithGoogle() async {
     try {
       late final firebase_auth.AuthCredential credential;
@@ -146,6 +156,7 @@ class AuthorizationRepository {
     }
   }
 
+  //log in with email and password function
   Future<void> logInWithEmailAndPassword ({
     required String email,
     required String password,
@@ -175,6 +186,7 @@ class AuthorizationRepository {
   }
 }
 
+//Converts a firebase authorization user to a user defines by the user model
 extension on firebase_auth.User {
   User get toUser{
     return User(

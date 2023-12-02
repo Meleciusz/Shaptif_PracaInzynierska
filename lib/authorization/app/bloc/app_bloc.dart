@@ -7,6 +7,10 @@ import 'package:authorization_repository/authorization_repository.dart';
 part 'app_event.dart';
 part 'app_state.dart';
 
+/*
+ * Main description:
+This file describes every event that bloc can have and connects those events with the states and repositories
+ */
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({required AuthorizationRepository authorizationRepository}) : _authorizationRepository = authorizationRepository,
   super(

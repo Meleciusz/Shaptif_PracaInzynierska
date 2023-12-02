@@ -1,5 +1,10 @@
 part of 'app_bloc.dart';
 
+
+/*
+ * Main description:
+This file contains every state that bloc can be in and values that can be used in the bloc
+ */
 enum AppStatus { authenticated, unauthenticated }
 
 final class AppState extends Equatable{

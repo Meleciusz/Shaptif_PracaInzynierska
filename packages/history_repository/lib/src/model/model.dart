@@ -1,13 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/*
+History - represent history, that is created when training is done
+ */
 class History{
+
+  //id of history - unique identifier
   String id;
+
+  //name of history element
   String name;
+
+  //id of user that added history
   String adding_user_id;
+
+  //name of user that added history
   String adding_user_name;
+
+  //name of exercises made in training
   List<String> exercises_name;
+
+  //number of sets for each exercise
   List<int> exercises_sets_count;
+
+  //weights for each exercise
   List<String> exercises_weights;
+
+  //date when training was done
   Timestamp date;
 
 

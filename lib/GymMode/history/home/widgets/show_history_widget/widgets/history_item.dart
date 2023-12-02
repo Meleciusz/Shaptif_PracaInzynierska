@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:history_repository/history_repository.dart';
-import 'history_elements/history_item_elements.dart';
+import 'history_elements/history_board.dart';
 
 /*
 * Main description:

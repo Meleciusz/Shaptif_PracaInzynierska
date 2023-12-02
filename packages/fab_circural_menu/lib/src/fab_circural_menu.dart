@@ -5,6 +5,9 @@ import 'package:vector_math/vector_math.dart' as vector;
 
 typedef DisplayChange = void Function(bool isOpen);
 
+/*
+FabCircularMenu - floating action button circular menu
+ */
 class FabCircularMenu extends StatefulWidget {
   final List<Widget> children;
   final Alignment alignment;

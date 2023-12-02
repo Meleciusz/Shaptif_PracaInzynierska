@@ -50,6 +50,8 @@ class LoadedStateWidgetState extends State<LoadedStateWidget> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+
+              //search bar
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -67,6 +69,8 @@ class LoadedStateWidgetState extends State<LoadedStateWidget> {
                   ),
                 ),
               ),
+
+              //show all exercises widget
               SizedBox(
                 height: items.length * 100 + 20 * items.length + 70,
                 child: ListView.separated(
@@ -77,7 +81,7 @@ class LoadedStateWidgetState extends State<LoadedStateWidget> {
                       top: 24.0,
                     ),
                     itemBuilder: (context, index) {
-                      return AllExerciseBoard(
+                      return AllExerciseItem(
                         exercise: items[index],
                       );
                     },

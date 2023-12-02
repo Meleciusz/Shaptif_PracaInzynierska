@@ -24,7 +24,11 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+
+      //change state of selected category
         onTap: () => categoryClicked(category),
+
+        //display category widget
         child: BlocSelector<CategoryBloc, CategoryState, bool>(
           selector: (state) => (state.status.isSelected && state.idSelected == category.id) ? true : false,
           builder: (context, state){

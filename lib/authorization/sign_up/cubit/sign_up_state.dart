@@ -1,5 +1,9 @@
 part of 'sign_up_cubit.dart';
 
+/*
+ * Main description:
+This file contains every state that cubit can be in and values that can be used in the cubit
+ */
 final class SignUpState extends Equatable{
   const SignUpState({
     this.email = const Email.pure(),

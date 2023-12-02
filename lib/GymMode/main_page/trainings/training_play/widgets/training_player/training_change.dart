@@ -14,12 +14,25 @@ class TrainingChange extends StatelessWidget {
     required this.canBeSaved, required this.callbackSave, required this.title, required this.color
   });
 
+  //list of all exercises
   final List<Exercise> allExercises;
+
+  //function that adds exercises
   final CallbackAddExercise callbackAddExercise;
+
+  //function that removes exercise
   final VoidCallback callbackRemoveExercise;
+
+  //indicates if user want to save training as a new one
   final bool canBeSaved;
+
+  //function that saves as a new training
   final VoidCallback callbackSave;
+
+  //title
   final String title;
+
+  //main color
   final Color color;
 
   @override
@@ -28,6 +41,8 @@ class TrainingChange extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+            //if user want to save, save as a new training
             canBeSaved ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -41,6 +56,8 @@ class TrainingChange extends StatelessWidget {
                 ]
             ) : const SizedBox(),
             SizedBox(height: MediaQuery.of(context).size.height * .05,),
+
+            //add exercises
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -62,6 +79,8 @@ class TrainingChange extends StatelessWidget {
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height * .05,),
+
+            //remove exercise
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

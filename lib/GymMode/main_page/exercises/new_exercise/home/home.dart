@@ -120,8 +120,12 @@ class _NewExerciseState extends State<NewExercise> {
               },
             ),
             const SizedBox(height: 10,),
+
+
             ContainerBody(
               children: [
+
+              //button to save exercise
               SizedBox(
               height: 100,
                 width: MediaQuery.of(context).size.width,
@@ -192,12 +196,15 @@ class _NewExerciseState extends State<NewExercise> {
                   ],
                   )
                 ),
-
                 const SizedBox(height: 20),
+
+                //exercise name
                 Container(
                   alignment: Alignment.center,
                   child: Text("Exercise Name", style: Theme.of(context).textTheme.titleLarge, ),
                 ),
+
+                //displays text field for exercise name
                 TextField(
                   decoration: InputDecoration(
                     hintText: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" : exerciseName,
@@ -220,10 +227,14 @@ class _NewExerciseState extends State<NewExercise> {
                   },
                 ),
                 const SizedBox(height: 20),
+
+                //exercise description
                 Container(
                   alignment: Alignment.center,
                   child: Text("Description", style: Theme.of(context).textTheme.titleLarge,),
                 ),
+
+                //displays text field for description
                 TextField(
                   decoration: InputDecoration(
                     hintStyle: Theme.of(context).textTheme.titleMedium,
@@ -245,6 +256,8 @@ class _NewExerciseState extends State<NewExercise> {
                   },
                 ),
                 const SizedBox(height: 20,),
+
+                //exercise images
                 Container(
                   alignment: Alignment.center,
                   child: Text("Exercise images", style: Theme.of(context).textTheme.titleLarge, ),
@@ -252,6 +265,8 @@ class _NewExerciseState extends State<NewExercise> {
 
                 //images widget
                 NewExerciseImages(selectedBodyParts: selectedBodyParts, handleUrlChanged: handleUrlChanged, iconController: iconController,),
+
+                //buttons to change image
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(onPressed: () {
@@ -265,11 +280,15 @@ class _NewExerciseState extends State<NewExercise> {
                   ],
                 ),
                 const SizedBox(height: 20),
+
+                //body parts
                 Container(
                   alignment: Alignment.center,
                   child: Text("Body parts", style: Theme.of(context).textTheme.titleLarge, ),
                 ),
                 const SizedBox(height: 20,),
+
+                //body parts list to select
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .15,
                   child: ListView.separated(

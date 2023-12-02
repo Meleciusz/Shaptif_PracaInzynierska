@@ -1,5 +1,9 @@
 import 'package:bloc/bloc.dart';
 
+/*
+ * Main description:
+ This is AppBlocObserver class - file is used to print information about bloc
+ */
 class AppBlocObserver extends BlocObserver{
   const AppBlocObserver();
 

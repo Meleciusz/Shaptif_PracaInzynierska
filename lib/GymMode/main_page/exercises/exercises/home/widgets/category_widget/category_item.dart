@@ -22,12 +22,16 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+
+      //change the state of selected category
       onTap: () => categoryClicked(category),
+
       child: BlocSelector<CategoryBloc, CategoryState, bool>(
         selector: (state) => (state.status.isSelected && state.idSelected == category.id) ? true : false,
         builder: (context, state){
           return Column(
             children: [
+              //show container with icon that represent selected category
               AnimatedContainer(
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOutCirc,
@@ -43,6 +47,8 @@ class CategoryItem extends StatelessWidget {
                 child: state ? const Icon(Icons.zoom_out_map_outlined) : const Icon(Icons.zoom_in_map_outlined),
               ),
               const SizedBox(height: 4.0),
+
+              //show name of selected category
               SizedBox(
                 width: 60,
                 child: Text(

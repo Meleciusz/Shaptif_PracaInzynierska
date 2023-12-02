@@ -28,13 +28,19 @@ class TrainingsDescription extends StatelessWidget {
                 children: [
                   const Icon(Icons.checklist_rounded, size: 100, color: mainColor),
                   const SizedBox(height: 20),
+
+                  //show name
                   Center(
                     child: Text(training.name ?? '',
                       style: Theme.of(context).textTheme.headlineLarge,
                       textAlign: TextAlign.center,
                     ),
                   ),
+
+                  //show image
                   ImageProcessor(allUsedBodyParts: training.allBodyParts, mainlyUsedBodyPart: training.mainlyUsedBodyPart,),
+
+                  //show exercises list
                   Text("Exercises list:", style: Theme.of(context).textTheme.headlineMedium,),
                   const SizedBox(height: 10),
                   Column(
@@ -48,6 +54,8 @@ class TrainingsDescription extends StatelessWidget {
                     }).toList(),
                   ),
                   const SizedBox(height: 20),
+
+                  //show description
                   Text("Description:", style: Theme.of(context).textTheme.headlineMedium,),
                   Text(training.description, style: Theme.of(context).textTheme.titleLarge,),
                   const SizedBox(height: 20),

@@ -3,9 +3,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
-
 part '../../../authorization/login/cubit/login_state.dart';
 
+
+/*
+ * Main description:
+This file describes every event that cubit can have and connects those events with the states and repositories
+ */
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this._authorizationRepository) : super(const LoginState());
 

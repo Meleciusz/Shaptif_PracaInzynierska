@@ -41,45 +41,53 @@ dependencies:
   training_repository:
     path: packages/training_repository
 
-
+# additional dependencies:
   container_body:
     path: packages/container_body
   fab_circural_menu:
     path: packages/fab_circural_menu
 
+  #flutter main dependencies
   bloc: ^8.1.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
-
-  flutter_animated_button: ^2.0.3
-  permission_handler_android: ^10.2.1
-  permission_handler: ^10.2.0
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  connectivity_plus: ^4.0.2
-  cached_network_image: ^3.3.0
-  image_picker: ^1.0.4
-  firebase_storage: ^11.2.7
-  path_provider: ^2.1.1
-  firebase_auth: ^4.10.0
-  firebase_core: ^2.12.0
-  google_sign_in: ^5.4.2
   meta: ^1.8.0
   equatable: ^2.0.3
-  cloud_firestore: ^4.3.0
   font_awesome_flutter: ^10.2.1
   flow_builder: ^0.0.9
+
+  #looks
+  flutter_animated_button: ^2.0.3
+  cupertino_icons: ^1.0.2
+
+  #permissions
+  shared_preferences: ^2.2.2
+  permission_handler_android: ^10.2.1
+  permission_handler: ^10.2.0
+  camera: ^0.10.5+5
+  path: ^1.8.3
+  image_picker: ^1.0.4
+  path_provider: ^2.1.1
+
+  #firestore
+  firebase_auth: ^4.10.0
+  firebase_core: ^2.12.0
+  cloud_firestore: ^4.3.0
+  firebase_storage: ^11.2.7
+  google_sign_in: ^5.4.2
+
+  #network
+  connectivity_plus: ^4.0.2
+  cached_network_image: ^3.3.0
+
+  #display:
   formz: ^0.6.0
   form_inputs:
     path: packages/form_inputs
   google_fonts: ^4.0.0
-  camera: ^0.10.5+5
-  path: ^1.8.3
   fl_chart: ^0.64.0
-  shared_preferences: ^2.2.2
+
 
 
 dev_dependencies:

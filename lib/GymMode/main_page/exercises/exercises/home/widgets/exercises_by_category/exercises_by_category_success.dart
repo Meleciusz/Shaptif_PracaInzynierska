@@ -19,6 +19,8 @@ class CategoriesSuccessWidget extends StatelessWidget {
       Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
+        //show list of exercises by category
         SizedBox(
           height: MediaQuery.of(context).size.height * .2,
           child: ListView.separated(
@@ -38,7 +40,10 @@ class CategoriesSuccessWidget extends StatelessWidget {
           ),
         )
       ]
-    ) : Row(
+    )
+
+        //if no exercises are found in this category show this text
+        : Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("No exercises", style: Theme.of(context).textTheme.bodySmall,),

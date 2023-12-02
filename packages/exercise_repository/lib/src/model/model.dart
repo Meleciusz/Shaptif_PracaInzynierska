@@ -1,11 +1,30 @@
+/*
+Exercise - class that describes exercise
+ */
 class Exercise{
+
+  //id of exercise - unique identifier
   String id;
+
+  //body parts used in of exercise
   List<String> body_parts;
+
+  //photo url of exercise
   String photo_url;
+
+  //name of exercise
   String name;
+
+  //description of exercise
   String description;
+
+  //is exercise verified
   bool verified;
+
+  //id of user that added exercise
   String adding_user_id;
+
+  //name of user that added exercise
   String adding_user_name;
 
   Exercise({

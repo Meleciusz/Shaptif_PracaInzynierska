@@ -2,6 +2,7 @@ import 'package:formz/formz.dart';
 
 enum ConfirmedPasswordValidationError { invalid }
 
+//confirm if the passwords are the same
 class ConfirmedPassword extends FormzInput<String, ConfirmedPasswordValidationError>{
   const ConfirmedPassword.pure({this.password = ''}) : super.pure('');
 

@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/login/login.dart';
 
+
+/*
+ * Main description:
+This is the home page
+This class is used to provide bloc and repository to layout and to display login page widget
+ */
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -11,9 +17,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocProvider(

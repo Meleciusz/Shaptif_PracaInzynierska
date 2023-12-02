@@ -60,6 +60,8 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                   ),
                 ],
               ),
+
+              //History elements item
               child: Column(
                 children: [
                   const Icon(Icons.bento_rounded, size: 100.0, color: mainColor,
@@ -69,6 +71,8 @@ class _HistoryItemElementsState extends State<HistoryItemElements> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
+
+                      //expansion tile is created for each history element
                       return ExpansionTile(
                         title: Text("${widget.elements[index].name}  ${widget.elements[index].date.toDate().toString()}",
                           style: Theme.of(context).textTheme.titleLarge,

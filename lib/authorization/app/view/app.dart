@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/app/app.dart';
 
+/*
+ * Main description:
+This is the home page
+This class is used to provide bloc and repository to layout
+ */
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -22,6 +27,14 @@ class App extends StatelessWidget {
   }
 }
 
+/*
+ * Main description:
+This is layout
+This class define what is displayed on screen
+
+* Main elements:
+application can display login page or home page
+ */
 class AppView extends StatelessWidget {
   const AppView({super.key});
 

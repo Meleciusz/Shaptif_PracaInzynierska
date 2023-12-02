@@ -3,31 +3,38 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../exercise_repository.dart';
 
 
-
+/*
+FirestoreBodyPartsService - service to make requests to Firestore
+ */
 class FirestoreExerciseService {
   FirestoreExerciseService(){
    _checkInternetConnection();
   }
 
+  //function to check internet connection
   Future<void> _checkInternetConnection() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult != ConnectivityResult.none) {
 
+      //if device has internet connection, clear firestore cache
       await clearFirestoreCache();
     }
   }
 
+  //function to clear firestore cache
   Future<void> clearFirestoreCache() async {
     try {
       await FirebaseFirestore.instance.clearPersistence();
     } catch (e) {
-      print('Błąd podczas czyszczenia pamięci podręcznej Firestore: $e');
+      print('Error: $e');
     }
   }
 
+  //reference to exercise collection
   final CollectionReference _exerciseCollection =
   FirebaseFirestore.instance.collection('Exercise');
 
+  //function to get exercises
   Future<List<Exercise>> getExercises() async {
     final querySnapshot = await _exerciseCollection.get();
     return querySnapshot.docs.map((doc) {
@@ -46,6 +53,7 @@ class FirestoreExerciseService {
     }).toList();
   }
 
+  //function to get exercises by category
   Future<List<Exercise>> getExercisesByCategory(String category) async{
     final querySnapshot = await _exerciseCollection
         .where('body_part_id', arrayContains: category)
@@ -68,6 +76,7 @@ class FirestoreExerciseService {
     }).toList();
   }
 
+  //function to get verified exercises
   Future<List<Exercise>> getVerifiedExercises() async {
     final querySnapshot = await _exerciseCollection.where('verified', isEqualTo: true).get();
     return querySnapshot.docs.map((doc) {
@@ -86,6 +95,8 @@ class FirestoreExerciseService {
     }).toList();
   }
 
+
+  //function to add exercise
   Future<void> addExercise(Exercise exercise) {
     return _exerciseCollection.add({
       'body_part_id': exercise.body_parts,
@@ -98,18 +109,7 @@ class FirestoreExerciseService {
     });
   }
 
-  Future<void> updateExercise(Exercise exercise) {
-    return _exerciseCollection.doc(exercise.id).update({
-      'body_part_id': exercise.body_parts,
-      'photo_url': exercise.photo_url,
-      'name': exercise.name,
-      'description': exercise.description,
-      'verified': exercise.verified,
-      'adding_user_id': exercise.adding_user_id,
-      'adding_user_name': exercise.adding_user_name
-    });
-  }
-
+  //function to delete specific exercise
   Future<void> deleteExercise(String id) {
     return _exerciseCollection.doc(id).delete();
   }

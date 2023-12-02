@@ -40,6 +40,8 @@ class ShowHistorySuccessWidget extends StatelessWidget {
               top: 24.0,
             ),
             itemBuilder: (context, index) {
+
+              //show every history record
               return HistoryItem(
                 historyItemName: historyUniqueNames.elementAt(index),
                 elements : history!.where((element) => element.name == historyUniqueNames.elementAt(index)).toList(),

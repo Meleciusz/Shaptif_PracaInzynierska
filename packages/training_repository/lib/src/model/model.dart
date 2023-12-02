@@ -1,12 +1,34 @@
+
+/*
+Training - represents a training element
+ */
 class Training{
+
+  //id of training - unique identifier
   String id;
+
+  //name of training
   String name;
+
+  //id of user that added training
   String addingUserId;
+
+  //list of exercises in training
   List<String> exercises;
+
+  //description of training
   String description;
+
+  //mainly used body part
   String mainlyUsedBodyPart;
+
+  //is training verified
   bool verified;
+
+  //all body parts used in training
   List<String> allBodyParts;
+
+  //is exercises in training finished
   List<bool> isFinished;
 
   Training({

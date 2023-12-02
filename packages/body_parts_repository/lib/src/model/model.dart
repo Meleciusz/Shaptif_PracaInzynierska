@@ -1,5 +1,11 @@
+/*
+BodyParts - define body parts that can be trained in exercises
+ */
 class BodyParts{
+  //id of body part - unique identifier
   int id;
+
+  //name of body part
   String part;
 
   BodyParts({

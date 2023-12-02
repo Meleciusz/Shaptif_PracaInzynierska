@@ -50,6 +50,8 @@ class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+
+              //show search bar
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -67,6 +69,8 @@ class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
                   ),
                 ),
               ),
+
+              //show all trainings
               widget.trainings!.isNotEmpty ?
               SizedBox(
                 height: items.length * 100 + items.length * 20 + 90,

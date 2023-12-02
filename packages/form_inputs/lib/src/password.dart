@@ -2,6 +2,7 @@ import 'package:formz/formz.dart';
 
 enum PasswordValidationError { invalid }
 
+//define how password is going to be validated
 class Password extends FormzInput<String, PasswordValidationError> {
   const Password.pure() : super.pure('');
 

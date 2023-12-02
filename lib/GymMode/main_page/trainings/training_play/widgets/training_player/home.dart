@@ -8,6 +8,10 @@ import 'header_tile.dart';
 import 'return.dart';
 
 
+/*
+ * Main description:
+This class describes look of training player screen, generates screens for each exercise and additional one to change training
+ */
 class TrainingPlayer extends StatefulWidget {
   const TrainingPlayer({super.key, required this.exercisesNames, required this.allExercises,
     required this.training, required this.returnValues
@@ -122,6 +126,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
         child: Column(
             children: [
               HeaderTitle(
+
+                //refresh training and reset all values
                 onRefreshTap: (){
                   setState(() {
                     widget.exercisesNames.clear();
@@ -146,14 +152,14 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                         }
                       }
                     }
-
-                    //initState();
                   });
                  },
                 onExitTap: (){
                   onExit();
                 },
               ),
+
+              //generate screens for each exercise and additional one to change training
               Expanded(
                 child: PageView.builder(
                   controller: _pageController,
@@ -169,11 +175,15 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                         exerciseName: widget.exercisesNames[index],
                       sets: sets[index],
                       weight: weightsDouble[index],
+
+                      //change weight of changed exercise
                       callbackWeight: (double value){
                         setState(() {
                           weightsDouble[index] = value;
                         });
                       },
+
+                      //add 1 to sets of changed exercise
                       onTapSets: (){
                         exerciseIsClosed[index] ? null :
                        sets[index]<1000 ?
@@ -182,19 +192,27 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                         }) : sets[index]=999;
                       },
                       exerciseIsClosed: exerciseIsClosed[index],
+
+                      //set sets to 0 of changed exercise
                       onLongPressSets: (){
                         exerciseIsClosed[index] ? null :
                         setState(() {
                           sets[index]=0;
                         });
                       },
+
+                      //close or open changed exercise
                       onPressExerciseIsClosed: (String allWeights){
                         setState(() {
                           weights[index] = allWeights;
                           exerciseIsClosed[index] = !exerciseIsClosed[index];
                         });
 
+                        //check if all exercises are closed
                         bool allTrue = exerciseIsClosed.every((e) => e);
+
+
+                        //if all exercises are closed, ask if user want to end training
                         allTrue ? showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -239,6 +257,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                         },
                         ) : null;
                       },
+
+                      //delete exercise
                       callbackDelete: (){
                         setState(() {
                           activeDeleteMode = false;
@@ -258,6 +278,9 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                           weights.removeAt(index);
                           exerciseIsClosed.removeAt(index);
 
+
+                          //check if all exercises are closed(If previous exercise was closed and user
+                          //delete current exercise, then all exercises are closed, so ask if user want to end training)
                           bool allTrue = exerciseIsClosed.every((e) => e);
                           allTrue ? showDialog(
                             context: context,
@@ -306,11 +329,16 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                         });
                       },
 
-                    ) : TrainingChange(
+                    )
+
+                        //additional page to change training
+                  : TrainingChange(
                       title: title,
                       color: color,
                       canBeSaved: listEquals(widget.exercisesNames, originalExercisesNames),
                       allExercises: widget.allExercises,
+
+                      //save as new training/don't save as new training
                       callbackSave: (){
                         setState(() {
                           wantToSave = !wantToSave;
@@ -318,6 +346,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                           color = wantToSave ? Colors.green : Colors.redAccent;
                         });
                       },
+
+                      // add exercises
                       callbackAddExercise: (List<Exercise> exercise){
                         setState(() {
                           addedExercises.addAll(exercise);
@@ -331,6 +361,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                           exerciseDonePrevious.addAll(List.generate(exercise.length, (index) => false));
                         });
                       },
+
+                      //remove exercise
                       callbackRemoveExercise: (){
                         activeDeleteMode = true;
 
@@ -345,6 +377,8 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
                   },
                 ),
               ),
+
+              //buttons to change exercises(left or right)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -384,16 +418,19 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
     );
   }
 
+  //function that is called when user decide to exit from training
   void onExit(){
     setState(() {
       widget.returnValues.exercisesWeights = weights;
       widget.returnValues.exercisesSetsCount = sets;
       widget.returnValues.wantToSave = wantToSave;
       widget.returnValues.exercisesNames = widget.exercisesNames;
-
     });
 
     widget.exercisesNames.isNotEmpty ?
+
+
+    //if user want to save training and there are exercises in training(Return changed training values)
     wantToSave ?
     {
 
@@ -413,7 +450,9 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
 
       }),
       Navigator.of(context).pop(widget.returnValues)
-    } : {
+    }
+    //if user don't want to save training and there are exercises in training(Return original training values)
+    : {
       widget.training.exercises = originalExercisesNames,
       widget.returnValues.exercisesNames = widget.exercisesNames,
 
@@ -430,7 +469,10 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
 
 
       Navigator.of(context).pop(widget.returnValues)
-    } : showDialog(
+    }
+
+    // if there are no exercises in training show an alert
+    : showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -459,6 +501,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
   }
 }
 
+// find the main body part
 String findMainlyUsedBodyPart(List<String> allBodyParts) {
   var bodyPartCounts = <String, int>{};
   for (var bodyPart in allBodyParts) {
@@ -473,6 +516,8 @@ String findMainlyUsedBodyPart(List<String> allBodyParts) {
   return mainlyUsedBodyPart;
 }
 
+
+// check if two lists are equal
 bool listEquals(List<dynamic> a, List<dynamic> b) {
   if(a.length != b.length){
     return true;

@@ -31,6 +31,8 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
     final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
 
     return GestureDetector(
+
+      //navigate to exercise description
       onTap: (){
         Navigator.of(context).push(
             MaterialPageRoute(
@@ -41,6 +43,8 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
       },
       child: Stack(
           children: [
+
+            //show image if there is Internet connection and image is added
             FutureBuilder(
                 future: _checkInternetConnection(),
                 builder: (context, snapshot){
@@ -82,6 +86,7 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
                 }
             ),
 
+            //display title of exercise
             Positioned(
               bottom: 0.0,
               child: ExercisesByCategoryTitle(

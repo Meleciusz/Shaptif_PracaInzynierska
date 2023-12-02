@@ -19,6 +19,8 @@ class CategoriesSuccessWidget extends StatelessWidget {
 
     return BlocBuilder<CategoryBloc, CategoryState>(
         builder: (context, state) {
+
+          //show list of categories
           return SizedBox(
             height: MediaQuery.of(context).size.height * .15,
             child: ListView.separated(

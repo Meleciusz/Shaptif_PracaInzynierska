@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/sign_up/sign_up.dart';
 
+
+/*
+ * Main description:
+This is the home page
+This class is used to provide bloc and repository to layout and displays sign up page
+ */
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
@@ -13,9 +19,6 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign Up'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocProvider<SignUpCubit>(

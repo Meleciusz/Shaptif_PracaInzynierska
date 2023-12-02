@@ -63,7 +63,9 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 40.0),
-                  child: Row(
+                  child:
+                  //show Header title widget
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Tooltip(
@@ -88,6 +90,8 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                             ), overflow: TextOverflow.ellipsis,),
                           )
                       ),
+
+                      //show return if there are no exercises to add/save button if there are exercises
                       exercisesToAdd.isEmpty ?
                       Tooltip(
                         message: "Go back",
@@ -119,6 +123,8 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                 const SizedBox(height: 20,),
                 ContainerBody(
                     children: [
+
+                      //show search bar
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
@@ -136,6 +142,8 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                           ),
                         ),
                       ),
+
+                      //display exercises
                       SizedBox(
                         height: items.length * 70 + 70,
                         child: ListView.separated(
@@ -149,10 +157,13 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
+
+                                //display trailing based on selected or not
                                 trailing: exercisesToAdd.contains(items[index]) ? const Icon(Icons.check_circle, color: Colors.lightGreen,) : const Icon(Icons.radio_button_unchecked_rounded),
                                 selected: exercisesToAdd.contains(items[index]), //selectedIndexes.contains(index),
                                 onTap: (){
 
+                                  //add or remove exercise
                                   setState(() {
                                     if (exercisesToAdd.contains(items[index])) {
                                       exercisesToAdd.remove(items[index]);
@@ -162,6 +173,8 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                                   });
 
                                 },
+
+                                //display description on long press
                                 onLongPress: (){
                                   showDialog(
                                     context: context,
@@ -226,6 +239,8 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
           );
         },
       ),
+
+      //show drawer
       drawer: Drawer(
         child: Column(
             children: [

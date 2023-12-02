@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/*
+ContainerBody - custom container for widgets
+ */
 class ContainerBody extends StatelessWidget {
   const ContainerBody({super.key, required this.children});
   final List<Widget> children;

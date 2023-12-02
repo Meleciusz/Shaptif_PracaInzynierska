@@ -14,8 +14,8 @@ This class describes item of all exercises
 * Navigator:
 User can navigate to exercise description
  */
-class AllExerciseBoard extends StatelessWidget {
-const AllExerciseBoard({super.key, required this.exercise});
+class AllExerciseItem extends StatelessWidget {
+const AllExerciseItem({super.key, required this.exercise});
   final Exercise exercise;
 
   @override
@@ -26,6 +26,8 @@ const AllExerciseBoard({super.key, required this.exercise});
     return BlocBuilder<AllExercisesBloc, AllExercisesState>(
         builder: (context, state){
           return GestureDetector(
+
+            //navigate to exercise description
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(

@@ -15,7 +15,6 @@ This class define what is displayed on screen
 * Main elements:
 HeaderTitle - Upper part of the screen where title and IconButtons are displayed
 ContainerBody - Custom container to display Widgets
-Stack - used to display images
  */
 class ExerciseDescription extends StatefulWidget {
   const ExerciseDescription({super.key, required this.exercise, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
@@ -63,14 +62,19 @@ class ExerciseDescription extends StatefulWidget {
                   ),
                    const SizedBox(height: 20),
 
+                  //display exercise images
                   Stack(
                     alignment: Alignment.center,
                     children: [
+
+                      //display exercise image based on internet connection
                       FutureBuilder<bool>(
                         future: _checkInternetConnection(),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.done) {
                             if (snapshot.data == true) {
+
+                              //show image from database if opacity is selected
                               return Opacity(
                                 opacity: iconController ? 1.0 : 0.0,
                                 child: widget.exercise.photo_url.isNotEmpty ? Container(
@@ -92,6 +96,8 @@ class ExerciseDescription extends StatefulWidget {
                                 )
                               );
                             } else {
+
+                              //show that image is not available
                               return Opacity(
                                 opacity: iconController ? 1.0 : 0.0,
                                 child: const Icon(Icons.image_not_supported_rounded, size: 190.0),
@@ -103,9 +109,10 @@ class ExerciseDescription extends StatefulWidget {
                         },
                       ),
 
+                      //show image from image manager if opacity is selected
                       Opacity(
                         opacity: iconController ? 0.0 : 1.0,
-                        child:  Container(
+                        child:  SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.width,
                           child: ImageProcessor(exercise: widget.exercise),
@@ -114,6 +121,7 @@ class ExerciseDescription extends StatefulWidget {
                     ],
                   ),
 
+                  //change image that is displayed
                   Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                     IconButton(onPressed: () {
