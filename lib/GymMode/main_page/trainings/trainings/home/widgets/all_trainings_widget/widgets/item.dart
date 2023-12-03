@@ -74,6 +74,8 @@ class AllTrainingsItem extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.data == true) {
+
+                            //If user have access to Internet connection show delete button
                             return Positioned(
                                 top: 50.0,
                                 left: 20.0,
