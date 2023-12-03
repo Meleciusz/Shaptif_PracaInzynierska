@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,26 +35,42 @@ class HeaderTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+
+        // If exercise is not verified, user who want to delete it is the same user who created it and user have access to Internet connection
         user.id == addingUserID ?
         verified ? const SizedBox(width: 40,) :
-        Tooltip(
-          message: "Delete exercise",
-          child: IconButton(onPressed: (){
-            allExercisesBloc.add(DeleteExercise(exerciseID: exerciseId));
-            allExercisesBloc.add(RefreshExercises());
-            exercisesByCategoryBloc.add(RefreshExercisesByCategory());
+        FutureBuilder(
+            future: _checkInternetConnection(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.data == true) {
+                  return Tooltip(
+                    message: "Delete exercise",
+                    child: IconButton(onPressed: (){
+                      allExercisesBloc.add(DeleteExercise(exerciseID: exerciseId));
+                      allExercisesBloc.add(RefreshExercises());
+                      exercisesByCategoryBloc.add(RefreshExercisesByCategory());
 
-            Reference storageReference = FirebaseStorage.instance.refFromURL(photoUrl);
-            try {
-              storageReference.delete();
-            } catch (e) {
-              if (kDebugMode) {
-                print(e);
+                      Reference storageReference = FirebaseStorage.instance.refFromURL(photoUrl);
+                      try {
+                        storageReference.delete();
+                      } catch (e) {
+                        if (kDebugMode) {
+                          print(e);
+                        }
+                      }
+
+                      Navigator.pop(context);
+                    }, icon: const Icon(Icons.delete_forever, size: 40)),
+                  );
+                }
+                else {
+                  return const SizedBox(width: 40,);
+                }
+              }else {
+                return const CircularProgressIndicator();
               }
             }
-
-            Navigator.pop(context);
-          }, icon: const Icon(Icons.delete_forever, size: 40)),
         ) : const SizedBox(width: 40,),
         SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
@@ -76,5 +93,15 @@ class HeaderTitle extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+//This function is responsible for checking the internet connection.
+Future<bool> _checkInternetConnection() async {
+  var connectivityResult = await Connectivity().checkConnectivity();
+  if (connectivityResult != ConnectivityResult.none) {
+    return true;
+  }else {
+    return false;
   }
 }
