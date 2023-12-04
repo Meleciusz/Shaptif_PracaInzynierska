@@ -1,3 +1,4 @@
+import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:flutter/material.dart';
 import 'image_adder.dart';
 import 'image_manager.dart';
@@ -7,7 +8,8 @@ import 'image_manager.dart';
 This class is used to display images
  */
 class NewExerciseImages extends StatelessWidget {
-  const NewExerciseImages({super.key, required this.selectedBodyParts, required this.handleUrlChanged, required this.iconController});
+  const NewExerciseImages({super.key, required this.selectedBodyParts, required this.handleUrlChanged,
+    required this.bodyParts ,required this.iconController});
 
   //set of selected body parts
   final Set<String> selectedBodyParts;
@@ -17,6 +19,9 @@ class NewExerciseImages extends StatelessWidget {
 
   //iconController is used for image animation change
   final bool iconController;
+
+  //list of body parts
+  final List<BodyParts> bodyParts;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +35,7 @@ class NewExerciseImages extends StatelessWidget {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width,
-                  child: ImageProcessor(selectedBodyParts: selectedBodyParts),
+                  child: ImageProcessor(bodyParts: bodyParts, selectedBodyParts: selectedBodyParts,),
                 )
             ),
             Opacity(

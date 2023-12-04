@@ -1,3 +1,4 @@
+import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -5,43 +6,47 @@ import 'package:flutter/material.dart';
 This class is used to display and control color filter of display images
  */
 
-class ImageProcessor extends StatefulWidget {
-  const ImageProcessor({Key? key, required this.selectedBodyParts}) : super(key: key);
+class ImageProcessor extends StatelessWidget {
+  ImageProcessor({super.key, required this.selectedBodyParts, required this.bodyParts}) :
+        bodyPartsNames = bodyParts.map((e) => e.part).toList();
 
+  //list of selected body parts
   final Set<String> selectedBodyParts;
 
-  @override
-  _ImageProcessorState createState() => _ImageProcessorState();
-}
+  //list of body parts
+  final List<BodyParts> bodyParts;
 
-class _ImageProcessorState extends State<ImageProcessor> {
+  //list of body parts names
+  final List<String> bodyPartsNames;
 
-  // List of body parts
-  final List<String> bodyPartsList = [
-    "Adductor", "Biceps", "Butt", "Calf", "Chest", "CoreAbs", "Deltoid", "Dorsi",
-    "DownAbs", "Femoris", "Forearm", "Quadriceps", "Rest", "Shoulders",
-    "SideAbs", "Trapezius", "Triceps", "UpAbs"
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
-        for(int i=0; i<bodyPartsList.length; i++)
+        for(int i=0; i<bodyPartsNames.length; i++)
           ColorFiltered(
-            colorFilter: widget.selectedBodyParts.isNotEmpty ? widget.selectedBodyParts.first == bodyPartsList[i] ?
+            colorFilter: selectedBodyParts.isNotEmpty ? selectedBodyParts.first == bodyPartsNames[i] ?
             const ColorFilter.mode(Colors.red, BlendMode.srcATop) :
-            widget.selectedBodyParts.contains(bodyPartsList[i])
+            selectedBodyParts.contains(bodyPartsNames[i])
                 ? const ColorFilter.mode(Colors.deepOrangeAccent, BlendMode.srcATop)
                 : const ColorFilter.mode(Color.fromARGB(100, 23, 22, 22), BlendMode.srcATop) :
             const ColorFilter.mode(Color.fromARGB(100, 23, 22, 22), BlendMode.srcATop),
             child: Image.asset(
-              "images/BodyParts/${bodyPartsList[i]}.png",
+              "images/BodyParts/${bodyPartsNames[i]}.png",
               fit: BoxFit.contain,
               height: MediaQuery.of(context).size.width,
             ),
-          )
+          ),
+        ColorFiltered(
+          colorFilter: const ColorFilter.mode(Color.fromARGB(100, 23, 22, 22), BlendMode.srcATop),
+          child: Image.asset(
+            "images/BodyParts/Rest.png",
+            fit: BoxFit.contain,
+            height: MediaQuery.of(context).size.width,
+          ),
+        )
       ],
     );
   }

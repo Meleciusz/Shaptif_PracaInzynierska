@@ -1,11 +1,10 @@
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shaptifii/GymMode/main_page/exercises/exercises/exercises.dart';
 import '../../../../../exercise_description/exercises_description.dart';
 import '../../exercises_by_category/exercises_by_category.dart';
-import '../bloc/all_exercises_bloc.dart';
 import 'all_exercises.dart';
-
 
 /*
  * Main description:
@@ -20,8 +19,15 @@ const AllExerciseItem({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
+
+    // allExercisesBloc from context
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
+
+    // exercisesByCategoryBloc from context
     final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
+
+    // categoryBloc from context
+    final CategoryBloc categoryBloc = BlocProvider.of<CategoryBloc>(context);
 
     return BlocBuilder<AllExercisesBloc, AllExercisesState>(
         builder: (context, state){
@@ -32,7 +38,7 @@ const AllExerciseItem({super.key, required this.exercise});
               Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => ExerciseDescription(exercise: exercise, allExercisesBloc: allExercisesBloc,
-                        exercisesByCategoryBloc: exercisesByCategoryBloc
+                        exercisesByCategoryBloc: exercisesByCategoryBloc, bodyParts: categoryBloc.state.categories
                       )
                   )
               );

@@ -51,13 +51,15 @@ class HeaderTitle extends StatelessWidget {
                       allExercisesBloc.add(RefreshExercises());
                       exercisesByCategoryBloc.add(RefreshExercisesByCategory());
 
-                      // Delete photo from storage that is attached to this exercise
-                      Reference storageReference = FirebaseStorage.instance.refFromURL(photoUrl);
-                      try {
-                        storageReference.delete();
-                      } catch (e) {
-                        if (kDebugMode) {
-                          print(e);
+                      if(photoUrl.isNotEmpty){
+                        // Delete photo from storage that is attached to this exercise
+                        Reference storageReference = FirebaseStorage.instance.refFromURL(photoUrl);
+                        try {
+                          storageReference.delete();
+                        } catch (e) {
+                          if (kDebugMode) {
+                            print(e);
+                          }
                         }
                       }
 

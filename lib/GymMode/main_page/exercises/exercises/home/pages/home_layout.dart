@@ -40,6 +40,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
     final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
+    final CategoryBloc categoryBloc = BlocProvider.of<CategoryBloc>(context);
     const mainColor = Color.fromARGB(255, 196, 115, 115);
 
     return Scaffold(
@@ -108,7 +109,10 @@ class _HomeLayoutState extends State<HomeLayout> {
                         onPressed: (){
                           Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => NewExercise(allExercisesBloc: allExercisesBloc, exercisesByCategoryBloc: exercisesByCategoryBloc)
+                                  builder: (context) => NewExercise(allExercisesBloc: allExercisesBloc,
+                                      exercisesByCategoryBloc: exercisesByCategoryBloc,
+                                      bodyParts: categoryBloc.state.categories,
+                                  )
                               )
                           ).whenComplete((){
                             allExercisesBloc.add(RefreshExercises());

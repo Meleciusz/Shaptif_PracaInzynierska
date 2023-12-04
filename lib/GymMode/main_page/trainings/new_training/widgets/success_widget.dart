@@ -1,3 +1,4 @@
+import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +17,13 @@ this class describes look of new training page
 User can navigate to training builder(Screen with list of exercises)
  */
 class NewTrainingSuccess extends StatefulWidget {
-  const NewTrainingSuccess({super.key, required this.allExercises});
+  const NewTrainingSuccess({super.key, required this.allExercises, required this.bodyParts});
 
   //list of all exercises
   final List<Exercise>? allExercises;
+
+  //list of body parts
+  final List<BodyParts> bodyParts;
 
   @override
   State<NewTrainingSuccess> createState() => NewTrainingSuccessState();
@@ -50,10 +54,12 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
   String trainingDescription = '';
 
   //list of all body parts used in training
-  List<String> allBodyParts = <String>[];
+  List<String> allUsedBodyParts = <String>[];
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       backgroundColor: mainColor,
       body: Padding(
@@ -70,7 +76,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     exercises.clear();
                     trainingName = '';
                     trainingDescription = '';
-                    allBodyParts.clear();
+                    allUsedBodyParts.clear();
 
                     widget.allExercises!.clear();
                     widget.allExercises!.addAll(originalExercises!);
@@ -98,12 +104,12 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                                 name: trainingName.isEmpty ? "Training${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" : trainingName,
                                 description: trainingDescription,
                                 exercises: exercises.map((e) => e.name).toList(),
-                                allBodyParts: allBodyParts.toSet().toList(),
+                                allBodyParts: allUsedBodyParts.toSet().toList(),
                                 addingUserId: context.read<AppBloc>().state.user.id!,
                                 id: "",
                                 verified: false,
                                 isFinished: List.generate(exercises.length, (index) => false),
-                                mainlyUsedBodyPart: findMainlyUsedBodyPart(exercises, allBodyParts),
+                                mainlyUsedBodyPart: findMainlyUsedBodyPart(exercises, allUsedBodyParts),
                               ))),
                               //context.read<AllTrainingsBloc>().add(RefreshTrainings());
                               Navigator.pop(context),
@@ -199,7 +205,10 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     ),
                     const SizedBox(height: 20),
                     exercises.isNotEmpty
-                      ? ImageProcessor(allUsedBodyParts: allBodyParts, mainlyUsedBodyPart: allBodyParts.isNotEmpty ? findMainlyUsedBodyPart(exercises, allBodyParts) : "",)
+                      ? ImageProcessor(allUsedBodyParts: allUsedBodyParts,
+                      mainlyUsedBodyPart: allUsedBodyParts.isNotEmpty ? findMainlyUsedBodyPart(exercises, allUsedBodyParts) : "",
+                      bodyParts: widget.bodyParts,
+                    )
                       : const SizedBox(),
                     const SizedBox(height: 20),
                     Container(
@@ -225,7 +234,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
 
                             setState(() {
                               exercises.addAll(chosenExercises);
-                              chosenExercises.forEach((exercise) => allBodyParts.addAll(exercise.body_parts));
+                              chosenExercises.forEach((exercise) => allUsedBodyParts.addAll(exercise.body_parts));
                               widget.allExercises!.removeWhere((element) => chosenExercises.contains(element));
                             });
                           }

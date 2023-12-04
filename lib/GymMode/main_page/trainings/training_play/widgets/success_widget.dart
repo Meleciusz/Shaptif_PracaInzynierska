@@ -116,7 +116,6 @@ class _TrainingPlaySuccessState extends State<TrainingPlaySuccess> {
                           id: "",
                           name: "Quick training",
                           adding_user_id: user.id,
-                          adding_user_name: user.name == null ? user.email!.split('@').first : user.name!,
                           exercises_name: updatedValues.exercisesNames,
                           exercises_sets_count: updatedValues.exercisesSetsCount,
                           exercises_weights: updatedValues.exercisesWeights,

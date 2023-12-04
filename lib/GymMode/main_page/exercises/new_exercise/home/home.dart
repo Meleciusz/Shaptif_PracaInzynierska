@@ -1,3 +1,4 @@
+import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +19,21 @@ HeaderTitle - Upper part of the screen where title and IconButtons are displayed
 ContainerBody - Custom container to display Widgets
  */
 class NewExercise extends StatefulWidget {
-  const NewExercise({super.key, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
+  NewExercise({super.key, required this.allExercisesBloc,
+    required this.exercisesByCategoryBloc, required this.bodyParts}):
+        bodyPartsNames = bodyParts.map((e) => e.part).toList();
 
   //all exercise bloc context
   final AllExercisesBloc allExercisesBloc;
 
   //exercises by category bloc context
   final ExercisesByCategoryBloc exercisesByCategoryBloc;
+
+  //list of body parts
+  final List<BodyParts> bodyParts;
+
+  //list of body parts
+  final List<String> bodyPartsNames;
 
   @override
   State<NewExercise> createState() => _NewExerciseState();
@@ -34,19 +43,12 @@ class NewExercise extends StatefulWidget {
 class _NewExerciseState extends State<NewExercise> {
   static const mainColor = Color.fromARGB(255, 105, 70, 70);
 
-  //list of body parts
-  final List<String> bodyPartsList = List.of(
-      [
-        "Adductor", "Biceps", "Butt", "Calf", "Chest", "CoreAbs", "Deltoid", "Dorsi", "DownAbs", "Femoris",
-        "Forearm", "Quadriceps", "Rest", "Shoulders", "SideAbs", "Trapezius", "Triceps", "UpAbs"
-      ]
-  );
 
   @override
   initState(){
 
     //bodyPartClicked is list that contains information about which body part button was clicked
-    bodyPartClicked = List.generate(bodyPartsList.length, (index) => false);
+    bodyPartClicked = List.generate(widget.bodyPartsNames.length, (index) => false);
     super.initState();
   }
 
@@ -264,7 +266,10 @@ class _NewExerciseState extends State<NewExercise> {
                 ),
 
                 //images widget
-                NewExerciseImages(selectedBodyParts: selectedBodyParts, handleUrlChanged: handleUrlChanged, iconController: iconController,),
+                NewExerciseImages(selectedBodyParts: selectedBodyParts,
+                  handleUrlChanged: handleUrlChanged, iconController: iconController,
+                  bodyParts: widget.bodyParts,
+                ),
 
                 //buttons to change image
                 Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -296,9 +301,9 @@ class _NewExerciseState extends State<NewExercise> {
                         return GestureDetector(
                           onTap: (){
                             setState(() {
-                              selectedBodyParts.contains(bodyPartsList[index]) ?
-                              selectedBodyParts.remove(bodyPartsList[index]) :
-                              selectedBodyParts.add(bodyPartsList[index]);
+                              selectedBodyParts.contains(widget.bodyPartsNames[index]) ?
+                              selectedBodyParts.remove(widget.bodyPartsNames[index]) :
+                              selectedBodyParts.add(widget.bodyPartsNames[index]);
 
                               bodyPartClicked[index] = !bodyPartClicked[index];
                             });
@@ -321,7 +326,7 @@ class _NewExerciseState extends State<NewExercise> {
                                 SizedBox(
                                   width: 60,
                                   child: Text(
-                                    bodyPartsList[index],
+                                    widget.bodyPartsNames[index],
                                     style: const TextStyle(
                                         fontSize: 13.0,
                                         fontWeight: FontWeight.bold,
@@ -336,7 +341,7 @@ class _NewExerciseState extends State<NewExercise> {
                       },
                       scrollDirection: Axis.horizontal,
                       separatorBuilder: (_, __) => const SizedBox(width: 16),
-                      itemCount: bodyPartsList.length
+                      itemCount: widget.bodyPartsNames.length
                   ),
                 ),
               ],

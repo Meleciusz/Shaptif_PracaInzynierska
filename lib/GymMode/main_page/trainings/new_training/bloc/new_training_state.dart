@@ -17,21 +17,25 @@ class NewTrainingState extends Equatable {
   const NewTrainingState({
     this.status = NewTrainingStatus.initial,
     this.exercises,
+    this.bodyParts,
   });
 
   final NewTrainingStatus status;
   final List<Exercise>? exercises;
+  final List<BodyParts>? bodyParts;
 
   @override
-  List<Object?> get props => [status, exercises];
+  List<Object?> get props => [status, exercises, bodyParts];
 
   NewTrainingState copyWith({
     NewTrainingStatus? status,
     List<Exercise>? exercises,
+    List<BodyParts>? bodyParts,
   }){
     return NewTrainingState(
       status: status ?? this.status,
       exercises: exercises ?? this.exercises,
+      bodyParts: bodyParts ?? this.bodyParts,
     );
   }
 }

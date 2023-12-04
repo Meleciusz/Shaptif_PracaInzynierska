@@ -415,10 +415,6 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                 name: widget.trainings[index]
                     .name,
                 adding_user_id: user.id,
-                adding_user_name: user.name ==
-                    null ? user.email!
-                    .split('@')
-                    .first : user.name!,
                 exercises_name: updatedValues
                     .exercisesNames.length >
                     widget.trainings[index]
@@ -458,10 +454,6 @@ class _TrainingPlayBoardState extends State<TrainingPlayBoard> {
                 name: widget.trainings[index]
                     .name,
                 adding_user_id: user.id,
-                adding_user_name: user.name ==
-                    null ? user.email!
-                    .split('@')
-                    .first : user.name!,
                 exercises_name: updatedValues
                     .exercisesNames.length >
                     widget.trainings[index]

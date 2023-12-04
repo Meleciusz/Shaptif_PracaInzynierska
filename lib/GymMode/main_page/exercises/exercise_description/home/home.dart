@@ -1,3 +1,4 @@
+import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:container_body/container_body.dart';
 import 'package:exercise_repository/exercise_repository.dart';
@@ -17,10 +18,12 @@ HeaderTitle - Upper part of the screen where title and IconButtons are displayed
 ContainerBody - Custom container to display Widgets
  */
 class ExerciseDescription extends StatefulWidget {
-  const ExerciseDescription({super.key, required this.exercise, required this.allExercisesBloc, required this.exercisesByCategoryBloc});
+  const ExerciseDescription({super.key, required this.exercise, required this.allExercisesBloc,
+    required this.exercisesByCategoryBloc, required this.bodyParts});
   final Exercise exercise;
   final AllExercisesBloc allExercisesBloc;
   final ExercisesByCategoryBloc exercisesByCategoryBloc;
+  final List<BodyParts> bodyParts;
 
   @override
   State<ExerciseDescription> createState() => _ExerciseDescriptionState();
@@ -115,7 +118,7 @@ class ExerciseDescription extends StatefulWidget {
                         child:  SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.width,
-                          child: ImageProcessor(exercise: widget.exercise),
+                          child: ImageProcessor(exercise: widget.exercise, bodyParts: widget.bodyParts),
                         ),
                       ),
                     ],

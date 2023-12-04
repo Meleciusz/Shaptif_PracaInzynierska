@@ -45,7 +45,6 @@ class FirestoreHistoryService{
       return History(
           id: doc.id,
           name: data['name'],
-          adding_user_name: data['adding_user_name'],
           adding_user_id: data['adding_user_id'],
           exercises_name: List<String>.from(data['exercises_name']),
           exercises_sets_count: List<int>.from(data['exercises_sets_count']),
@@ -59,7 +58,6 @@ class FirestoreHistoryService{
   Future<void> addHistoricalTraining(History history) async {
     await _exerciseCollection.add({
       'name': history.name,
-      'adding_user_name': history.adding_user_name,
       'adding_user_id': history.adding_user_id,
       'exercises_name': history.exercises_name,
       'exercises_sets_count': history.exercises_sets_count,

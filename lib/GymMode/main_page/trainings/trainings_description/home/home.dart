@@ -1,3 +1,4 @@
+import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:container_body/container_body.dart';
 import 'package:flutter/material.dart';
 import 'package:training_repository/training_repository.dart';
@@ -8,8 +9,13 @@ import '../trainings_description.dart';
  * This class describes training description screen
  */
 class TrainingsDescription extends StatelessWidget {
-  const TrainingsDescription({super.key, required this.training});
+  const TrainingsDescription({super.key, required this.training, required this.bodyParts});
+
+  //chosen training
   final Training training;
+
+  //list of body parts
+  final List<BodyParts> bodyParts;
 
   static const mainColor = Color.fromARGB(255, 120, 178, 124);
   @override
@@ -38,7 +44,10 @@ class TrainingsDescription extends StatelessWidget {
                   ),
 
                   //show image
-                  ImageProcessor(allUsedBodyParts: training.allBodyParts, mainlyUsedBodyPart: training.mainlyUsedBodyPart,),
+                  ImageProcessor(allUsedBodyParts: training.allBodyParts,
+                    mainlyUsedBodyPart: training.mainlyUsedBodyPart,
+                    bodyParts: bodyParts,
+                  ),
 
                   //show exercises list
                   Text("Exercises list:", style: Theme.of(context).textTheme.headlineMedium,),

@@ -5,6 +5,7 @@ import 'package:shaptifii/GymMode/main_page/trainings/trainings/home/widgets/all
 import 'package:shaptifii/authorization/app/bloc/app_bloc.dart';
 import 'package:training_repository/training_repository.dart';
 import '../../../../../trainings_description/trainings_description.dart';
+import '../../category_widget/bloc/category_widget_bloc.dart';
 
 /*
  * Main description:
@@ -26,6 +27,9 @@ class AllTrainingsItem extends StatelessWidget {
     // user from context
     final user = context.select((AppBloc bloc) => bloc.state.user);
 
+    // categoryBloc from context
+    final CategoryBloc categoryBloc = BlocProvider.of<CategoryBloc>(context);
+
 
     return BlocBuilder<AllTrainingsBloc, AllTrainingsState>(
         builder: (context, state){
@@ -33,7 +37,7 @@ class AllTrainingsItem extends StatelessWidget {
             onTap: (){
               Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => TrainingsDescription(training: training)
+                      builder: (context) => TrainingsDescription(training: training, bodyParts: categoryBloc.state.categories,)
                   )
               );
             },

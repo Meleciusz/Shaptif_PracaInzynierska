@@ -6,6 +6,7 @@ import 'package:shaptifii/GymMode/main_page/exercises/exercise_description/exerc
 import 'package:shaptifii/GymMode/main_page/exercises/exercises/home/widgets/exercises_by_category/exercises_by_category.dart';
 import 'package:shaptifii/GymMode/main_page/exercises/exercises/home/widgets/exercises_by_category/exercises_by_category_title.dart';
 import '../all_exercises_widget/bloc/all_exercises_bloc.dart';
+import '../category_widget/bloc/category_widget_bloc.dart';
 
 /*
  * Main description:
@@ -27,8 +28,15 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
 
   @override
   Widget build(BuildContext context) {
+
+    // allExercisesBloc from context
     final AllExercisesBloc allExercisesBloc = BlocProvider.of<AllExercisesBloc>(context);
+
+    // exercisesByCategoryBloc from context
     final ExercisesByCategoryBloc exercisesByCategoryBloc = BlocProvider.of<ExercisesByCategoryBloc>(context);
+
+    // categoryBloc from context
+    final CategoryBloc categoryBloc = BlocProvider.of<CategoryBloc>(context);
 
     return GestureDetector(
 
@@ -37,7 +45,9 @@ class _ExerciseByCategoryItemState extends State<ExerciseByCategoryItem> {
         Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => ExerciseDescription(exercise: widget.exercise, allExercisesBloc: allExercisesBloc,
-                  exercisesByCategoryBloc: exercisesByCategoryBloc)
+                  exercisesByCategoryBloc: exercisesByCategoryBloc,
+                    bodyParts: categoryBloc.state.categories
+                )
             )
         );
       },

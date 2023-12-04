@@ -1,3 +1,4 @@
+import 'package:body_parts_repository/body_parts_repository.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,12 +24,17 @@ class NewTrainingPage extends StatelessWidget {
           RepositoryProvider(
               create: (context) => FirestoreTrainingService(),
           ),
+          RepositoryProvider(
+            create: (context) => FirestoreBodyPartsService(),
+          ),
         ],
         child: BlocProvider<NewTrainingBloc>(
             create: (context) => NewTrainingBloc(
+              bodyPartsService: context.read<FirestoreBodyPartsService>(),
               trainingRepository: context.read<FirestoreTrainingService>(),
               exerciseRepository: context.read<FirestoreExerciseService>(),
-            )..add(GetExercises()),
+            )..add(GetExercises())
+            ..add(GetBodyParts()),
                 child: const NewTrainingManager(),
         ),
     );

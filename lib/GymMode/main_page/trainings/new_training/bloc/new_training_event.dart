@@ -23,3 +23,8 @@ class GetExercises extends NewTrainingEvent {
   @override
   List<Object?> get props => [];
 }
+
+class GetBodyParts extends NewTrainingEvent {
+  @override
+  List<Object?> get props => [];
+}
