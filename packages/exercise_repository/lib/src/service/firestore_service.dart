@@ -39,10 +39,10 @@ class FirestoreExerciseService {
     final querySnapshot = await _exerciseCollection.get();
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      List<String> bodyPartsList = List<String>.from(data['body_part_id']);
+      List<String> bodyPartsList = List<String>.from(data['body_part_name']);
       return Exercise(
         id: doc.id,
-        body_parts: bodyPartsList,
+        body_parts_name: bodyPartsList,
         photo_url: data['photo_url'],
         name: data['name'],
         description: data['description'],
@@ -61,11 +61,11 @@ class FirestoreExerciseService {
 
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      List<String> bodyPartsList = List<String>.from(data['body_part_id']);
+      List<String> bodyPartsList = List<String>.from(data['body_part_name']);
 
       return Exercise(
         id: doc.id,
-        body_parts: bodyPartsList,
+        body_parts_name: bodyPartsList,
         photo_url: data['photo_url'],
         name: data['name'],
         description: data['description'],
@@ -81,10 +81,10 @@ class FirestoreExerciseService {
     final querySnapshot = await _exerciseCollection.where('verified', isEqualTo: true).get();
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      List<String> bodyPartsList = List<String>.from(data['body_part_id']);
+      List<String> bodyPartsList = List<String>.from(data['body_part_name']);
       return Exercise(
         id: doc.id,
-        body_parts: bodyPartsList,
+        body_parts_name: bodyPartsList,
         photo_url: data['photo_url'],
         name: data['name'],
         description: data['description'],
@@ -99,7 +99,7 @@ class FirestoreExerciseService {
   //function to add exercise
   Future<void> addExercise(Exercise exercise) {
     return _exerciseCollection.add({
-      'body_part_id': exercise.body_parts,
+      'body_part_name': exercise.body_parts_name,
       'photo_url': exercise.photo_url,
       'name': exercise.name,
       'description': exercise.description,

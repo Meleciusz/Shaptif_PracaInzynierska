@@ -142,7 +142,7 @@ class ExerciseDescription extends StatefulWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: widget.exercise.body_parts!.map((part) {
+                    children: widget.exercise.body_parts_name!.map((part) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: Text("- $part",

@@ -75,7 +75,7 @@ class TrainingExerciseItemsState extends State<TrainingExerciseItems> {
                       left: 15.0,
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * .75,
-                        child: Text(widget.exercises[index].body_parts.join(', '),
+                        child: Text(widget.exercises[index].body_parts_name.join(', '),
                           style: Theme.of(context).textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
                         ),

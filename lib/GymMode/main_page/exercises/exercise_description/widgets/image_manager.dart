@@ -27,9 +27,9 @@ class ImageProcessor extends StatelessWidget {
       children: <Widget>[
         for(int i=0; i<bodyPartsNames.length; i++)
           ColorFiltered(
-            colorFilter: exercise.body_parts[0] == bodyPartsNames[i] ?
+            colorFilter: exercise.body_parts_name[0] == bodyPartsNames[i] ?
             const ColorFilter.mode(Colors.red, BlendMode.srcATop) :
-            exercise.body_parts.contains(bodyPartsNames[i])
+            exercise.body_parts_name.contains(bodyPartsNames[i])
           ? const ColorFilter.mode(Colors.deepOrangeAccent, BlendMode.srcATop)
         : const ColorFilter.mode(Color.fromARGB(100, 23, 22, 22), BlendMode.srcATop),
             child: Image.asset(

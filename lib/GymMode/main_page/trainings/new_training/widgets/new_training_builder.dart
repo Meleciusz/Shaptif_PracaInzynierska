@@ -194,7 +194,7 @@ class NewTrainingBuilderState extends State<NewTrainingBuilder> {
                                                 ),
                                               ),
                                               TextSpan(
-                                                text: " ${items[index].body_parts.join(', ')}\n\n ",
+                                                text: " ${items[index].body_parts_name.join(', ')}\n\n ",
                                               ),
                                               const TextSpan(
                                                 text: "Description: ",

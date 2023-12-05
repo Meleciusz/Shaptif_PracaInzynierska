@@ -7,7 +7,7 @@ class Exercise{
   String id;
 
   //body parts used in of exercise
-  List<String> body_parts;
+  List<String> body_parts_name;
 
   //photo url of exercise
   String photo_url;
@@ -29,7 +29,7 @@ class Exercise{
 
   Exercise({
     required this.id,
-    required this.body_parts,
+    required this.body_parts_name,
     required this.photo_url,
     required this.name,
     required this.description,
@@ -40,7 +40,7 @@ class Exercise{
 
   Exercise copyWith({
     String? id,
-    List<String>? body_parts,
+    List<String>? body_parts_name,
     String? photo_url,
     String? name,
     String? description,
@@ -50,7 +50,7 @@ class Exercise{
   }){
     return Exercise(
       id: id ?? this.id,
-      body_parts: body_parts ?? this.body_parts,
+        body_parts_name: body_parts_name ?? this.body_parts_name,
       photo_url: photo_url ?? this.photo_url,
       name: name ?? this.name,
       description: description ?? this.description,

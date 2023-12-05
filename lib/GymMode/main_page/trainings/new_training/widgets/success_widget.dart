@@ -234,7 +234,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
 
                             setState(() {
                               exercises.addAll(chosenExercises);
-                              chosenExercises.forEach((exercise) => allUsedBodyParts.addAll(exercise.body_parts));
+                              chosenExercises.forEach((exercise) => allUsedBodyParts.addAll(exercise.body_parts_name));
                               widget.allExercises!.removeWhere((element) => chosenExercises.contains(element));
                             });
                           }

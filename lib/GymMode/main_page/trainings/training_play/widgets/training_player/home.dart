@@ -437,7 +437,7 @@ class _TrainingPlayerState extends State<TrainingPlayer> {
       setState(() {
         List<String> allBodyParts = originalAllExercises
             .where((e) => widget.exercisesNames.contains(e.name))
-            .expand((e) => e.body_parts)
+            .expand((e) => e.body_parts_name)
             .toList();
 
         widget.returnValues.isFinished = exerciseIsClosed;

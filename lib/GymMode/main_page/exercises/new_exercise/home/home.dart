@@ -172,7 +172,7 @@ class _NewExerciseState extends State<NewExercise> {
                           widget.allExercisesBloc.add(AddExercise(exercise: Exercise(
                               id: '',
                               adding_user_id: user.id,
-                              body_parts: selectedBodyParts.toList(),
+                              body_parts_name: selectedBodyParts.toList(),
                               description: exerciseDescription,
                               name: exerciseName.isEmpty ? "Exercise${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" :exerciseName,
                               photo_url: photoUrl,
