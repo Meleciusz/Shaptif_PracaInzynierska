@@ -16,7 +16,7 @@ class NewTrainingManager extends StatelessWidget {
     return BlocBuilder<NewTrainingBloc, NewTrainingState>(
         builder: (context, state) {
           return state.status.isSuccess
-              ? NewTrainingSuccess(allExercises: state.exercises, bodyParts: state.bodyParts!)
+              ? NewTrainingSuccess(allExercises: state.exercises, bodyParts: state.bodyParts)
               : state.status.isLoading
               ? const Center(child: CircularProgressIndicator(),)
               : state.status.isError

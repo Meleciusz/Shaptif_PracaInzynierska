@@ -56,7 +56,7 @@ class FirestoreExerciseService {
   //function to get exercises by category
   Future<List<Exercise>> getExercisesByCategory(String category) async{
     final querySnapshot = await _exerciseCollection
-        .where('body_part_id', arrayContains: category)
+        .where('body_part_name', arrayContains: category)
         .get();
 
     return querySnapshot.docs.map((doc) {

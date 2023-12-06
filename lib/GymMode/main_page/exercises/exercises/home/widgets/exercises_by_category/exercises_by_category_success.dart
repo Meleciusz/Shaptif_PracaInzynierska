@@ -7,10 +7,10 @@ import 'exercises_by_category_item.dart';
 This class describes look of exercises by category widget
  */
 class CategoriesSuccessWidget extends StatelessWidget {
-  const CategoriesSuccessWidget({super.key, required this.exercisesByCategory, required this.categoryName});
+  const CategoriesSuccessWidget({super.key, required this.exercisesByCategory});
 
   final List<Exercise> exercisesByCategory;
-  final String categoryName;
+
 
 
   @override

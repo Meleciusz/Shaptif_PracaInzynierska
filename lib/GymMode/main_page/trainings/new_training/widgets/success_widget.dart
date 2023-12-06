@@ -23,7 +23,7 @@ class NewTrainingSuccess extends StatefulWidget {
   final List<Exercise>? allExercises;
 
   //list of body parts
-  final List<BodyParts> bodyParts;
+  final List<BodyParts>? bodyParts;
 
   @override
   State<NewTrainingSuccess> createState() => NewTrainingSuccessState();
@@ -207,7 +207,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                     exercises.isNotEmpty
                       ? ImageProcessor(allUsedBodyParts: allUsedBodyParts,
                       mainlyUsedBodyPart: allUsedBodyParts.isNotEmpty ? findMainlyUsedBodyPart(exercises, allUsedBodyParts) : "",
-                      bodyParts: widget.bodyParts,
+                      bodyParts: widget.bodyParts!,
                     )
                       : const SizedBox(),
                     const SizedBox(height: 20),

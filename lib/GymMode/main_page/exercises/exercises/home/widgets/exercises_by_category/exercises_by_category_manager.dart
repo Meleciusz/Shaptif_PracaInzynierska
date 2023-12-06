@@ -16,7 +16,7 @@ class ExercisesByCategory extends StatelessWidget {
     return BlocBuilder<ExercisesByCategoryBloc, ExercisesByCategoryState>(
         builder: (context, state) {
           return state.status.isSuccess
-              ? CategoriesSuccessWidget(exercisesByCategory: state.exercises, categoryName: state.categoryName)
+              ? CategoriesSuccessWidget(exercisesByCategory: state.exercises)
               : state.status.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : state.status.isError
