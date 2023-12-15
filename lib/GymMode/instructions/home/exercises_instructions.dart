@@ -20,7 +20,7 @@ class ExerciseInstructionsHome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const HeaderTitle(title: "OA Exercises",),
+            const HeaderTitle(title: "QA Exercises",),
             const SizedBox(height: 20),
             Expanded(
               child: ContainerBody(

@@ -19,15 +19,18 @@ class HeaderTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Tooltip(
-          message: "Open drawer",
-          child: IconButton(
-            onPressed: (){
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.drag_indicator_outlined, size: 40),
-            ),
-          ),
+        const SizedBox(
+          width: 40,
+        ),
+        // Tooltip(
+        //   message: "Open drawer",
+        //   child: IconButton(
+        //     onPressed: (){
+        //       Scaffold.of(context).openDrawer();
+        //     },
+        //     icon: const Icon(Icons.drag_indicator_outlined, size: 40),
+        //     ),
+        //   ),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
           child: const Center(
