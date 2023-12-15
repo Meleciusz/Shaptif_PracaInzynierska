@@ -22,8 +22,7 @@ class ExerciseInstructionsHome extends StatelessWidget {
           children: [
             const HeaderTitle(title: "QA Exercises",),
             const SizedBox(height: 20),
-            Expanded(
-              child: ContainerBody(
+              ContainerBody(
                 children: [
                   Container(
                     alignment: Alignment.center,
@@ -82,59 +81,41 @@ class ExerciseInstructionsHome extends StatelessWidget {
                   const SizedBox(height: 10.0),
                   Text("(Long press on Icon to see more details)", style: Theme.of(context).textTheme.titleMedium,),
                   const SizedBox(height: 10.0),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Positioned(
-                          left: 0,
-                            child: Tooltip(
-                              message: "Go back",
-                              child: Icon(Icons.transit_enterexit_rounded, size: 40.0),
-                            )
-                        ),Positioned(
-                          left: MediaQuery.of(context).size.width * 0.4,
-                            child: const Tooltip(
-                              message: "Icon is touchable",
-                              child: Icon(Icons.touch_app_sharp, size: 40.0),
-                            )
-                        ),Positioned(
-                          left: MediaQuery.of(context).size.width * 0.8,
-                            child: const Tooltip(
-                              message: "Delete element",
-                              child: Icon(Icons.delete_forever, size: 40.0),
-                            )
-                        ),
-                      ],
-                    ),
+                   const Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                       Tooltip(
+                            message: "Go back",
+                            child: Icon(Icons.transit_enterexit_rounded, size: 40.0),
+
+                      ),
+                      Tooltip(
+                            message: "Icon is touchable",
+                            child: Icon(Icons.touch_app_sharp, size: 40.0),
+                      ),
+                      Tooltip(
+                            message: "Delete element",
+                            child: Icon(Icons.delete_forever, size: 40.0),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Positioned(
-                            left: 0,
-                            child: Tooltip(
-                              message: "Switch between trainings and exercises",
-                              child: Icon(Icons.switch_right_rounded, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.4,
-                            child: const Tooltip(
-                              message: "Add element",
-                              child: Icon(Icons.add, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.8,
-                            child: const Tooltip(
-                              message: "Refresh elements",
-                              child: Icon(Icons.refresh, size: 40.0),
-                            )
-                        ),
-                      ],
-                    ),
+                  const SizedBox(height: 30,),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Tooltip(
+                        message: "Switch between trainings and exercises",
+                        child: Icon(Icons.switch_right_rounded, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Add element",
+                        child: Icon(Icons.add, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Refresh elements",
+                        child: Icon(Icons.refresh, size: 40.0),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20,),
                   Text.rich(
@@ -171,7 +152,7 @@ class ExerciseInstructionsHome extends StatelessWidget {
                   const SizedBox(height: 10,),
                 ],
               ),
-            ),
+            //),
           ],
         ),
       ),

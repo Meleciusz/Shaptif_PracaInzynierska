@@ -22,8 +22,7 @@ class TrainingInstructionsHome extends StatelessWidget {
           children: [
             const HeaderTitle(title: "QA Trainings",),
             const SizedBox(height: 20),
-            Expanded(
-              child: ContainerBody(
+            ContainerBody(
                 children: [
                   Container(
                       alignment: Alignment.center,
@@ -84,142 +83,96 @@ class TrainingInstructionsHome extends StatelessWidget {
                   const SizedBox(height: 10.0),
                   Text("(Long press on Icon to see more details)", style: Theme.of(context).textTheme.titleMedium,),
                   const SizedBox(height: 10.0),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Positioned(
-                            left: 0,
-                            child: Tooltip(
-                              message: "Go back",
-                              child: Icon(Icons.transit_enterexit_rounded, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.4,
-                            child: const Tooltip(
-                              message: "Icon is touchable",
-                              child: Icon(Icons.touch_app_sharp, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.8,
-                            child: const Tooltip(
-                              message: "Delete element",
-                              child: Icon(Icons.remove, size: 40.0),
-                            )
-                        ),
-                      ],
-                    ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Tooltip(
+                        message: "Go back",
+                        child: Icon(Icons.transit_enterexit_rounded, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Icon is touchable",
+                        child: Icon(Icons.touch_app_sharp, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Delete element",
+                        child: Icon(Icons.remove, size: 40.0),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Positioned(
-                            left: 0,
-                            child: Tooltip(
-                              message: "Switch between trainings and exercises",
-                              child: Icon(Icons.switch_right_rounded, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.4,
-                            child: const Tooltip(
-                              message: "Add element",
-                              child: Icon(Icons.add, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.8,
-                            child: const Tooltip(
-                              message: "Refresh elements",
-                              child: Icon(Icons.refresh, size: 40.0),
-                            )
-                        ),
-                      ],
-                    ),
+                  const SizedBox(height: 30,),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Tooltip(
+                        message: "Switch between trainings and exercises",
+                        child: Icon(Icons.switch_right_rounded, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Add element",
+                        child: Icon(Icons.add, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Refresh elements",
+                        child: Icon(Icons.refresh, size: 40.0),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Positioned(
-                            left: 0,
-                            child: Tooltip(
-                              message: "Check trainings history",
-                              child: Icon(Icons.auto_stories_rounded, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.4,
-                            child: const Tooltip(
-                              message: "Save and quit training",
-                              child: Icon(Icons.stop_circle_outlined, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.8,
-                            child: const Tooltip(
-                              message: "Mark exercise as finished",
-                              child: Icon(Icons.lock, size: 40.0),
-                            )
-                        ),
-                      ],
-                    ),
+                  const SizedBox(height: 30,),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Tooltip(
+                        message: "Check trainings history",
+                        child: Icon(Icons.auto_stories_rounded, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Save and quit training",
+                        child: Icon(Icons.stop_circle_outlined, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Mark exercise as finished",
+                        child: Icon(Icons.lock, size: 40.0),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Positioned(
-                            left: 0,
-                            child: Tooltip(
-                              message: "Start training",
-                              child: Icon(Icons.play_arrow_outlined, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.4,
-                            child: const Tooltip(
-                              message: "Fast forward",
-                              child: Icon(Icons.keyboard_double_arrow_right_sharp, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.8,
-                            child: const Tooltip(
-                              message: "End training",
-                              child: Icon(Icons.stop_outlined, size: 40.0),
-                            )
-                        ),
-                      ],
-                    ),
+                  const SizedBox(height: 30,),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Tooltip(
+                        message: "Start training",
+                        child: Icon(Icons.play_arrow_outlined, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Fast forward",
+                        child: Icon(Icons.keyboard_double_arrow_right_sharp, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "End training",
+                        child: Icon(Icons.stop_outlined, size: 40.0),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Positioned(
-                            left: 0,
-                            child: Tooltip(
-                              message: "Check trainings history",
-                              child: Icon(Icons.save, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.4,
-                            child: const Tooltip(
-                              message: "Show drawer menu",
-                              child: Icon(Icons.drag_indicator, size: 40.0),
-                            )
-                        ),Positioned(
-                            left: MediaQuery.of(context).size.width * 0.8,
-                            child: const Tooltip(
-                              message: "Start quick training(Without creating a new training)",
-                              child: Icon(Icons.local_fire_department_outlined, size: 40.0),
-                            )
-                        ),
-                      ],
-                    ),
+                  const SizedBox(height: 30,),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Tooltip(
+                        message: "Check trainings history",
+                        child: Icon(Icons.save, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Show drawer menu",
+                        child: Icon(Icons.drag_indicator, size: 40.0),
+                      ),
+                      Tooltip(
+                        message: "Start quick training(Without creating a new training)",
+                        child: Icon(Icons.local_fire_department_outlined, size: 40.0),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(height: 30,),
                   Text.rich(
                     TextSpan(
                       children: [
@@ -254,7 +207,6 @@ class TrainingInstructionsHome extends StatelessWidget {
                   const SizedBox(height: 10,),
                 ],
               ),
-            ),
           ],
         ),
       ),
