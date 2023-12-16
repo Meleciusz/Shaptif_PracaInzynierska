@@ -47,10 +47,10 @@ class HistoryItem extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: -10.0,
-            left: MediaQuery.of(context).size.width * .3,
+            top: 40.0,
+            left: MediaQuery.of(context).size.width * .4,
             child: SizedBox(
-              //width: MediaQuery.of(context).size.width * .5,
+              width: MediaQuery.of(context).size.width * .55,
               child: Text.rich(
                 TextSpan(
                   children: [
