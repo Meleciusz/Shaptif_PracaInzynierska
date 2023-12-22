@@ -55,6 +55,7 @@ class TrainingsSuccessWidgetState extends State<TrainingsSuccessWidget> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  key: const Key('searchBar'),
                   onChanged: (value){
                     filterSearchResults(value);
                   },

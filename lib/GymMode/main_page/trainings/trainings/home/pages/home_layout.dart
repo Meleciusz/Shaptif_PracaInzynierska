@@ -161,10 +161,6 @@ class HomeLayoutState extends State<HomeLayout> {
             )
           ]
       ),
-      drawer: Drawer(
-        child: Container(
-        )
-      ),
     );
   }
 }

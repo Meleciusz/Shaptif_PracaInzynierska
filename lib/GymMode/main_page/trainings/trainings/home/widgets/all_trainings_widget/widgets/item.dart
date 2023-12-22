@@ -98,6 +98,7 @@ class AllTrainingsItem extends StatelessWidget {
                                           content: const Text("This training will be deleted forever!."),
                                           actions: [
                                             ElevatedButton(
+                                              key: const Key('delete'),
                                               onPressed: () {
                                                 allTrainingsBloc.add(DeleteTraining(
                                                     trainingID: training.id,

@@ -157,6 +157,7 @@ class NewTrainingSuccessState extends State<NewTrainingSuccess> {
                       child: Text("Training Name", style: Theme.of(context).textTheme.titleLarge, ),
                     ),
                     TextField(
+                      key: const Key('trainingName'),
                       decoration: InputDecoration(
                         hintText: trainingName.isEmpty ? "Training${"${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}"}" : trainingName,
                         hintMaxLines: 15,

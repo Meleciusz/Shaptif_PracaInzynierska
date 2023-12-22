@@ -43,6 +43,7 @@ class GymModeButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ElevatedButton(
+      key: const Key('gymModeButton'),
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
