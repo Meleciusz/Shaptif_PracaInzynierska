@@ -20,7 +20,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
 
-  testWidgets('Log in',
+  testWidgets('Log in, add training and delete it',
           (WidgetTester tester) async {
 
             // Run the app

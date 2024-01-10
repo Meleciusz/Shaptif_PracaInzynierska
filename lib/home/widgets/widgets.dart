@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../GymMode/main_page/view/main_page.dart';
+import '../../gym_mode/main_page/view/main_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shaptifii/authorization/app/app.dart';
 
